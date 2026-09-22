@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>André Lagos | Engenharia de Software</title>
+  <meta name="description" content="Portfólio de André Lagos, estudante de Engenharia de Software na PUC-PR. Desenvolvimento web, IoT e banco de dados.">
+
+  <!-- Ícone da aba do navegador -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23203a43'/><text x='50' y='66' font-family='monospace' font-size='46' font-weight='700' fill='%234FC3F7' text-anchor='middle'>AL</text></svg>">
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== MENU ===== -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="#inicio" class="nav__logo">&lt;André<span>/</span>&gt;</a>
+
+      <ul class="nav__links" id="nav-links">
+        <li><a href="#sobre" class="nav__link">Sobre</a></li>
+        <li><a href="#formacao" class="nav__link">Formação</a></li>
+        <li><a href="#projetos" class="nav__link">Projetos</a></li>
+        <li><a href="#habilidades" class="nav__link">Habilidades</a></li>
+        <li><a href="#contato" class="nav__link">Contato</a></li>
+      </ul>
+
+      <button class="nav__toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ===== INÍCIO ===== -->
+    <section class="hero" id="inicio">
+      <div class="container hero__content">
+        <p class="hero__hello">Olá, eu sou</p>
+        <h1 class="hero__name">André Lagos</h1>
+        <h2 class="hero__role">
+          <span class="hero__typing" id="typing"></span><span class="hero__cursor">|</span>
+        </h2>
+        <p class="hero__text">
+          Estudante de Engenharia de Software na PUC-PR, apaixonado por construir coisas
+          que funcionam — do código da web até o hardware.
+        </p>
+        <div class="hero__buttons">
+          <a href="#projetos" class="btn btn--primary">Ver projetos</a>
+          <a href="#contato" class="btn btn--outline">Fale comigo</a>
+        </div>
+      </div>
+      <a href="#sobre" class="hero__scroll" aria-label="Rolar para baixo"><span></span></a>
+    </section>
+
+    <!-- ===== SOBRE ===== -->
+    <section class="section" id="sobre">
+      <div class="container">
+        <h2 class="section__title reveal"><span>01.</span> Sobre mim</h2>
+
+        <div class="about">
+          <div class="about__text reveal">
+            <p>
+              Sou de <strong>Curitiba, PR</strong> e curso <strong>Engenharia de Software</strong> na
+              PUC-PR. Tenho experiência prática com <strong>desenvolvimento web</strong> em projetos
+              acadêmicos — de sistemas com autenticação e banco de dados até simulações interativas
+              em JavaScript.
+            </p>
+            <p>
+              Também gosto muito de <strong>hardware</strong>: faço manutenção e conserto de
+              computadores e desenvolvo protótipos de IoT com <strong>ESP32 e Arduino</strong>.
+            </p>
+            <p>
+              Estou em busca de oportunidades em <strong>desenvolvimento</strong>,
+              <strong>suporte técnico</strong> ou <strong>análise de dados</strong>, onde eu possa
+              aplicar o que sei e continuar aprendendo.
+            </p>
+          </div>
+
+          <ul class="about__cards">
+            <li class="card reveal">
+              <span class="card__icon">🎓</span>
+              <h3>Formação</h3>
+              <p>Eng. de Software — PUC-PR</p>
+            </li>
+            <li class="card reveal">
+              <span class="card__icon">🌐</span>
+              <h3>Web</h3>
+              <p>PHP, JavaScript, HTML e CSS</p>
+            </li>
+            <li class="card reveal">
+              <span class="card__icon">🤖</span>
+              <h3>IoT</h3>
+              <p>ESP32, Arduino e sensores</p>
+            </li>
+            <li class="card reveal">
+              <span class="card__icon">🌎</span>
+              <h3>Idiomas</h3>
+              <p>Inglês intermediário</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FORMAÇÃO ===== -->
+    <section class="section" id="formacao">
+      <div class="container">
+        <h2 class="section__title reveal"><span>02.</span> Formação</h2>
+
+        <ol class="timeline">
+          <li class="timeline__item reveal">
+            <span class="timeline__date">2025 – 2029</span>
+            <h3>Bacharelado em Engenharia de Software</h3>
+            <p class="timeline__place">Pontifícia Universidade Católica do Paraná (PUC-PR)</p>
+            <p>Desenvolvimento web, banco de dados, IoT e projetos em equipe.</p>
+          </li>
+          <li class="timeline__item reveal">
+            <span class="timeline__date">Concluído em 2024</span>
+            <h3>Ensino Médio</h3>
+            <p class="timeline__place">Colégio Marista Paranaense</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== PROJETOS ===== -->
+    <section class="section" id="projetos">
+      <div class="container">
+        <h2 class="section__title reveal"><span>03.</span> Projetos</h2>
+
+        <div class="projects">
+          <article class="project reveal">
+            <div class="project__top">
+              <span class="project__emoji">📝</span>
+              <span class="project__year">2026</span>
+            </div>
+            <h3 class="project__title">Sistema de Quiz</h3>
+            <p class="project__desc">
+              Sistema web para criar quizzes e acompanhar resultados, com autenticação de usuários
+              e painel administrativo. Corrigi o fluxo de quiz no painel admin e ajustei o banco de dados.
+            </p>
+            <ul class="project__tags">
+              <li>PHP</li><li>MySQL</li><li>HTML</li><li>CSS</li>
+            </ul>
+          </article>
+
+          <article class="project reveal">
+            <div class="project__top">
+              <span class="project__emoji">👥</span>
+              <span class="project__year">2026</span>
+            </div>
+            <h3 class="project__title">Contador de Pessoas com ESP32</h3>
+            <p class="project__desc">
+              Projeto de IoT com sensores ultrassônicos, display OLED e servidor web embarcado
+              para acompanhar a contagem em tempo real. Simulado no Wokwi.
+            </p>
+            <ul class="project__tags">
+              <li>ESP32</li><li>C++</li><li>IoT</li><li>Wokwi</li>
+            </ul>
+          </article>
+
+          <article class="project reveal">
+            <div class="project__top">
+              <span class="project__emoji">🚗</span>
+              <span class="project__year">2026</span>
+            </div>
+            <h3 class="project__title">Simulador de Autoescola</h3>
+            <p class="project__desc">
+              Simulação interativa desenvolvida em equipe, com foco em código organizado
+              e bem documentado.
+            </p>
+            <ul class="project__tags">
+              <li>JavaScript</li><li>HTML</li><li>CSS</li>
+            </ul>
+          </article>
+
+          <article class="project reveal">
+            <div class="project__top">
+              <span class="project__emoji">💼</span>
+              <a class="project__link" href="https://github.com/Lakes777/Lakes777.github.io" target="_blank" rel="noopener" aria-label="Código no GitHub">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
+              </a>
+            </div>
+            <h3 class="project__title">Este Portfólio</h3>
+            <p class="project__desc">
+              Site pessoal feito do zero, sem frameworks, responsivo e publicado com GitHub Pages.
+            </p>
+            <ul class="project__tags">
+              <li>HTML</li><li>CSS</li><li>JavaScript</li><li>GitHub Pages</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== HABILIDADES ===== -->
+    <section class="section" id="habilidades">
+      <div class="container">
+        <h2 class="section__title reveal"><span>04.</span> Habilidades</h2>
+
+        <div class="skills">
+          <div class="skills__group reveal">
+            <h3>Linguagens</h3>
+            <ul class="skills__list">
+              <li><img src="https://skillicons.dev/icons?i=python" alt="" loading="lazy">Python</li>
+              <li><img src="https://skillicons.dev/icons?i=js" alt="" loading="lazy">JavaScript</li>
+              <li><img src="https://skillicons.dev/icons?i=php" alt="" loading="lazy">PHP</li>
+              <li><img src="https://skillicons.dev/icons?i=html" alt="" loading="lazy">HTML</li>
+              <li><img src="https://skillicons.dev/icons?i=css" alt="" loading="lazy">CSS</li>
+            </ul>
+          </div>
+
+          <div class="skills__group reveal">
+            <h3>Dados & Ferramentas</h3>
+            <ul class="skills__list">
+              <li><img src="https://skillicons.dev/icons?i=mysql" alt="" loading="lazy">MySQL / SQL</li>
+              <li><img src="https://skillicons.dev/icons?i=git" alt="" loading="lazy">Git</li>
+              <li><img src="https://skillicons.dev/icons?i=github" alt="" loading="lazy">GitHub</li>
+              <li><img src="https://skillicons.dev/icons?i=vscode" alt="" loading="lazy">VS Code</li>
+              <li><span class="skills__badge">XL</span>Excel</li>
+            </ul>
+          </div>
+
+          <div class="skills__group reveal">
+            <h3>Hardware</h3>
+            <ul class="skills__list">
+              <li><img src="https://skillicons.dev/icons?i=arduino" alt="" loading="lazy">Arduino</li>
+              <li><span class="skills__badge">32</span>ESP32</li>
+              <li><span class="skills__badge">🔧</span>Manutenção de PCs</li>
+            </ul>
+          </div>
+
+          <div class="skills__group reveal">
+            <h3>Comportamentais</h3>
+            <ul class="skills__list">
+              <li><span class="skills__badge">🤝</span>Trabalho em equipe</li>
+              <li><span class="skills__badge">🧩</span>Resolução de problemas</li>
+              <li><span class="skills__badge">⚡</span>Proatividade</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTATO ===== -->
+    <section class="section contact" id="contato">
+      <div class="container">
+        <h2 class="section__title section__title--center reveal"><span>05.</span> Contato</h2>
+        <p class="contact__text reveal">
+          Estou aberto a estágios, oportunidades e parcerias em projetos.
+          Me manda uma mensagem!
+        </p>
+
+        <button class="contact__email reveal" id="copy-email" data-email="andreplagoscontato@gmail.com">
+          <span>andreplagoscontato@gmail.com</span>
+          <small id="copy-feedback">clique para copiar</small>
+        </button>
+
+        <div class="contact__links reveal">
+          <a class="btn btn--primary" href="https://mail.google.com/mail/?view=cm&fs=1&to=andreplagoscontato@gmail.com" target="_blank" rel="noopener">Enviar e-mail</a>
+          <a class="btn btn--outline" href="https://www.linkedin.com/in/andr%C3%A9-lagos-978a95355/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn--outline" href="https://github.com/Lakes777" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>Feito com HTML, CSS e JavaScript por André Lagos · <span id="year"></span></p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
