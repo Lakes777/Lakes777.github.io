@@ -496,6 +496,31 @@ strong {
   fill: var(--accent);
 }
 
+/* Estica a área clicável do link para cobrir o card inteiro */
+.project {
+  position: relative;
+}
+
+.project__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.project__link:focus-visible {
+  outline: none;
+}
+
+.project__link:focus-visible::after {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.project:has(.project__link):hover .project__link svg {
+  fill: var(--accent);
+}
+
 .project__title {
   font-size: 1.2rem;
   margin-bottom: 10px;
