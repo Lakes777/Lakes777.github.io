@@ -32,7 +32,7 @@ const phrases = [
   "Estudante de Engenharia de Software",
   "Desenvolvedor Web",
   "Entusiasta de IoT com ESP32",
-  "Sempre aprendendo algo novo 🚀",
+  "Sempre aprendendo algo novo",
 ];
 
 const typingEl = document.getElementById("typing");
