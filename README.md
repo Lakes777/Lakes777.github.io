@@ -59,6 +59,10 @@ As cores do site ficam em variáveis CSS no começo de `css/style.css`:
 
 Troque os valores e o site inteiro muda junto.
 
+## Créditos
+
+Ícones do [Lucide](https://lucide.dev) (licença ISC) e logos do [Simple Icons](https://simpleicons.org) (CC0), embutidos como SVG e pintados com a cor de destaque do site.
+
 ## Contato
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/andr%C3%A9-lagos-978a95355/)
