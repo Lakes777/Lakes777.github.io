@@ -12,6 +12,8 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 
 <img src="assets/preview.png" alt="Prévia do portfólio" width="85%"/>
 
+<img src="assets/projetos.png" alt="Seção Projetos do portfólio: cards do Controle de Gastos, do Organizador de Arquivos, do Bot de Utilidades e da Lista de Animes" width="85%"/>
+
 </div>
 
 ## Funcionalidades
@@ -33,7 +35,8 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 ├── js/
 │   └── main.js     # interatividade
 └── assets/
-    └── preview.png # imagem usada neste README
+    ├── preview.png  # abertura do site (imagem deste README)
+    └── projetos.png # seção Projetos (imagem deste README)
 ```
 
 ## Como rodar localmente
