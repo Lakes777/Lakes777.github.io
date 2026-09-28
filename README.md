@@ -12,7 +12,7 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 
 <img src="assets/preview.png" alt="Prévia do portfólio" width="85%"/>
 
-<img src="assets/projetos.png" alt="Seção Projetos do portfólio: cards do Controle de Gastos, do Organizador de Arquivos, do Bot de Utilidades e da Lista de Animes" width="85%"/>
+<img src="assets/projetos.png" alt="Seção Projetos do portfólio: cards do Painel de Estudos, do Controle de Gastos, do Organizador de Arquivos e do Bot de Utilidades" width="85%"/>
 
 </div>
 
