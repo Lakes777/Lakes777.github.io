@@ -550,6 +550,13 @@ strong {
   text-decoration: underline;
 }
 
+/* Nota sob o "Ver ao vivo" (ex.: servidor gratuito que demora para acordar) */
+.project__aviso {
+  margin-top: 6px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
 .project__title {
   font-size: 1.2rem;
   margin-bottom: 10px;
