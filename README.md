@@ -18,12 +18,15 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 
 ## Funcionalidades
 
+- **Seções em abas**: cada seção (Sobre, Formação, Projetos...) aparece sozinha, escolhida pelo endereço
+  (`#projetos`), então o botão Voltar do navegador e links diretos funcionam
+- **Menu com indicador deslizante**: um fundo desliza até a aba ativa
+- **Texto entrando em sequência**: ao abrir uma aba, cada bloco sobe e aparece, um depois do outro
+- **Cards com brilho que segue o mouse** e ícones, selos e setas que se movem de leve no hover
 - **Responsivo**: se adapta a computador, tablet e celular, com menu hambúrguer no mobile
 - **Texto digitando** na apresentação
-- **Animações ao rolar** a página, usando `IntersectionObserver`
-- **Menu inteligente** que destaca a seção visível na tela
 - **Copiar e-mail** com um clique
-- **Acessível**: respeita a preferência de "reduzir movimento" do sistema e usa HTML semântico
+- **Acessível**: respeita a preferência de "reduzir movimento" do sistema, usa HTML semântico e, ao trocar de aba, leva o foco para o título da seção
 - **Sem frameworks nem dependências**, só três arquivos
 
 ## Estrutura
@@ -54,7 +57,7 @@ As cores do site ficam em variáveis CSS no começo de `css/style.css`:
 
 ```css
 :root {
-  --bg: #0b1418;       /* fundo */
+  --bg: #0d0e10;       /* fundo */
   --accent: #4fc3f7;   /* cor de destaque */
   ...
 }

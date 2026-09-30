@@ -4,7 +4,6 @@
 :root {
   /* Cinza-grafite neutro; o azul fica só nos destaques */
   --bg: #0d0e10;
-  --bg-alt: #121315;
   --surface: #16171a;
   --surface-hover: #1e1f23;
   --border: #2a2c31;
@@ -20,6 +19,8 @@
   --mono: "Fira Code", monospace;
 
   --radius: 14px;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-texto: cubic-bezier(0, -0.02, 0.49, 0.99);
   --header-h: 72px;
 }
 
@@ -40,6 +41,10 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
   font-family: var(--font);
   background: var(--bg);
   color: var(--text);
@@ -65,6 +70,21 @@ img {
 strong {
   color: var(--accent);
   font-weight: 600;
+}
+
+/* Abas escondidas somem mesmo quando a seção tem display próprio (ex.: .hero) */
+[hidden] {
+  display: none !important;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+main > section {
+  flex: 1;
 }
 
 .container {
@@ -142,26 +162,20 @@ strong {
 }
 
 .nav__links {
+  position: relative;
   display: flex;
-  gap: 32px;
+  gap: 4px;
 }
 
 .nav__link {
   position: relative;
+  z-index: 1;
+  display: block;
+  padding: 6px 14px;
+  border-radius: 999px;
   font-size: 0.95rem;
   color: var(--text-muted);
-  transition: color 0.2s;
-}
-
-.nav__link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  width: 0;
-  height: 2px;
-  background: var(--accent);
-  transition: width 0.25s;
+  transition: color 0.25s;
 }
 
 .nav__link:hover,
@@ -169,9 +183,24 @@ strong {
   color: var(--text);
 }
 
-.nav__link:hover::after,
-.nav__link--active::after {
-  width: 100%;
+.nav__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Fundo da aba ativa: desliza de um link para o outro (posição definida no main.js) */
+.nav__indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: rgba(228, 229, 231, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(228, 229, 231, 0.06);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.35s var(--ease-out), width 0.35s var(--ease-out), opacity 0.25s;
 }
 
 /* Botão "hambúrguer" (só aparece no celular) */
@@ -210,8 +239,6 @@ strong {
    ========================================================= */
 .hero {
   position: relative;
-  min-height: 100vh;
-  min-height: 100svh;
   display: flex;
   align-items: center;
   background: var(--gradient);
@@ -275,39 +302,15 @@ strong {
   margin-top: 36px;
 }
 
-/* Indicador "role para baixo" */
-.hero__scroll {
-  position: absolute;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 26px;
-  height: 42px;
-  border: 2px solid var(--text-muted);
-  border-radius: 14px;
-}
-
-.hero__scroll span {
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  width: 4px;
-  height: 8px;
-  margin-left: -2px;
-  background: var(--accent);
-  border-radius: 2px;
-  animation: scroll 1.8s ease-in-out infinite;
-}
-
 /* =========================================================
    SEÇÕES
    ========================================================= */
 .section {
-  padding: 110px 0;
+  padding: calc(var(--header-h) + 56px) 0 96px;
 }
 
-.section:nth-of-type(odd) {
-  background: var(--bg-alt);
+.section__title:focus {
+  outline: none;
 }
 
 .section__title {
@@ -368,12 +371,12 @@ strong {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 22px;
-  transition: transform 0.25s, border-color 0.25s;
+  transition: transform 0.35s var(--ease-out), border-color 0.35s;
 }
 
 .card:hover {
   transform: translateY(-4px);
-  border-color: var(--accent);
+  border-color: #3a3d44;
 }
 
 /* Ícones SVG de uma cor só (Lucide e Simple Icons), pintados com a cor do texto */
@@ -387,6 +390,11 @@ strong {
   display: inline-block;
   font-size: 1.8rem;
   color: var(--accent);
+  transition: transform 0.35s var(--ease-out);
+}
+
+.card:hover .card__icon {
+  transform: translateY(-2px) scale(1.08);
 }
 
 .card h3 {
@@ -430,6 +438,12 @@ strong {
   border-radius: 50%;
   background: var(--bg);
   border: 3px solid var(--accent);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.timeline__item:hover::before {
+  background: var(--accent);
+  box-shadow: 0 0 0 5px rgba(79, 195, 247, 0.15);
 }
 
 .timeline__date {
@@ -469,13 +483,14 @@ strong {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 28px;
-  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  transition: transform 0.35s var(--ease-out), border-color 0.35s, box-shadow 0.35s;
 }
 
-.project:hover {
-  transform: translateY(-6px);
-  border-color: var(--accent);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+.project:hover,
+.project:focus-within {
+  transform: translateY(-4px);
+  border-color: #3a3d44;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
 }
 
 .project__top {
@@ -489,6 +504,11 @@ strong {
   display: inline-block;
   font-size: 2rem;
   color: var(--accent);
+  transition: transform 0.35s var(--ease-out);
+}
+
+.project:hover .project__icon {
+  transform: translateY(-2px) scale(1.08);
 }
 
 .project__year {
@@ -550,6 +570,16 @@ strong {
   text-decoration: underline;
 }
 
+.project__arrow {
+  display: inline-block;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.project__demo:hover .project__arrow,
+.project__demo:focus-visible .project__arrow {
+  transform: translate(3px, -3px);
+}
+
 /* Nota sob o "Ver ao vivo" (ex.: servidor gratuito que demora para acordar) */
 .project__aviso {
   margin-top: 6px;
@@ -582,6 +612,11 @@ strong {
   background: rgba(79, 195, 247, 0.1);
   padding: 4px 10px;
   border-radius: 999px;
+  transition: background 0.3s;
+}
+
+.project:hover .project__tags li {
+  background: rgba(79, 195, 247, 0.16);
 }
 
 /* =========================================================
@@ -598,6 +633,11 @@ strong {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 26px;
+  transition: border-color 0.35s;
+}
+
+.skills__group:hover {
+  border-color: #3a3d44;
 }
 
 .skills__group h3 {
@@ -633,6 +673,12 @@ strong {
   border: 1px solid var(--border);
   font-size: 1.05rem;
   color: var(--accent);
+  transition: transform 0.3s var(--ease-out), border-color 0.3s;
+}
+
+.skills__list li:hover .skills__badge {
+  transform: translateY(-2px);
+  border-color: rgba(79, 195, 247, 0.5);
 }
 
 /* =========================================================
@@ -703,16 +749,73 @@ strong {
    ANIMAÇÕES
    ========================================================= */
 
-/* Elementos com .reveal aparecem ao rolar a página (ver main.js) */
-.reveal {
+/* Entrada das abas: cada bloco sobe 10px e aparece, um depois do outro
+   (--i é a posição do bloco na aba, definida no main.js).
+   Usa "translate" e não "transform" para não brigar com o hover dos cards. */
+.js-tabs .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-.reveal--visible {
-  opacity: 1;
-  transform: none;
+.tab--enter .reveal {
+  animation: surgir 0.5s var(--ease-texto) calc(0.05s + var(--i, 0) * 0.08s) both;
+}
+
+@keyframes surgir {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* Brilho que segue o mouse (.spot; posição em --mx/--my, definida no main.js):
+   uma luz suave no fundo e outra acendendo a borda perto do cursor */
+.spot {
+  position: relative;
+  isolation: isolate;
+}
+
+.spot::before,
+.spot::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s;
+}
+
+.spot::before {
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    380px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(79, 195, 247, 0.07),
+    transparent 60%
+  );
+}
+
+.spot::after {
+  inset: -1px;
+  padding: 1px;
+  background: radial-gradient(
+    220px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(79, 195, 247, 0.55),
+    transparent 70%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+@media (hover: hover) {
+  .spot:hover::before,
+  .spot:hover::after {
+    opacity: 1;
+  }
 }
 
 @keyframes blink {
@@ -721,11 +824,6 @@ strong {
 
 @keyframes float {
   50% { transform: translate(-40px, 40px); }
-}
-
-@keyframes scroll {
-  0% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(14px); }
 }
 
 /* Respeita quem prefere menos animação */
@@ -737,9 +835,8 @@ strong {
     transition: none !important;
   }
 
-  .reveal {
+  .js-tabs .reveal {
     opacity: 1;
-    transform: none;
   }
 }
 
@@ -782,8 +879,16 @@ strong {
     font-size: 1.1rem;
   }
 
+  .nav__link--active {
+    color: var(--accent);
+  }
+
+  .nav__indicator {
+    display: none;
+  }
+
   .section {
-    padding: 80px 0;
+    padding: calc(var(--header-h) + 32px) 0 72px;
   }
 
   .section__title::after {

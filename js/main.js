@@ -68,48 +68,84 @@ if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
 }
 
 // =========================================================
-// ANIMAÇÃO AO ROLAR: elementos .reveal aparecem na tela
+// ABAS: cada seção aparece sozinha, escolhida pelo endereço (#projetos...)
 // =========================================================
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("reveal--visible");
-        revealObserver.unobserve(entry.target); // anima só uma vez
-      }
-    });
-  },
-  { threshold: 0.15 }
-);
-
-document.querySelectorAll(".reveal").forEach((el, i) => {
-  // pequeno atraso entre itens vizinhos para um efeito "cascata"
-  el.style.transitionDelay = `${(i % 4) * 80}ms`;
-  revealObserver.observe(el);
-});
-
-// =========================================================
-// MENU ATIVO: destaca a seção que está na tela
-// =========================================================
-const sections = document.querySelectorAll("main section[id]");
+const tabs = Array.from(document.querySelectorAll("main > section[id]"));
 const menuLinks = document.querySelectorAll(".nav__link");
+const indicator = document.getElementById("nav-indicator");
+const baseTitle = document.title;
 
-const sectionObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      menuLinks.forEach((link) => {
-        link.classList.toggle(
-          "nav__link--active",
-          link.getAttribute("href") === `#${entry.target.id}`
-        );
-      });
-    });
-  },
-  { rootMargin: "-45% 0px -50% 0px" }
-);
+document.documentElement.classList.add("js-tabs");
 
-sections.forEach((section) => sectionObserver.observe(section));
+// Pílula do menu desliza até o link da aba ativa
+function moveIndicator() {
+  const active = document.querySelector(".nav__link--active");
+  if (!active) {
+    indicator.style.opacity = "0";
+    return;
+  }
+  indicator.style.opacity = "1";
+  indicator.style.width = `${active.offsetWidth}px`;
+  indicator.style.transform = `translateX(${active.offsetLeft}px)`;
+}
+
+function showTab(focus) {
+  // Endereço pode ser uma aba (#projetos) ou algo dentro dela (#copy-email)
+  const id = decodeURIComponent(location.hash.slice(1));
+  const target = id && document.getElementById(id);
+  const current = (target && target.closest("main > section")) || tabs[0];
+
+  tabs.forEach((tab) => {
+    tab.hidden = tab !== current;
+  });
+
+  menuLinks.forEach((link) => {
+    const on = link.getAttribute("href") === `#${current.id}`;
+    link.classList.toggle("nav__link--active", on);
+    if (on) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  });
+  moveIndicator();
+
+  const title = current.querySelector(".section__title");
+  document.title = title
+    ? `${title.lastChild.textContent.trim()} | André Lagos`
+    : baseTitle;
+
+  // Textos entram em sequência, subindo um pouco (reinicia a cada troca de aba)
+  current.querySelectorAll(".reveal").forEach((el, i) => {
+    el.style.setProperty("--i", Math.min(i, 8));
+  });
+  current.classList.remove("tab--enter");
+  void current.offsetWidth; // força o navegador a reiniciar a animação
+  current.classList.add("tab--enter");
+
+  window.scrollTo({ top: 0, behavior: "instant" });
+  header.classList.remove("header--scrolled");
+
+  if (focus && title) title.focus({ preventScroll: true });
+}
+
+window.addEventListener("hashchange", () => showTab(true));
+window.addEventListener("resize", moveIndicator);
+document.fonts.ready.then(moveIndicator);
+
+// Na primeira vez a pílula já nasce no lugar, sem deslizar a partir do canto
+indicator.style.transition = "none";
+showTab(false);
+void indicator.offsetWidth;
+indicator.style.transition = "";
+
+// =========================================================
+// BRILHO que segue o mouse nos cards (.spot)
+// =========================================================
+document.querySelectorAll(".spot").forEach((el) => {
+  el.addEventListener("pointermove", (e) => {
+    const box = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - box.left}px`);
+    el.style.setProperty("--my", `${e.clientY - box.top}px`);
+  });
+});
 
 // =========================================================
 // COPIAR E-MAIL
