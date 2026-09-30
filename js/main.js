@@ -89,15 +89,15 @@ function moveIndicator() {
   indicator.style.transform = `translateX(${active.offsetLeft}px)`;
 }
 
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+let started = false;
+let switchId = 0; // ao clicar rápido em várias abas, só a última troca vale
+
 function showTab(focus) {
   // Endereço pode ser uma aba (#projetos) ou algo dentro dela (#copy-email)
   const id = decodeURIComponent(location.hash.slice(1));
   const target = id && document.getElementById(id);
   const current = (target && target.closest("main > section")) || tabs[0];
-
-  tabs.forEach((tab) => {
-    tab.hidden = tab !== current;
-  });
 
   menuLinks.forEach((link) => {
     const on = link.getAttribute("href") === `#${current.id}`;
@@ -112,18 +112,39 @@ function showTab(focus) {
     ? `${title.lastChild.textContent.trim()} | André Lagos`
     : baseTitle;
 
-  // Textos entram em sequência, subindo um pouco (reinicia a cada troca de aba)
-  current.querySelectorAll(".reveal").forEach((el, i) => {
-    el.style.setProperty("--i", Math.min(i, 8));
-  });
-  current.classList.remove("tab--enter");
-  void current.offsetWidth; // força o navegador a reiniciar a animação
-  current.classList.add("tab--enter");
+  const previous = started && tabs.find((tab) => !tab.hidden && tab !== current);
+  const thisSwitch = ++switchId;
+  started = true;
 
-  window.scrollTo({ top: 0, behavior: "instant" });
-  header.classList.remove("header--scrolled");
+  function enter() {
+    if (thisSwitch !== switchId) return;
 
-  if (focus && title) title.focus({ preventScroll: true });
+    tabs.forEach((tab) => {
+      tab.hidden = tab !== current;
+      tab.classList.remove("tab--leave");
+    });
+
+    // Textos entram em sequência, subindo e saindo de um leve desfoque
+    current.querySelectorAll(".reveal").forEach((el, i) => {
+      el.style.setProperty("--i", Math.min(i, 8));
+    });
+    current.classList.remove("tab--enter");
+    void current.offsetWidth; // força o navegador a reiniciar a animação
+    current.classList.add("tab--enter");
+
+    window.scrollTo({ top: 0, behavior: "instant" });
+    header.classList.remove("header--scrolled");
+
+    if (focus && title) title.focus({ preventScroll: true });
+  }
+
+  // A aba anterior some rapidinho antes da nova entrar
+  if (previous && !reduceMotion.matches) {
+    previous.classList.add("tab--leave");
+    setTimeout(enter, 180);
+  } else {
+    enter();
+  }
 }
 
 window.addEventListener("hashchange", () => showTab(true));
