@@ -26,7 +26,7 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 - **Responsivo**: se adapta a computador, tablet e celular, com menu hambúrguer no mobile
 - **Texto digitando** na apresentação
 - **Copiar e-mail** com um clique
-- **Acessível**: respeita a preferência de "reduzir movimento" do sistema, usa HTML semântico e, ao trocar de aba, leva o foco para o título da seção
+- **Acessível**: respeita a preferência de "reduzir movimento" do sistema (aí as abas só fazem fade, sem deslocamento), usa HTML semântico e, ao trocar de aba, leva o foco para o título da seção
 - **Sem frameworks nem dependências**, só três arquivos
 
 ## Estrutura

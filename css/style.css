@@ -838,7 +838,8 @@ main > section {
   50% { transform: translate(-40px, 40px); }
 }
 
-/* Respeita quem prefere menos animação */
+/* Respeita quem prefere menos animação (ex.: "Efeitos de animação" desligado no
+   Windows): nada se desloca, mas a troca de abas mantém um fade simples */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -848,6 +849,36 @@ main > section {
   }
 
   .js-tabs .reveal {
+    opacity: 1;
+  }
+
+  .tab--enter .reveal {
+    animation: aparecer 0.5s ease-out calc(0.1s + var(--grupo, 0) * 0.2s) both !important;
+  }
+
+  .tab--leave {
+    animation: sair 0.15s ease-out both !important;
+  }
+
+  /* No hover, nada sobe nem cresce: só a cor e o brilho mudam */
+  .btn:hover,
+  .card:hover,
+  .card:hover .card__icon,
+  .project:hover,
+  .project:focus-within,
+  .project:hover .project__icon,
+  .project__demo:hover .project__arrow,
+  .project__demo:focus-visible .project__arrow,
+  .skills__list li:hover .skills__badge {
+    transform: none;
+  }
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+  }
+  to {
     opacity: 1;
   }
 }

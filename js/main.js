@@ -89,7 +89,6 @@ function moveIndicator() {
   indicator.style.transform = `translateX(${active.offsetLeft}px)`;
 }
 
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 let started = false;
 let switchId = 0; // ao clicar rápido em várias abas, só a última troca vale
 
@@ -148,7 +147,7 @@ function showTab(focus) {
   }
 
   // A aba anterior some rapidinho antes da nova entrar
-  if (previous && !reduceMotion.matches) {
+  if (previous) {
     previous.classList.add("tab--leave");
     setTimeout(enter, 150);
   } else {
