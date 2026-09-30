@@ -124,9 +124,18 @@ function showTab(focus) {
       tab.classList.remove("tab--leave");
     });
 
-    // Textos entram em sequência, subindo e saindo de um leve desfoque
-    current.querySelectorAll(".reveal").forEach((el, i) => {
-      el.style.setProperty("--i", Math.min(i, 8));
+    // A aba entra em até 3 blocos, como no site do João: o título, depois o
+    // conteúdo principal e por fim o resto. Tudo que está no mesmo bloco
+    // (ex.: todos os cards de projeto) aparece junto.
+    const container = current.querySelector(".container");
+    current.querySelectorAll(".reveal").forEach((el) => {
+      let group = el.dataset.grupo;
+      if (group === undefined) {
+        let block = el;
+        while (block.parentElement && block.parentElement !== container) block = block.parentElement;
+        group = Math.min([...container.children].indexOf(block), 2);
+      }
+      el.style.setProperty("--grupo", group);
     });
     current.classList.remove("tab--enter");
     void current.offsetWidth; // força o navegador a reiniciar a animação
@@ -141,7 +150,7 @@ function showTab(focus) {
   // A aba anterior some rapidinho antes da nova entrar
   if (previous && !reduceMotion.matches) {
     previous.classList.add("tab--leave");
-    setTimeout(enter, 180);
+    setTimeout(enter, 150);
   } else {
     enter();
   }
