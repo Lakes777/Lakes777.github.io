@@ -94,7 +94,9 @@ let switchId = 0; // ao clicar rápido em várias abas, só a última troca vale
 
 function showTab(focus) {
   // Endereço pode ser uma aba (#projetos) ou algo dentro dela (#copy-email)
-  const id = decodeURIComponent(location.hash.slice(1));
+  // Os ids da página são simples (sem acento nem espaço): o hash é usado como veio,
+  // sem decodeURIComponent, que quebraria a página com um endereço como "#%".
+  const id = location.hash.slice(1);
   const target = id && document.getElementById(id);
   const current = (target && target.closest("main > section")) || tabs[0];
 
