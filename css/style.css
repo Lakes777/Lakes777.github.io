@@ -610,6 +610,13 @@ main > section {
   margin-bottom: 10px;
 }
 
+/* O nome do projeto e, ao lado, o que ele é (o nome sozinho não diz) */
+.project__apelido {
+  color: var(--text-muted);
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
 .project__desc {
   color: var(--text-muted);
   font-size: 0.95rem;
