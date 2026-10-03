@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" fill="none" stroke="#c7cad0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Protoboard com LEDs, resistores e jumpers -->
+  <defs>
+    <path id="furos" d="M0 0h1M16 0h1M32 0h1M48 0h1M64 0h1M80 0h1M96 0h1M112 0h1M128 0h1M144 0h1M160 0h1M176 0h1M192 0h1M208 0h1M224 0h1M240 0h1M256 0h1M272 0h1M288 0h1M304 0h1M320 0h1M336 0h1M352 0h1M368 0h1M384 0h1" stroke-width="3" stroke-opacity=".45"/>
+  </defs>
+  <rect x="40" y="60" width="440" height="200" rx="10"/>
+  <path d="M40 92h440M40 228h440" stroke-opacity=".5"/>
+  <path d="M40 160h440" stroke-dasharray="6 6" stroke-opacity=".5"/>
+  <use href="#furos" x="68" y="76"/>
+  <use href="#furos" x="68" y="112"/>
+  <use href="#furos" x="68" y="128"/>
+  <use href="#furos" x="68" y="144"/>
+  <use href="#furos" x="68" y="176"/>
+  <use href="#furos" x="68" y="192"/>
+  <use href="#furos" x="68" y="208"/>
+  <use href="#furos" x="68" y="244"/>
+  <path d="M132 128v-50a14 14 0 0 1 28 0v50" stroke="#4fc3f7"/>
+  <path d="M132 128v16M160 128v16"/>
+  <path d="M132 50l-8-10M146 44v-12M160 50l8-10" stroke="#4fc3f7"/>
+  <path d="M260 128v-38a14 14 0 0 1 28 0v38"/>
+  <path d="M260 128v16M288 128v16"/>
+  <path d="M196 176v-16h8l4-8 8 16 8-16 8 16 4-8h8v16"/>
+  <path d="M324 192v-20h8l4-8 8 16 8-16 8 16 4-8h8v20" stroke-opacity=".7"/>
+  <path d="M100 244c0-40 20-60 52-52"/>
+  <path d="M420 112c0-50 40-60 70-70" stroke="#4fc3f7"/>
+  <path d="M388 208c0 30 20 46 60 50"/>
+</svg>

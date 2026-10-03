@@ -68,6 +68,29 @@ if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
 }
 
 // =========================================================
+// FUNDO DO INÍCIO: faixas de pranchas sem emenda
+// =========================================================
+// Cada faixa anda de 0 a -50%: o trilho é uma metade repetida duas vezes, então o fim
+// da volta é igual ao começo. Cada metade precisa passar da largura da tela (as 6
+// pranchas somam uns 2.350 px), senão abre um vão em telas largas: o conjunto se
+// repete quantas vezes for preciso, com folga de 50% para quem diminui o zoom ou leva a
+// janela para um monitor maior depois. As cópias são só enfeite (alt="").
+const largura = Math.max(screen.width, window.innerWidth);
+const repeticoes = Math.max(1, Math.ceil((largura * 1.5) / 2200));
+document.querySelectorAll(".faixa__trilho").forEach((trilho) => {
+  const conjunto = Array.from(trilho.children);
+  for (let i = 1; i < repeticoes; i++) {
+    conjunto.forEach((prancha) => trilho.append(prancha.cloneNode()));
+  }
+  Array.from(trilho.children).forEach((prancha) => trilho.append(prancha.cloneNode()));
+});
+
+// Com a aba do navegador escondida, as faixas param (não gastam nada à toa)
+document.addEventListener("visibilitychange", () => {
+  document.documentElement.classList.toggle("pagina-escondida", document.hidden);
+});
+
+// =========================================================
 // ABAS: cada seção aparece sozinha, escolhida pelo endereço (#projetos...)
 // =========================================================
 const tabs = Array.from(document.querySelectorAll("main > section[id]"));

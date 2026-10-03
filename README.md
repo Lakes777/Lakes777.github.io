@@ -25,8 +25,10 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 - **Cards com brilho que segue o mouse** e ícones, selos e setas que se movem de leve no hover
 - **Responsivo**: se adapta a computador, tablet e celular, com menu hambúrguer no mobile
 - **Texto digitando** na apresentação
+- **Fundo animado no início**: três faixas de desenhos próprios em SVG (terminal, navegador, ESP32,
+  protoboard, microfone e cerejeira) deslizando de lado, bem apagadas, como nos lobbies dos projetos
 - **Copiar e-mail** com um clique
-- **Acessível**: respeita a preferência de "reduzir movimento" do sistema (aí as abas só fazem fade, sem deslocamento), usa HTML semântico e, ao trocar de aba, leva o foco para o título da seção
+- **Acessível**: respeita a preferência de "reduzir movimento" do sistema (aí as abas só fazem fade, sem deslocamento, e as faixas do fundo ficam paradas), usa HTML semântico e, ao trocar de aba, leva o foco para o título da seção
 - **Sem frameworks nem dependências**, só três arquivos
 
 ## Estrutura
@@ -38,6 +40,7 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 ├── js/
 │   └── main.js     # interatividade
 └── assets/
+    ├── pranchas/    # desenhos SVG das faixas do fundo do início
     ├── preview.png  # abertura do site (imagem deste README)
     └── projetos.png # seção Projetos (imagem deste README)
 ```

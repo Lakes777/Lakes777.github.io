@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" fill="none" stroke="#c7cad0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Placa ESP32: módulo com antena, pinos dos dois lados, porta USB e trilhas -->
+  <rect x="150" y="40" width="220" height="220" rx="10"/>
+  <rect x="190" y="56" width="140" height="120" rx="6"/>
+  <path d="M206 72h108v26" stroke-opacity=".6"/>
+  <path d="M206 72v26h20v-14h20v14h20v-14h20v14h28" stroke-opacity=".6"/>
+  <rect x="216" y="114" width="88" height="48" rx="3"/>
+  <path d="M232 130h56M232 146h36" stroke-opacity=".5"/>
+  <rect x="236" y="232" width="48" height="28" rx="4"/>
+  <circle cx="190" cy="214" r="6"/>
+  <circle cx="330" cy="214" r="6" stroke="#4fc3f7"/>
+  <path d="M150 64h-14M150 84h-14M150 104h-14M150 124h-14M150 144h-14M150 164h-14M150 184h-14M150 204h-14M150 224h-14M150 244h-14"/>
+  <path d="M370 64h14M370 84h14M370 104h14M370 124h14M370 144h14M370 164h14M370 184h14M370 204h14M370 224h14M370 244h14"/>
+  <path d="M384 104h40v-40h56M384 144h70v60h30" stroke-opacity=".5"/>
+  <path d="M384 184h30v50h70" stroke="#4fc3f7"/>
+  <circle cx="480" cy="64" r="4" stroke-opacity=".5"/>
+  <circle cx="484" cy="234" r="4" stroke="#4fc3f7"/>
+  <path d="M136 84h-50v-30h-50M136 164h-80v70h-30" stroke-opacity=".5"/>
+  <circle cx="36" cy="54" r="4" stroke-opacity=".5"/>
+  <path d="M60 130a24 24 0 0 1 0-34M44 140a46 46 0 0 1 0-54" stroke-opacity=".6"/>
+</svg>
