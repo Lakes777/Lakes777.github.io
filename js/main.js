@@ -223,6 +223,64 @@ copyBtn.addEventListener("click", async () => {
 });
 
 // =========================================================
+// SELO DO VIGIL: os projetos no ar mostram a situação ao vivo,
+// lida da API do Vigil (o monitor de status que fiz em Java)
+// =========================================================
+const VIGIL = "https://147-15-40-173.sslip.io";
+const porcento = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+async function seloDoVigil() {
+  const cards = document.querySelectorAll("[data-vigil]");
+  if (!cards.length) return;
+  let lista;
+  try {
+    const resposta = await fetch(VIGIL + "/api/status", { signal: AbortSignal.timeout(8000) });
+    if (!resposta.ok) return;
+    lista = await resposta.json();
+    if (!Array.isArray(lista)) return;
+  } catch {
+    return; // Vigil fora do ar ou lento: os cards ficam como sempre, só sem o selo
+  }
+  const porNome = new Map(lista.map((s) => [s.nome, s]));
+  cards.forEach((card) => {
+    // O card do próprio Vigil: se a API respondeu, ele está no ar
+    if (card.dataset.vigil === "Vigil") {
+      colocarSelo(card, true, null, "o Vigil respondeu agora; abre a página de status");
+      return;
+    }
+    const status = porNome.get(card.dataset.vigil);
+    // Pausado ou sem verificações ainda: melhor não mostrar nada do que um selo vazio
+    if (!status || !["NO_AR", "FORA"].includes(status.situacao)) return;
+    const noAr = status.situacao === "NO_AR";
+    const trinta = status.ultimos30d.disponibilidade;
+    colocarSelo(card, noAr, trinta, (trinta == null ? "" : "nos últimos 30 dias, ")
+      + "segundo o Vigil; abre a página de status");
+  });
+}
+
+// O texto visível vem primeiro (quem usa controle por voz fala o que vê); o resto fica só para o leitor de tela
+function colocarSelo(card, noAr, trinta, complemento) {
+  const selo = document.createElement("a");
+  selo.className = "project__vigil" + (noAr ? "" : " project__vigil--fora");
+  selo.href = VIGIL;
+  selo.target = "_blank";
+  selo.rel = "noopener";
+  const ponto = document.createElement("span");
+  ponto.className = "project__vigil-ponto";
+  ponto.setAttribute("aria-hidden", "true");
+  const texto = (noAr ? "no ar" : "fora do ar") + (trinta == null ? "" : " · " + porcento.format(trinta) + "%");
+  const extra = document.createElement("span");
+  extra.className = "so-leitor";
+  extra.textContent = " (" + complemento + ")";
+  selo.append(ponto, texto, extra);
+  selo.title = texto + " " + complemento;
+  // Depois do link do card: no Tab, primeiro o projeto, depois o selo (o CSS põe o selo antes na tela)
+  card.querySelector(".project__top").append(selo);
+}
+
+seloDoVigil();
+
+// =========================================================
 // ANO ATUAL no rodapé
 // =========================================================
 document.getElementById("year").textContent = new Date().getFullYear();

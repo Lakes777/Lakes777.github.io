@@ -27,6 +27,10 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 - **Texto digitando** na apresentação
 - **Fundo animado no início**: três faixas de desenhos próprios em SVG (terminal, navegador, ESP32,
   protoboard, microfone e cerejeira) deslizando de lado, bem apagadas, como nos lobbies dos projetos
+- **Selo "no ar" ao vivo** nos projetos publicados: a página lê a API do [Vigil](https://github.com/Lakes777/vigil)
+  (o monitor de status que fiz em Java) e mostra a situação e a disponibilidade em 30 dias; se o Vigil
+  não responder, os cards só ficam sem o selo. O Vigil só libera a leitura para o endereço publicado,
+  então rodando localmente o selo não aparece
 - **Copiar e-mail** com um clique
 - **Acessível**: respeita a preferência de "reduzir movimento" do sistema (aí as abas só fazem fade, sem deslocamento, e as faixas do fundo ficam paradas), usa HTML semântico e, ao trocar de aba, leva o foco para o título da seção
 - **Sem frameworks nem dependências**, só três arquivos
