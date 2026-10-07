@@ -12,7 +12,7 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 
 <img src="assets/preview.png" alt="Prévia do portfólio" width="85%"/>
 
-<img src="assets/projetos.png" alt="Seção Projetos do portfólio: cards do Coursebook, Spendwise, Encore, Tidy, Sidekick e Hanami" width="85%"/>
+<img src="assets/projetos.png" alt="Seção Projetos do portfólio: cards do Vigil, Coursebook, Spendwise, Encore, Tidy e Sidekick" width="85%"/>
 
 </div>
 
