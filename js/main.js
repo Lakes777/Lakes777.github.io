@@ -30,9 +30,9 @@ navLinks.querySelectorAll("a").forEach((link) => {
 // =========================================================
 const phrases = [
   "Estudante de Engenharia de Software",
-  "Desenvolvedor Web",
-  "Entusiasta de IoT com ESP32",
-  "Sempre aprendendo algo novo",
+  "Back-end com Java e Python",
+  "APIs, bancos de dados e testes",
+  "Projetos no ar com Docker e nuvem",
 ];
 
 const typingEl = document.getElementById("typing");
