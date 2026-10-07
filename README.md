@@ -30,7 +30,8 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 - **Selo "no ar" ao vivo** nos projetos publicados: a página lê a API do [Vigil](https://github.com/Lakes777/vigil)
   (o monitor de status que fiz em Java) e mostra a situação e a disponibilidade em 30 dias; se o Vigil
   não responder, os cards só ficam sem o selo. O Vigil só libera a leitura para o endereço publicado,
-  então rodando localmente o selo não aparece
+  então rodando localmente o selo não aparece. Com o Hanami no ar, o aviso de "servidor gratuito demora
+  para acordar" some, porque as visitas do Vigil a cada 5 minutos o mantêm acordado
 - **Copiar e-mail** com um clique
 - **Acessível**: respeita a preferência de "reduzir movimento" do sistema (aí as abas só fazem fade, sem deslocamento, e as faixas do fundo ficam paradas), usa HTML semântico e, ao trocar de aba, leva o foco para o título da seção
 - **Sem frameworks nem dependências**, só três arquivos

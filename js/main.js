@@ -249,6 +249,13 @@ async function seloDoVigil() {
       return;
     }
     const status = porNome.get(card.dataset.vigil);
+    // O Vigil visita o site a cada 5 min, e isso mantém acordado o servidor gratuito do Hanami:
+    // estando no ar, o aviso de "demora para acordar" não vale. Se o Vigil não responder, ele fica.
+    const aviso = card.querySelector(".project__aviso");
+    if (aviso && status?.situacao === "NO_AR") {
+      aviso.hidden = true;
+      card.querySelector(`[aria-describedby="${aviso.id}"]`)?.removeAttribute("aria-describedby");
+    }
     // Pausado ou sem verificações ainda: melhor não mostrar nada do que um selo vazio
     if (!status || !["NO_AR", "FORA"].includes(status.situacao)) return;
     const noAr = status.situacao === "NO_AR";
