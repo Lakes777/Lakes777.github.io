@@ -12,28 +12,32 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 
 <img src="assets/preview.png" alt="Prévia do portfólio" width="85%"/>
 
-<img src="assets/projetos.png" alt="Seção Projetos do portfólio: cards do Vigil, Coursebook, Spendwise, Encore, Tidy e Sidekick" width="85%"/>
+<img src="assets/projetos.png" alt="Aba Projetos do portfólio: cards do Vigil, Pursuit, Beacon e Coursebook, com as tecnologias, os testes e os links" width="85%"/>
 
 </div>
 
 ## Funcionalidades
 
-- **Seções em abas**: cada seção (Sobre, Formação, Projetos...) aparece sozinha, escolhida pelo endereço
-  (`#projetos`), então o botão Voltar do navegador e links diretos funcionam
-- **Menu com indicador deslizante**: um fundo desliza até a aba ativa
-- **Texto entrando em sequência**: ao abrir uma aba, cada bloco sobe e aparece, um depois do outro
-- **Cards com brilho que segue o mouse** e ícones, selos e setas que se movem de leve no hover
-- **Responsivo**: se adapta a computador, tablet e celular, com menu hambúrguer no mobile
-- **Texto digitando** na apresentação
-- **Fundo animado no início**: três faixas de desenhos próprios em SVG (terminal, navegador, ESP32,
-  protoboard, microfone e cerejeira) deslizando de lado, bem apagadas, como nos lobbies dos projetos
-- **Selo "no ar" ao vivo** nos projetos publicados: a página lê a API do [Vigil](https://github.com/Lakes777/vigil)
-  (o monitor de status que fiz em Java) e mostra a situação e a disponibilidade em 30 dias; se o Vigil
-  não responder, os cards só ficam sem o selo. O Vigil só libera a leitura para o endereço publicado,
-  então rodando localmente o selo não aparece. Com o Hanami no ar, o aviso de "servidor gratuito demora
-  para acordar" some, porque as visitas do Vigil a cada 5 minutos o mantêm acordado
+- **Seções em abas**: cada seção (Início, Sobre, Formação, Projetos...) aparece sozinha, escolhida pelo
+  endereço (`#projetos`), então o botão Voltar do navegador e links diretos funcionam. Sem JavaScript,
+  todas aparecem uma embaixo da outra
+- **Coluna fixa à esquerda** com o nome, as abas (o traço cresce na aba ativa) e o contato; no celular,
+  as abas viram uma barra presa no topo que rola de lado
+- **Fundo de rede**: pontos que andam devagar e se ligam quando ficam perto, como um mapa de serviços,
+  desenhados num `<canvas>`; perto do mouse, acendem. A animação para quando a aba do navegador fica escondida
+- **Pulso embaixo do nome**: uma linha de batimento animada, o mesmo tema do [Vigil](https://github.com/Lakes777/vigil)
+- **Cards de projeto com destaque suave**: fundo, borda, sombra e uma leve subida entram juntos e devagar,
+  e um brilho segue o mouse dentro do card
+- **Números que contam** e blocos que entram em sequência ao abrir cada aba
+- **Selo "no ar" ao vivo** nos projetos publicados: a página lê a API do Vigil (o monitor de status que
+  fiz em Java) e mostra a situação e a disponibilidade em 30 dias; se o Vigil não responder, os cards só
+  ficam sem o selo. O Vigil só libera a leitura para o endereço publicado, então rodando localmente o selo
+  não aparece. Com o Hanami no ar, o aviso de "servidor gratuito demora para acordar" some, porque as
+  visitas do Vigil a cada 5 minutos o mantêm acordado
 - **Copiar e-mail** com um clique
-- **Acessível**: respeita a preferência de "reduzir movimento" do sistema (aí as abas só fazem fade, sem deslocamento, e as faixas do fundo ficam paradas), usa HTML semântico e, ao trocar de aba, leva o foco para o título da seção
+- **Acessível**: respeita a preferência de "reduzir movimento" do sistema (aí nada se mexe: o fundo é
+  desenhado uma vez, parado), tem link para pular para o conteúdo, usa HTML semântico e, ao trocar de
+  aba, leva o foco para o título da seção
 - **Sem frameworks nem dependências**, só três arquivos
 
 ## Estrutura
@@ -43,11 +47,10 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 ├── css/
 │   └── style.css   # estilos (cores ficam em variáveis no topo)
 ├── js/
-│   └── main.js     # interatividade
+│   └── main.js     # abas, fundo de rede, contadores, selo do Vigil
 └── assets/
-    ├── pranchas/    # desenhos SVG das faixas do fundo do início
-    ├── preview.png  # abertura do site (imagem deste README)
-    └── projetos.png # seção Projetos (imagem deste README)
+    ├── preview.png  # aba Início (imagem deste README)
+    └── projetos.png # aba Projetos (imagem deste README)
 ```
 
 ## Como rodar localmente
@@ -65,17 +68,17 @@ As cores do site ficam em variáveis CSS no começo de `css/style.css`:
 
 ```css
 :root {
-  --bg: #0d0e10;       /* fundo */
-  --accent: #4fc3f7;   /* cor de destaque */
+  --fundo: #0c0d0f;    /* fundo */
+  --cor: #6cc4ff;      /* cor de destaque */
   ...
 }
 ```
 
-Troque os valores e o site inteiro muda junto.
+Troque os valores e o site inteiro muda junto (a cor dos pontos do fundo fica no `main.js`).
 
 ## Créditos
 
-Ícones do [Lucide](https://lucide.dev) (licença ISC) e logos do [Simple Icons](https://simpleicons.org) (CC0), embutidos como SVG e pintados com a cor de destaque do site.
+Fontes [Inter](https://rsms.me/inter/) e [JetBrains Mono](https://www.jetbrains.com/lp/mono/) (licença OFL), pelo Google Fonts.
 
 ## Contato
 

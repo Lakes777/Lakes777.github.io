@@ -1,1138 +1,183 @@
-/* =========================================================
-   VARIÁVEIS — mude as cores aqui e o site inteiro acompanha
-   ========================================================= */
+/* Portfólio · visual "Mono · Rede": escuro, mínimo, fonte mono nos rótulos, fundo de pontos que se
+   ligam (canvas) e o pulso do Vigil embaixo do nome. As cores ficam todas aqui no topo. */
 :root {
-  /* Cinza-grafite neutro; o azul fica só nos destaques */
-  --bg: #0d0e10;
-  --surface: #16171a;
-  --surface-hover: #1e1f23;
-  --border: #2a2c31;
-
-  --text: #e4e5e7;
-  --text-muted: #8e9199;
-
-  --accent: #4fc3f7;
-  --accent-dark: #0288d1;
-  --gradient: linear-gradient(135deg, #0d0e10, #16171a 60%, #1c1d21);
-
-  --font: "Inter", system-ui, sans-serif;
-  --mono: "Fira Code", monospace;
-
-  --radius: 14px;
-  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --ease-texto: cubic-bezier(0, -0.02, 0.49, 0.99);
-  --header-h: 72px;
-}
-
-/* =========================================================
-   BASE
-   ========================================================= */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: var(--header-h);
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  min-height: 100svh;
-  font-family: var(--font);
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-ul,
-ol {
-  list-style: none;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-strong {
-  color: var(--accent);
-  font-weight: 600;
-}
-
-/* Abas escondidas somem mesmo quando a seção tem display próprio (ex.: .hero) */
-[hidden] {
-  display: none !important;
-}
-
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-main > section {
-  flex: 1;
-}
-
-.container {
-  width: min(1100px, 100% - 32px);
-  margin-inline: auto;
-}
-
-/* =========================================================
-   BOTÕES
-   ========================================================= */
-.btn {
-  display: inline-block;
-  padding: 12px 28px;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: transform 0.2s, background 0.2s, box-shadow 0.2s, color 0.2s;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-}
-
-.btn--primary {
-  background: var(--accent);
-  color: #0d0e10;
-}
-
-.btn--primary:hover {
-  box-shadow: 0 8px 24px rgba(79, 195, 247, 0.35);
-}
-
-.btn--outline {
-  border: 2px solid var(--accent);
-  color: var(--accent);
-}
-
-.btn--outline:hover {
-  background: rgba(79, 195, 247, 0.1);
-}
-
-/* =========================================================
-   MENU
-   ========================================================= */
-.header {
-  position: fixed;
-  inset: 0 0 auto 0;
-  z-index: 100;
-  height: var(--header-h);
-  transition: background 0.3s, box-shadow 0.3s;
-}
-
-.header--scrolled {
-  background: rgba(13, 14, 16, 0.85);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 1px 0 var(--border);
-}
-
-.nav {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav__logo {
-  font-family: var(--mono);
-  font-weight: 600;
-  font-size: 1.2rem;
-  color: var(--text);
-}
-
-.nav__logo span {
-  color: var(--accent);
-}
-
-.nav__links {
-  position: relative;
-  display: flex;
-  gap: 4px;
-}
-
-.nav__link {
-  position: relative;
-  z-index: 1;
-  display: block;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  transition: color 0.25s;
-}
-
-.nav__link:hover,
-.nav__link--active {
-  color: var(--text);
-}
-
-.nav__link:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-/* Fundo da aba ativa: desliza de um link para o outro (posição definida no main.js) */
-.nav__indicator {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0;
-  border-radius: 999px;
-  background: rgba(228, 229, 231, 0.08);
-  box-shadow: inset 0 0 0 1px rgba(228, 229, 231, 0.06);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.35s var(--ease-out), width 0.35s var(--ease-out), opacity 0.25s;
-}
-
-/* Botão "hambúrguer" (só aparece no celular) */
-.nav__toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-}
-
-.nav__toggle span {
-  width: 24px;
-  height: 2px;
-  background: var(--text);
-  border-radius: 2px;
-  transition: transform 0.3s, opacity 0.3s;
-}
-
-.nav__toggle--open span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.nav__toggle--open span:nth-child(2) {
-  opacity: 0;
-}
-
-.nav__toggle--open span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* =========================================================
-   INÍCIO (HERO)
-   ========================================================= */
-.hero {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background: var(--gradient);
-  overflow: hidden;
-}
-
-/* Brilho decorativo no fundo */
-.hero::before {
-  content: "";
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  right: -150px;
-  top: -100px;
-  background: radial-gradient(circle, rgba(79, 195, 247, 0.08), transparent 70%);
-  animation: float 8s ease-in-out infinite;
-  z-index: 1; /* por cima do escurecido das faixas, mas sem roubar o clique */
-  pointer-events: none;
-}
-
-/* Fundo: três faixas de pranchas deslizando de lado, bem apagadas, como nos lobbies
-   dos projetos. Fica atrás do texto e só existe no início. */
-.hero__fundo {
-  position: absolute;
-  inset: 0;
-  z-index: 0; /* camada própria: o escurecido (::after) fica preso aqui dentro */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-/* Por cima das faixas: grade fina e granulado leve (::before) e o escurecido onde
-   fica o texto, mais à esquerda (::after) */
-.hero__fundo::before,
-.hero__fundo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
-.hero__fundo::before {
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.5'/%3E%3C/svg%3E"),
-    linear-gradient(rgb(228 229 231 / 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(228 229 231 / 0.025) 1px, transparent 1px);
-  background-size: 160px 160px, 48px 48px, 48px 48px;
-  opacity: 0.5;
-}
-
-.hero__fundo::after {
-  background:
-    radial-gradient(ellipse 60% 55% at 35% 52%, rgb(13 14 16 / 0.92), rgb(13 14 16 / 0.6) 60%, rgb(13 14 16 / 0.25)),
-    linear-gradient(var(--bg), transparent 18%, transparent 82%, var(--bg));
-}
-
-.faixa {
-  overflow: hidden;
-  opacity: 0.16;
-}
-
-.faixa__trilho {
-  display: flex;
-  width: max-content;
-  animation: deslizar 64s linear infinite;
-  will-change: transform;
-}
-
-.faixa--2 .faixa__trilho {
-  animation-duration: 78s;
-  animation-direction: reverse; /* a faixa do meio anda para o outro lado */
-}
-
-.faixa--3 .faixa__trilho {
-  animation-duration: 96s;
-}
-
-.faixa__trilho img {
-  flex: none;
-  width: 360px;
-  height: auto;
-  margin-right: 32px; /* margem e não gap: assim -50% cai exatamente no começo da cópia */
-}
-
-/* Com a aba do navegador escondida, as faixas param (fora do início elas nem aparecem) */
-.pagina-escondida .faixa__trilho {
-  animation-play-state: paused;
-}
-
-@keyframes deslizar {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
-.hero__content {
-  position: relative;
-  z-index: 2;
-  padding-top: var(--header-h);
-}
-
-.hero__hello {
-  font-family: var(--mono);
-  color: var(--accent);
-  margin-bottom: 8px;
-}
-
-.hero__name {
-  font-size: clamp(2.8rem, 8vw, 5rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-}
-
-.hero__role {
-  font-family: var(--mono);
-  font-size: clamp(1.1rem, 3vw, 1.6rem);
-  font-weight: 400;
-  color: var(--text-muted);
-  margin: 12px 0 24px;
-  min-height: 1.7em;
-}
-
-.hero__cursor {
-  color: var(--accent);
-  animation: blink 1s step-end infinite;
-}
-
-.hero__text {
-  max-width: 540px;
-  color: var(--text-muted);
-  font-size: 1.1rem;
-}
-
-.hero__buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 36px;
-}
-
-/* =========================================================
-   SEÇÕES
-   ========================================================= */
-.section {
-  padding: calc(var(--header-h) + 56px) 0 96px;
-}
-
-.section__title:focus {
-  outline: none;
-}
-
-.section__title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
-  margin-bottom: 48px;
-}
-
-.section__title span {
-  font-family: var(--mono);
-  font-size: 0.7em;
-  color: var(--accent);
-}
-
-/* Linha decorativa depois do título */
-.section__title::after {
-  content: "";
-  flex: 1;
-  max-width: 280px;
-  height: 1px;
-  background: var(--border);
-}
-
-.section__title--center {
-  justify-content: center;
-}
-
-.section__title--center::after {
-  display: none;
-}
-
-/* =========================================================
-   SOBRE
-   ========================================================= */
-.about {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 48px;
-  align-items: start;
-}
-
-.about__text p {
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  margin-bottom: 18px;
-}
-
-.about__cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 22px;
-  transition: transform 0.35s var(--ease-out), border-color 0.35s;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  border-color: #3a3d44;
-}
-
-/* Ícones SVG de uma cor só (Lucide e Simple Icons), pintados com a cor do texto */
-.icone {
-  width: 1em;
-  height: 1em;
-  display: block;
-}
-
-.card__icon {
-  display: inline-block;
-  font-size: 1.8rem;
-  color: var(--accent);
-  transition: transform 0.35s var(--ease-out);
-}
-
-.card:hover .card__icon {
-  transform: translateY(-2px) scale(1.08);
-}
-
-.card h3 {
-  font-size: 1rem;
-  margin: 8px 0 2px;
-}
-
-.card p {
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
-
-/* =========================================================
-   FORMAÇÃO (LINHA DO TEMPO)
-   ========================================================= */
-.timeline {
-  position: relative;
-  max-width: 720px;
-  padding-left: 32px;
-  border-left: 2px solid var(--border);
-}
-
-.timeline__item {
-  position: relative;
-  padding-bottom: 40px;
-}
-
-.timeline__item:last-child {
-  padding-bottom: 0;
-}
-
-/* Bolinha na linha */
-.timeline__item::before {
-  content: "";
-  position: absolute;
-  left: -41px;
-  top: 6px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 3px solid var(--accent);
-  transition: background 0.3s, box-shadow 0.3s;
-}
-
-.timeline__item:hover::before {
-  background: var(--accent);
-  box-shadow: 0 0 0 5px rgba(79, 195, 247, 0.15);
-}
-
-.timeline__date {
-  font-family: var(--mono);
-  font-size: 0.85rem;
-  color: var(--accent);
-}
-
-.timeline__item h3 {
-  font-size: 1.2rem;
-  margin: 4px 0;
-}
-
-.timeline__place {
-  color: var(--text);
-  opacity: 0.85;
-}
-
-.timeline__item p:last-child:not(.timeline__place) {
-  color: var(--text-muted);
-  margin-top: 6px;
-}
-
-/* =========================================================
-   PROJETOS
-   ========================================================= */
-.projects {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
-  gap: 24px;
-}
-
-.project {
-  display: flex;
-  flex-direction: column;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 28px;
-  transition: transform 0.35s var(--ease-out), border-color 0.35s, box-shadow 0.35s;
-}
-
-.project:hover,
-.project:focus-within {
-  transform: translateY(-4px);
-  border-color: #3a3d44;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
-}
-
-.project__top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
-}
-
-.project__icon {
-  display: inline-block;
-  font-size: 2rem;
-  color: var(--accent);
-  transition: transform 0.35s var(--ease-out);
-}
-
-.project:hover .project__icon {
-  transform: translateY(-2px) scale(1.08);
-}
-
-.project__year {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.project__link svg {
-  width: 24px;
-  height: 24px;
-  fill: var(--text-muted);
-  transition: fill 0.2s;
-}
-
-.project__link:hover svg {
-  fill: var(--accent);
-}
-
-/* Estica a área clicável do link para cobrir o card inteiro */
-.project {
-  position: relative;
-}
-
-.project__link::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-}
-
-.project__link:focus-visible {
-  outline: none;
-}
-
-.project__link:focus-visible::after {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
-}
-
-.project:not(.project--ao-vivo):has(.project__link):hover .project__link svg {
-  fill: var(--accent);
-}
-
-/* Projetos com site no ar: o card inteiro leva ao site (seta no topo) e o
-   ícone do GitHub embaixo fica por cima da área clicável, levando ao código */
-.project__link--site svg {
-  fill: none;
-  stroke: var(--text-muted);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: stroke 0.2s, transform 0.3s var(--ease-out);
-}
-
-.project:hover .project__link--site svg,
-.project__link--site:focus-visible svg {
-  stroke: var(--accent);
-  transform: translate(2px, -2px);
-}
-
-.project__repo {
-  position: relative;
-  z-index: 1;
-  align-self: flex-start;
-  display: inline-flex;
-  margin-top: 16px;
-  padding: 4px;
-  margin-left: -4px;
-  border-radius: 8px;
-}
-
-.project__repo svg {
-  width: 22px;
-  height: 22px;
-  fill: var(--text-muted);
-  transition: fill 0.2s;
-}
-
-.project__repo:hover svg,
-.project__repo:focus-visible svg {
-  fill: var(--text);
-}
-
-.project__repo:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-/* Nota no fim do card (ex.: servidor gratuito que demora para acordar) */
-.project__aviso {
-  margin-top: 6px;
-  color: var(--text-muted);
-  font-size: 0.8rem;
-}
-
-/* Selo do Vigil: situação ao vivo do projeto (vem da API do Vigil, só nos projetos no ar) */
-.project__vigil {
-  order: 1;
-  position: relative;
-  z-index: 1; /* fica por cima do link que cobre o card */
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin: 0 14px 0 auto;
-  padding: 3px 10px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  text-decoration: none;
-  white-space: nowrap;
-  animation: selo-entra 0.4s var(--ease-out);
-  transition: color 0.2s, border-color 0.2s;
-}
-
-.project__top > .project__link {
-  order: 2;
-}
-
-/* Texto só para leitor de tela */
-.so-leitor {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-.project__vigil:hover,
-.project__vigil:focus-visible {
-  color: var(--text);
-  border-color: #3a3d44;
-}
-
-.project__vigil:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.project__vigil-ponto {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #66bb6a;
-  animation: selo-pulso 2.4s ease-out infinite;
-}
-
-.project__vigil--fora .project__vigil-ponto {
-  background: #ef5350;
-  animation: none;
-}
-
-@keyframes selo-entra {
-  from { opacity: 0; transform: translateY(-3px); }
-}
-
-@keyframes selo-pulso {
-  0% { box-shadow: 0 0 0 0 rgba(102, 187, 106, 0.55); }
-  70%, 100% { box-shadow: 0 0 0 6px rgba(102, 187, 106, 0); }
-}
-
-.project__title {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-
-/* O nome do projeto e, ao lado, o que ele é (o nome sozinho não diz) */
-.project__apelido {
-  color: var(--text-muted);
-  font-size: 0.8em;
-  font-weight: 500;
-}
-
-.project__desc {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  flex: 1;
-}
-
-.project__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 20px;
-}
-
-.project__tags li {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--accent);
-  background: rgba(79, 195, 247, 0.1);
-  padding: 4px 10px;
-  border-radius: 999px;
-  transition: background 0.3s;
-}
-
-.project:hover .project__tags li {
-  background: rgba(79, 195, 247, 0.16);
-}
-
-/* =========================================================
-   HABILIDADES
-   ========================================================= */
-.skills {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
-}
-
-.skills__group {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 26px;
-  transition: border-color 0.35s;
-}
-
-.skills__group:hover {
-  border-color: #3a3d44;
-}
-
-.skills__group h3 {
-  font-size: 1rem;
-  color: var(--accent);
-  margin-bottom: 18px;
-}
-
-.skills__list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.skills__list li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.95rem;
-}
-
-.skills__badge {
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
-  border-radius: 8px;
-}
-
-.skills__badge {
-  display: grid;
-  place-items: center;
-  background: var(--surface-hover);
-  border: 1px solid var(--border);
-  font-size: 1.05rem;
-  color: var(--accent);
-  transition: transform 0.3s var(--ease-out), border-color 0.3s;
-}
-
-.skills__list li:hover .skills__badge {
-  transform: translateY(-2px);
-  border-color: rgba(79, 195, 247, 0.5);
-}
-
-/* =========================================================
-   CONTATO
-   ========================================================= */
-.contact {
-  text-align: center;
-}
-
-.contact__text {
-  max-width: 520px;
-  margin: 0 auto 32px;
-  color: var(--text-muted);
-  font-size: 1.1rem;
-}
-
-.contact__email {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  background: var(--surface);
-  border: 1px dashed var(--border);
-  border-radius: var(--radius);
-  padding: 18px 28px;
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: clamp(0.85rem, 3vw, 1.1rem);
-  cursor: pointer;
-  transition: border-color 0.2s;
-  max-width: 100%;
-  overflow-wrap: anywhere;
-}
-
-.contact__email:hover {
-  border-color: var(--accent);
-}
-
-.contact__email small {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-.contact__email--copied small {
-  color: var(--accent);
-}
-
-.contact__links {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 32px;
-}
-
-/* =========================================================
-   RODAPÉ
-   ========================================================= */
-.footer {
-  text-align: center;
-  padding: 28px 16px;
-  border-top: 1px solid var(--border);
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-/* =========================================================
-   ANIMAÇÕES
-   ========================================================= */
-
-/* Entrada das abas (igual ao site do João): cada bloco sobe 10px e aparece;
-   o título em 0,1s, o conteúdo principal em 0,3s e o resto em 0,5s
-   (--grupo é 0, 1 ou 2, definido no main.js).
-   Usa "translate" e não "transform" para não brigar com o hover dos cards. */
-.js-tabs .reveal {
-  opacity: 0;
-}
-
-.tab--enter .reveal {
-  animation: surgir 0.5s var(--ease-texto) calc(0.1s + var(--grupo, 0) * 0.2s) both;
-}
-
-@keyframes surgir {
-  from {
-    opacity: 0;
-    translate: 0 10px;
-  }
-  to {
-    opacity: 1;
-    translate: 0 0;
-  }
-}
-
-/* Saída da aba anterior: a aba inteira some num fade rápido */
-.tab--leave {
-  animation: sair 0.15s ease-out both;
-}
-
-@keyframes sair {
-  to {
-    opacity: 0;
-  }
-}
-
-/* Brilho que segue o mouse (.spot; posição em --mx/--my, definida no main.js):
-   uma luz suave no fundo e outra acendendo a borda perto do cursor */
-.spot {
-  position: relative;
-  isolation: isolate;
-}
-
-.spot::before,
-.spot::after {
-  content: "";
-  position: absolute;
-  border-radius: inherit;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s;
-}
-
-.spot::before {
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(
-    380px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(79, 195, 247, 0.07),
-    transparent 60%
-  );
-}
-
-.spot::after {
-  inset: -1px;
-  padding: 1px;
-  background: radial-gradient(
-    220px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(79, 195, 247, 0.55),
-    transparent 70%
-  );
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-
+  --fundo: #0c0d0f;
+  --painel: #141619;
+  --texto: #e7e7e4;
+  --apagado: #8b9099;
+  --linha: #23262b;
+  --cor: #6cc4ff;
+  --cor-rgb: 108, 196, 255;
+  --erro: #ff8b7b;
+  /* A curva das animações: começa rápido e pousa devagar (o "smooth" do hover dos cards) */
+  --suave: cubic-bezier(.22, 1, .36, 1);
+}
+
+* { box-sizing: border-box }
+html, body { margin: 0 }
+html { scrollbar-color: #2a2d33 var(--fundo) }
+body { background: var(--fundo); color: var(--texto); font: 16px/1.6 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased }
+a { color: inherit }
+ul, ol { margin: 0; padding: 0; list-style: none }
+.mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Mono", monospace }
+:focus-visible { outline: 2px solid var(--cor); outline-offset: 3px; border-radius: 4px }
+[tabindex="-1"]:focus { outline: none }
+.so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap }
+::selection { background: rgba(var(--cor-rgb), .3) }
+
+.pular { position: absolute; left: 16px; top: -60px; z-index: 10; background: var(--cor); color: #04121c; padding: 10px 14px; border-radius: 8px; font-weight: 600; text-decoration: none }
+.pular:focus { top: 16px }
+
+/* ---------- fundo ---------- */
+.rede { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none }
+
+/* ---------- estrutura ---------- */
+.layout { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 72px; padding: 0 32px }
+.lado { position: sticky; top: 0; height: 100vh; padding: 56px 0 32px; display: flex; flex-direction: column;
+  /* Em tela baixa (notebook com escala de 125%), a coluna rola em vez de cortar o contato */
+  overflow-y: auto; scrollbar-width: none }
+.nome { font: 700 30px/1.1 Inter, sans-serif; letter-spacing: -.02em; text-decoration: none; width: fit-content }
+.papel { color: var(--cor); margin: 10px 0 0; font-size: 13px }
+
+/* O pulso: um traço que corre por cima de um trilho apagado */
+.pulso { width: 100%; height: 44px; margin-top: 22px; overflow: visible }
+.pulso path { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round }
+.pulso__trilho { stroke: var(--linha) }
+.pulso__luz { stroke: var(--cor); stroke-dasharray: 60 340; animation: correr 2.4s linear infinite; filter: drop-shadow(0 0 4px rgba(var(--cor-rgb), .6)) }
+@keyframes correr { from { stroke-dashoffset: 400 } to { stroke-dashoffset: 0 } }
+
+/* Abas: o traço cresce na aba ativa */
+.abas { margin-top: 36px; display: grid; gap: 2px }
+.abas a { display: flex; align-items: center; gap: 14px; padding: 7px 0; font-size: 13px; color: var(--apagado); text-decoration: none; transition: color .3s var(--suave) }
+.abas a::before { content: ""; width: 20px; height: 1px; background: currentColor; transition: width .4s var(--suave), background-color .4s var(--suave) }
+.abas__n { font-size: 11px }
+.abas a:hover { color: var(--texto) }
+.abas a:hover::before { width: 36px }
+.abas a[aria-current="page"] { color: var(--texto) }
+.abas a[aria-current="page"]::before { width: 48px; background: var(--cor) }
+
+.lado__contato { margin-top: auto; display: grid; gap: 6px; font-size: 12.5px }
+.lado__contato a { color: var(--apagado); text-decoration: none; width: fit-content; transition: color .3s var(--suave) }
+.lado__contato a:hover { color: var(--cor) }
+.lado__contato small { color: var(--apagado); font-size: 11.5px; margin-top: 10px }
+
+main { padding: 56px 0 72px; min-height: 100vh }
+section + section { margin-top: 96px }
+.rotulo { font-size: 12px; color: var(--apagado); text-transform: uppercase; letter-spacing: .14em; margin: 0 0 28px; display: flex; align-items: center; gap: 12px }
+.rotulo::after { content: ""; flex: 1; height: 1px; background: var(--linha) }
+h1, h2 { font: 700 clamp(30px, 4.5vw, 46px)/1.08 Inter, sans-serif; letter-spacing: -.03em; margin: 0 0 18px; text-wrap: balance }
+h1 em { font-style: normal; color: var(--cor) }
+.lead { color: var(--apagado); font-size: 17px; max-width: 58ch; margin: 0 }
+
+/* ---------- abas (com JavaScript): uma seção por vez; sem JavaScript, todas aparecem ---------- */
+.js-abas main > section { margin-top: 0 }
+.js-abas main > section:not(.aberta) { display: none }
+@keyframes subir { from { opacity: 0; transform: translateY(10px) } }
+.js-abas .entrando .item { animation: subir .5s var(--suave) both; animation-delay: calc(var(--i, 0) * 55ms) }
+
+/* ---------- início ---------- */
+.numeros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--linha); border: 1px solid var(--linha); border-radius: 12px; overflow: hidden; margin: 36px 0 }
+.numeros div { background: var(--fundo); padding: 22px }
+.numeros b { display: block; font: 700 32px/1 Inter, sans-serif; font-variant-numeric: tabular-nums }
+.numeros small { color: var(--apagado); font-size: 13px }
+.botoes { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px }
+.botao { display: inline-flex; align-items: center; gap: 8px; font: 500 13px/1 "JetBrains Mono", monospace; padding: 12px 16px; border-radius: 8px;
+  border: 1px solid var(--linha); color: var(--texto); text-decoration: none; background: var(--painel); cursor: pointer;
+  transition: border-color .35s var(--suave), transform .35s var(--suave), background-color .35s var(--suave) }
+.botao:hover { border-color: rgba(var(--cor-rgb), .6); transform: translateY(-2px) }
+.botao--cheio { background: var(--cor); color: #04121c; border-color: var(--cor) }
+.botao--cheio:hover { background: #8fd3ff; border-color: #8fd3ff }
+
+/* ---------- sobre ---------- */
+.texto p { color: var(--apagado); max-width: 62ch; margin: 0 0 16px }
+.texto strong { color: var(--texto); font-weight: 600 }
+.cartoes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 32px }
+.cartao { background: var(--painel); border: 1px solid var(--linha); border-radius: 12px; padding: 18px 20px }
+.cartao small { color: var(--apagado); font-size: 11.5px; text-transform: uppercase; letter-spacing: .1em }
+.cartao p { margin: 6px 0 0 }
+
+/* ---------- formação ---------- */
+.linha-tempo { padding-left: 22px; border-left: 1px solid var(--linha) }
+.linha-tempo li { position: relative; padding-bottom: 32px }
+.linha-tempo li::before { content: ""; position: absolute; left: -27px; top: 7px; width: 9px; height: 9px; border-radius: 50%; background: var(--fundo); border: 2px solid var(--cor) }
+.linha-tempo__quando { font-size: 12px; color: var(--cor) }
+.linha-tempo h3 { margin: 4px 0 2px; font-size: 19px }
+.linha-tempo p { margin: 0; color: var(--apagado) }
+
+/* ---------- projetos ---------- */
+.projetos { display: grid; gap: 6px }
+.projeto { position: relative; display: grid; gap: 4px; padding: 20px 22px; margin: 0 -22px; border-radius: 14px; border: 1px solid transparent; isolation: isolate;
+  /* O destaque entra e sai devagar, pousando suave: fundo, borda, sombra e uma subida de 2 px juntos */
+  transition: background-color .5s var(--suave), border-color .5s var(--suave), box-shadow .5s var(--suave), transform .5s var(--suave) }
+/* O brilho que segue o mouse fica numa camada própria, que aparece aos poucos (opacity), em vez de surgir de uma vez */
+.projeto::before { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -1; opacity: 0; transition: opacity .6s var(--suave);
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(var(--cor-rgb), .1), transparent 65%) }
+.projeto:focus-within { background-color: rgba(20, 22, 25, .85); border-color: rgba(var(--cor-rgb), .22) }
+.projeto:focus-within::before { opacity: 1 }
+/* O hover só em aparelho com mouse: no celular, o destaque ficaria "grudado" depois do toque */
 @media (hover: hover) {
-  .spot:hover::before,
-  .spot:hover::after {
-    opacity: 1;
-  }
+.projeto:hover { background-color: rgba(20, 22, 25, .85); border-color: rgba(var(--cor-rgb), .22); transform: translateY(-2px);
+  box-shadow: 0 18px 40px -24px rgba(var(--cor-rgb), .35), 0 2px 8px -4px rgba(0, 0, 0, .5) }
+.projeto:hover::before { opacity: 1 }
+.projeto:hover .projeto__meta > span:not(.projeto__links) { border-color: #30343a; color: #a6abb3 }
 }
+.projeto__topo { display: flex; justify-content: space-between; align-items: center; gap: 16px }
+.projeto h3 { font: 600 17px/1.3 Inter, sans-serif; margin: 0 }
+.projeto h3 small { color: var(--apagado); font-weight: 400; font-size: 15px }
+.projeto > p { margin: 2px 0 0; color: var(--apagado); font-size: 15px; max-width: 72ch }
+.projeto > .projeto__aviso { font-size: 12px }
+.projeto__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; font-size: 11.5px }
+.projeto__meta > span:not(.projeto__links) { border: 1px solid var(--linha); border-radius: 99px; padding: 3px 10px; color: var(--apagado); transition: border-color .5s var(--suave), color .5s var(--suave) }
+.projeto__links { margin-left: auto; display: flex; gap: 14px }
+.projeto__links a { text-decoration: none; transition: color .3s var(--suave) }
+.projeto__links a:hover { color: var(--cor) }
 
-@keyframes blink {
-  50% { opacity: 0; }
-}
+/* Selo do Vigil (posto pelo main.js): "no ar · 99,98%" com o ponto pulsando */
+.selo { display: inline-flex; align-items: center; gap: 8px; font: 500 11.5px/1 "JetBrains Mono", monospace; color: var(--cor); text-decoration: none; white-space: nowrap }
+.selo__ponto { width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: pulsar 2.2s ease-out infinite }
+@keyframes pulsar { 0% { box-shadow: 0 0 0 0 rgba(var(--cor-rgb), .55) } 80%, 100% { box-shadow: 0 0 0 7px rgba(var(--cor-rgb), 0) } }
+.selo--fora { color: var(--erro) } .selo--fora .selo__ponto { animation: none }
+.selo:hover { text-decoration: underline; text-underline-offset: 3px }
 
-@keyframes float {
-  50% { transform: translate(-40px, 40px); }
-}
+/* ---------- habilidades ---------- */
+.habs { display: grid; grid-template-columns: 140px 1fr; gap: 18px 24px; margin: 0 }
+.habs dt { color: var(--apagado); font-size: 12px; padding-top: 6px }
+.habs dd { margin: 0; display: flex; flex-wrap: wrap; gap: 8px }
+.habs dd span { border: 1px solid var(--linha); background: var(--painel); border-radius: 8px; padding: 5px 12px; font-size: 14px;
+  transition: border-color .4s var(--suave), color .4s var(--suave), transform .4s var(--suave) }
+.habs dd span:hover { border-color: rgba(var(--cor-rgb), .5); color: var(--cor); transform: translateY(-1px) }
 
-/* Respeita quem prefere menos animação (ex.: "Efeitos de animação" desligado no
-   Windows): nada se desloca, mas a troca de abas mantém um fade simples */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation: none !important;
-    transition: none !important;
-  }
+/* ---------- contato ---------- */
+.email { display: inline-block; margin-top: 18px; font: 700 clamp(22px, 4vw, 40px)/1.15 Inter, sans-serif; letter-spacing: -.02em; text-decoration: none; overflow-wrap: anywhere;
+  background: linear-gradient(var(--cor), var(--cor)) 0 100% / 0 2px no-repeat; padding-bottom: 4px; transition: background-size .5s var(--suave) }
+.email:hover { background-size: 100% 2px }
+.copiado { color: var(--cor); font-size: 13px; min-height: 1.6em; margin: 12px 0 0 }
 
-  .js-tabs .reveal {
-    opacity: 1;
-  }
-
-  .tab--enter .reveal {
-    animation: aparecer 0.5s ease-out calc(0.1s + var(--grupo, 0) * 0.2s) both !important;
-  }
-
-  .tab--leave {
-    animation: sair 0.15s ease-out both !important;
-  }
-
-  /* No hover, nada sobe nem cresce: só a cor e o brilho mudam */
-  .btn:hover,
-  .card:hover,
-  .card:hover .card__icon,
-  .project:hover,
-  .project:focus-within,
-  .project:hover .project__icon,
-  .project:hover .project__link--site svg,
-  .project__link--site:focus-visible svg,
-  .skills__list li:hover .skills__badge {
-    transform: none;
-  }
-}
-
-@keyframes aparecer {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* =========================================================
-   RESPONSIVO (tablet e celular)
-   ========================================================= */
+/* ---------- celular e tablet ---------- */
 @media (max-width: 860px) {
-  .about {
-    grid-template-columns: 1fr;
-  }
+  /* A coluna da esquerda se desfaz (display: contents): assim a barra de abas, presa no topo, vale
+     durante a página inteira, e não só enquanto a coluna está na tela */
+  .layout { display: block; padding: 0 16px }
+  .lado { display: contents }
+  .nome { display: block; padding-top: 36px }
+  .pulso { margin-top: 16px }
+  /* As abas viram uma barra que rola de lado e fica presa no topo */
+  .abas { position: sticky; top: 0; z-index: 5; display: flex; overflow-x: auto; gap: 18px; margin: 20px -16px 0; padding: 12px 16px;
+    background: rgba(12, 13, 15, .88); backdrop-filter: blur(10px); border-bottom: 1px solid var(--linha); scrollbar-width: none }
+  .abas a { white-space: nowrap; padding: 4px 0 } .abas a::before, .abas__n { display: none }
+  .abas a[aria-current="page"] { color: var(--cor) }
+  /* Um degradê na borda direita mostra que a barra tem mais abas para o lado */
+  .abas { -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent) }
+  .lado__contato { display: none }
+  main { padding-top: 28px; min-height: 0 }
+  .numeros, .cartoes { grid-template-columns: 1fr }
+  .habs { grid-template-columns: 1fr; gap: 6px } .habs dd { margin-bottom: 14px }
+  .projeto { margin: 0 -12px; padding: 16px 12px }
+  .projeto__links { margin-left: 0; width: 100%; margin-top: 4px }
 }
 
-@media (max-width: 720px) {
-  .nav__toggle {
-    display: flex;
-  }
-
-  /* Menu vira um painel que desce do topo */
-  .nav__links {
-    position: fixed;
-    top: var(--header-h);
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    padding: 32px 0;
-    background: rgba(13, 14, 16, 0.97);
-    border-bottom: 1px solid var(--border);
-    transform: translateY(-120%);
-    transition: transform 0.35s ease;
-    z-index: -1;
-  }
-
-  .nav__links--open {
-    transform: translateY(0);
-  }
-
-  .nav__link {
-    font-size: 1.1rem;
-  }
-
-  .nav__link--active {
-    color: var(--accent);
-  }
-
-  .nav__indicator {
-    display: none;
-  }
-
-  .section {
-    padding: calc(var(--header-h) + 32px) 0 72px;
-  }
-
-  .section__title::after {
-    display: none;
-  }
-
-  .about__cards {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .projects {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  /* No celular o texto ocupa a largura toda: escurecido mais leve, senão as faixas somem */
-  .hero__fundo::after {
-    background:
-      radial-gradient(ellipse 90% 45% at 50% 50%, rgb(13 14 16 / 0.75), rgb(13 14 16 / 0.4) 70%, rgb(13 14 16 / 0.15)),
-      linear-gradient(var(--bg), transparent 14%, transparent 86%, var(--bg));
-  }
-
-  .faixa__trilho img {
-    width: 220px;
-    margin-right: 20px;
-  }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto }
+  *, *::before, *::after { animation: none !important; transition: none !important }
+  .projeto:hover, .botao:hover, .habs dd span:hover { transform: none }
 }
