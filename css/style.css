@@ -72,8 +72,22 @@ h1 em { font-style: normal; color: var(--cor) }
 /* ---------- abas (com JavaScript): uma seção por vez; sem JavaScript, todas aparecem ---------- */
 .js-abas main > section { margin-top: 0 }
 .js-abas main > section:not(.aberta) { display: none }
-@keyframes subir { from { opacity: 0; transform: translateY(10px) } }
-.js-abas .entrando .item { animation: subir .5s var(--suave) both; animation-delay: calc(var(--i, 0) * 55ms) }
+@keyframes subir { from { opacity: 0; transform: translateY(16px) } }
+.js-abas .entrando .item { animation: subir .85s var(--suave) both; animation-delay: calc(var(--i, 0) * 90ms) }
+
+/* ---------- luz que segue o mouse ----------
+   Cada card com .luz recebe a posição do mouse (--mx, --my, relativa a ele, posta pelo main.js) e
+   acende a BORDA perto do cursor (um anel de 1 px recortado com mask), mesmo sem o mouse em cima:
+   a luz "vaza" para os cards vizinhos. Some devagar quando o mouse sai da área. */
+.luz { position: relative; isolation: isolate }
+.luz::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none; z-index: 1;
+  background: radial-gradient(240px circle at var(--mx, -999px) var(--my, -999px), rgba(var(--cor-rgb), .7), rgba(var(--cor-rgb), .12) 45%, transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0; transition: opacity .7s var(--suave) }
+.com-luz .luz::after { opacity: 1 }
+/* Dentro do card, um brilho fraco também acompanha o mouse; em cima do card, ele fica mais forte */
+.com-luz .projeto::before { opacity: .45 }
 
 /* ---------- início ---------- */
 .numeros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--linha); border: 1px solid var(--linha); border-radius: 12px; overflow: hidden; margin: 36px 0 }
@@ -106,7 +120,9 @@ h1 em { font-style: normal; color: var(--cor) }
 
 /* ---------- projetos ---------- */
 .projetos { display: grid; gap: 6px }
-.projeto { position: relative; display: grid; gap: 4px; padding: 20px 22px; margin: 0 -22px; border-radius: 14px; border: 1px solid transparent; isolation: isolate;
+.projeto { position: relative; display: grid; gap: 4px; padding: 20px 22px; margin: 0 -22px; border-radius: 14px;
+  /* Uma borda bem apagada sempre: é nela que a luz do mouse acende */
+  border: 1px solid rgba(35, 38, 43, .55);
   /* O destaque entra e sai devagar, pousando suave: fundo, borda, sombra e uma subida de 2 px juntos */
   transition: background-color .5s var(--suave), border-color .5s var(--suave), box-shadow .5s var(--suave), transform .5s var(--suave) }
 /* O brilho que segue o mouse fica numa camada própria, que aparece aos poucos (opacity), em vez de surgir de uma vez */
@@ -139,13 +155,23 @@ h1 em { font-style: normal; color: var(--cor) }
 .selo--fora { color: var(--erro) } .selo--fora .selo__ponto { animation: none }
 .selo:hover { text-decoration: underline; text-underline-offset: 3px }
 
-/* ---------- habilidades ---------- */
-.habs { display: grid; grid-template-columns: 140px 1fr; gap: 18px 24px; margin: 0 }
-.habs dt { color: var(--apagado); font-size: 12px; padding-top: 6px }
-.habs dd { margin: 0; display: flex; flex-wrap: wrap; gap: 8px }
-.habs dd span { border: 1px solid var(--linha); background: var(--painel); border-radius: 8px; padding: 5px 12px; font-size: 14px;
-  transition: border-color .4s var(--suave), color .4s var(--suave), transform .4s var(--suave) }
-.habs dd span:hover { border-color: rgba(var(--cor-rgb), .5); color: var(--cor); transform: translateY(-1px) }
+/* ---------- habilidades: cada uma com o projeto em que foi usada ---------- */
+.habs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 32px }
+.hab { background: rgba(20, 22, 25, .72); border: 1px solid var(--linha); border-radius: 14px; padding: 20px 22px 12px }
+.hab__titulo { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; font-size: 12px; font-weight: 500; color: var(--apagado); text-transform: uppercase; letter-spacing: .14em }
+.hab__glifo { color: var(--cor); letter-spacing: 0; font-weight: 700 }
+.hab li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 10px 0; border-top: 1px solid rgba(35, 38, 43, .8) }
+.hab li:first-child { border-top: 0 }
+.hab__nome { font-size: 15px; font-weight: 500; position: relative; white-space: nowrap; transition: color .4s var(--suave), transform .4s var(--suave) }
+.hab__nome::before { content: ""; position: absolute; left: -12px; top: 50%; width: 5px; height: 5px; margin-top: -2.5px; border-radius: 50%;
+  background: var(--cor); opacity: 0; transform: scale(.4); transition: opacity .4s var(--suave), transform .4s var(--suave) }
+.hab__onde { font-size: 11.5px; color: var(--apagado); text-align: right; transition: color .4s var(--suave) }
+@media (hover: hover) {
+  .hab li:hover .hab__nome { color: var(--cor); transform: translateX(4px) }
+  .hab li:hover .hab__nome::before { opacity: 1; transform: none }
+  .hab li:hover .hab__onde { color: var(--texto) }
+}
+.habs__tambem { margin: 22px 0 0; font-size: 12.5px; color: var(--apagado) }
 
 /* ---------- contato ---------- */
 .email { display: inline-block; margin-top: 18px; font: 700 clamp(22px, 4vw, 40px)/1.15 Inter, sans-serif; letter-spacing: -.02em; text-decoration: none; overflow-wrap: anywhere;
@@ -171,7 +197,8 @@ h1 em { font-style: normal; color: var(--cor) }
   .lado__contato { display: none }
   main { padding-top: 28px; min-height: 0 }
   .numeros, .cartoes { grid-template-columns: 1fr }
-  .habs { grid-template-columns: 1fr; gap: 6px } .habs dd { margin-bottom: 14px }
+  .habs { grid-template-columns: 1fr }
+  .hab li { flex-direction: column; gap: 2px } .hab__onde { text-align: left }
   .projeto { margin: 0 -12px; padding: 16px 12px }
   .projeto__links { margin-left: 0; width: 100%; margin-top: 4px }
 }
@@ -179,5 +206,5 @@ h1 em { font-style: normal; color: var(--cor) }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto }
   *, *::before, *::after { animation: none !important; transition: none !important }
-  .projeto:hover, .botao:hover, .habs dd span:hover { transform: none }
+  .projeto:hover, .botao:hover, .hab li:hover .hab__nome { transform: none }
 }

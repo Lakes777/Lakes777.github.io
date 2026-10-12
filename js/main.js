@@ -1,6 +1,13 @@
 // Portfólio: abas por endereço, fundo de rede em canvas, brilho que segue o mouse nos projetos,
 // números que contam, copiar e-mail e o selo "no ar" ao vivo do Vigil.
 const reduzir = matchMedia("(prefers-reduced-motion: reduce)").matches;
+// Aqui em cima porque a primeira aba abre (e conta os números) logo abaixo, antes do resto do arquivo
+const numero = new Intl.NumberFormat("pt-BR");
+const contagens = new WeakMap(); // a contagem em andamento de cada número (para recomeçar sem duas juntas)
+// Da luz que segue o mouse (a abrirAba também a atualiza)
+const principal = document.querySelector("main");
+let pendente = null;
+let ultimo = null; // a posição mais recente do mouse: vários movimentos podem chegar no mesmo quadro
 
 // =========================================================
 // ABAS: cada seção aparece sozinha, escolhida pelo endereço (#projetos...).
@@ -9,7 +16,6 @@ const reduzir = matchMedia("(prefers-reduced-motion: reduce)").matches;
 document.documentElement.classList.add("js-abas");
 const secoes = Array.from(document.querySelectorAll("main > section[id]"));
 const linksDasAbas = Array.from(document.querySelectorAll(".abas a"));
-const jaContou = new Set();
 
 // Cada bloco da seção entra um pouco depois do anterior (o atraso vem de --i)
 secoes.forEach((secao) => {
@@ -39,10 +45,9 @@ function abrirAba(focar) {
   void atual.offsetWidth;
   atual.classList.add("entrando");
 
-  if (!jaContou.has(atual.id)) {
-    jaContou.add(atual.id);
-    atual.querySelectorAll("[data-contar]").forEach(contar);
-  }
+  atualizarLuz();
+  // Os números contam toda vez que a aba abre (a contagem é curta)
+  atual.querySelectorAll("[data-contar]").forEach(contar);
   // Cada aba começa do topo: sem isso, abrir "#projetos" rolaria até a seção, como numa âncora comum.
   // Ao trocar pelo menu, o foco vai para o título (quem usa leitor de tela ouve onde está).
   window.scrollTo({ top: 0, behavior: "instant" });
@@ -62,22 +67,28 @@ abrirAba(false);
 window.addEventListener("load", () => window.scrollTo({ top: 0, behavior: "instant" }), { once: true });
 
 // =========================================================
-// NÚMEROS que contam até o valor (só na primeira vez que a aba abre)
+// NÚMEROS que contam até o valor, toda vez que a aba abre
 // =========================================================
-const numero = new Intl.NumberFormat("pt-BR");
 function contar(elemento) {
   const alvo = Number(elemento.dataset.contar);
   const sufixo = elemento.dataset.sufixo || "";
   if (reduzir) return; // o HTML já traz o valor final
-  const inicio = performance.now();
-  const duracao = 1100;
+  cancelAnimationFrame(contagens.get(elemento));
+  elemento.textContent = "0" + sufixo;
+  // Começa depois que o bloco termina de entrar (o atraso dele vem de --i) e conta o tempo a partir
+  // do primeiro quadro desenhado: medido de antes, uma página lenta para aparecer pularia direto ao fim
+  const bloco = elemento.closest(".item");
+  const espera = 250 + Number(bloco?.style.getPropertyValue("--i") || 0) * 90;
+  const duracao = 1400;
+  let inicio = null;
   const passo = (agora) => {
-    const t = Math.min(1, (agora - inicio) / duracao);
-    const suave = 1 - Math.pow(1 - t, 3);
+    inicio ??= agora + espera;
+    const t = Math.min(1, Math.max(0, (agora - inicio) / duracao));
+    const suave = 1 - Math.pow(1 - t, 4);
     elemento.textContent = numero.format(Math.round(alvo * suave)) + sufixo;
-    if (t < 1) requestAnimationFrame(passo);
+    if (t < 1) contagens.set(elemento, requestAnimationFrame(passo));
   };
-  requestAnimationFrame(passo);
+  contagens.set(elemento, requestAnimationFrame(passo));
 }
 
 // =========================================================
@@ -160,20 +171,36 @@ ajustarRede();
 ligarRede();
 
 // =========================================================
-// BRILHO QUE SEGUE O MOUSE dentro de cada projeto (só no que está embaixo do mouse,
-// no máximo uma vez por quadro)
+// LUZ QUE SEGUE O MOUSE: todos os cards da aba aberta recebem a posição do mouse relativa a cada
+// um, e a borda perto do cursor acende, mesmo sem o mouse em cima do card (no máximo uma vez por quadro)
 // =========================================================
-let pendente = null;
-document.querySelector(".projetos").addEventListener("pointermove", (e) => {
-  const card = e.target.closest(".projeto");
-  if (!card) return;
-  if (pendente) cancelAnimationFrame(pendente);
+const comMouse = matchMedia("(hover: hover)").matches;
+
+// Recalcula a luz no próximo quadro: ao mexer o mouse, ao rolar (os cards andam, o mouse não) e ao
+// trocar de aba (os cards da aba nova guardavam a posição de quando ela esteve aberta)
+function atualizarLuz() {
+  if (!ultimo || pendente) return;
   pendente = requestAnimationFrame(() => {
-    const r = card.getBoundingClientRect();
-    card.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    card.style.setProperty("--my", `${e.clientY - r.top}px`);
+    pendente = null;
+    const cards = Array.from(principal.querySelectorAll("section.aberta .luz"));
+    // Primeiro mede todos, depois escreve todos: medir logo depois de escrever obrigaria o navegador
+    // a recalcular o estilo a cada card
+    const caixas = cards.map((card) => card.getBoundingClientRect());
+    cards.forEach((card, i) => {
+      card.style.setProperty("--mx", `${ultimo.x - caixas[i].left}px`);
+      card.style.setProperty("--my", `${ultimo.y - caixas[i].top}px`);
+    });
   });
-}, { passive: true });
+}
+if (comMouse) {
+  principal.addEventListener("pointermove", (e) => {
+    ultimo = { x: e.clientX, y: e.clientY };
+    principal.classList.add("com-luz");
+    atualizarLuz();
+  }, { passive: true });
+  principal.addEventListener("pointerleave", () => principal.classList.remove("com-luz"));
+  window.addEventListener("scroll", atualizarLuz, { passive: true });
+}
 
 // =========================================================
 // COPIAR E-MAIL

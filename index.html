@@ -56,7 +56,7 @@
       <!-- ===== INÍCIO ===== -->
       <section id="inicio" aria-labelledby="t-inicio">
         <p class="rotulo mono">início</p>
-        <h1 class="item" id="t-inicio" tabindex="-1">Eu construo back‑ends <em>que ficam no ar.</em></h1>
+        <h1 class="item" id="t-inicio" tabindex="-1">Do banco de dados <em>ao deploy.</em></h1>
         <p class="lead item">Estudante de Engenharia de Software na PUC-PR, em Curitiba. APIs em Java, Go, C# e Python, SQL escrito à mão, testes em tudo e deploy com Docker.</p>
         <div class="numeros item">
           <div><b data-contar="10">10</b><small>projetos no GitHub</small></div>
@@ -81,10 +81,10 @@
           <p>Estou em busca de oportunidades em <strong>desenvolvimento</strong>, <strong>suporte técnico</strong> ou <strong>análise de dados</strong>, onde eu possa aplicar o que sei e continuar aprendendo.</p>
         </div>
         <ul class="cartoes item">
-          <li class="cartao"><small class="mono">formação</small><p>Eng. de Software · PUC-PR</p></li>
-          <li class="cartao"><small class="mono">back-end</small><p>Java, Go, C# e Python</p></li>
-          <li class="cartao"><small class="mono">deploy</small><p>Docker, Linux e GitHub Actions</p></li>
-          <li class="cartao"><small class="mono">idiomas</small><p>Inglês intermediário</p></li>
+          <li class="cartao luz"><small class="mono">formação</small><p>Eng. de Software · PUC-PR</p></li>
+          <li class="cartao luz"><small class="mono">back-end</small><p>Java, Go, C# e Python</p></li>
+          <li class="cartao luz"><small class="mono">deploy</small><p>Docker, Linux e GitHub Actions</p></li>
+          <li class="cartao luz"><small class="mono">idiomas</small><p>Inglês intermediário</p></li>
         </ul>
       </section>
 
@@ -113,7 +113,7 @@
         <p class="rotulo mono">projetos</p>
         <h2 class="item" id="t-projetos" tabindex="-1">Projetos</h2>
         <div class="projetos">
-          <article class="projeto item" data-vigil="Vigil">
+          <article class="projeto luz item" data-vigil="Vigil">
             <div class="projeto__topo"><h3>Vigil <small>· monitor de status</small></h3></div>
             <p>API em Java com Spring Boot que verifica os meus sites a cada 5 minutos, calcula disponibilidade e quedas em SQL e avisa pelo Telegram, com resumo semanal. Spring Security, proteção contra SSRF e página pública de status.</p>
             <div class="projeto__meta mono">
@@ -122,7 +122,7 @@
             </div>
           </article>
 
-          <article class="projeto item" data-vigil="Pursuit">
+          <article class="projeto luz item" data-vigil="Pursuit">
             <div class="projeto__topo"><h3>Pursuit <small>· candidaturas a vagas</small></h3></div>
             <p>Meu primeiro projeto em Go: quadro por etapa, funil e tempo de resposta em SQL, lembretes pelo Telegram feitos por uma goroutine e um link do Beacon por vaga, que mostra se a empresa abriu o portfólio.</p>
             <div class="projeto__meta mono">
@@ -131,7 +131,7 @@
             </div>
           </article>
 
-          <article class="projeto item" data-vigil="Beacon">
+          <article class="projeto luz item" data-vigil="Beacon">
             <div class="projeto__topo"><h3>Beacon <small>· links com estatísticas</small></h3></div>
             <p>Meu primeiro projeto em C# com .NET: encurtador de links com cache no Redis e cliques processados depois por uma fila no RabbitMQ, sem contar em dobro. Painel com gráficos e QR code, seis contêineres numa VM ARM da Oracle.</p>
             <div class="projeto__meta mono">
@@ -140,7 +140,7 @@
             </div>
           </article>
 
-          <article class="projeto item" data-vigil="Coursebook">
+          <article class="projeto luz item" data-vigil="Coursebook">
             <div class="projeto__topo"><h3>Coursebook <small>· painel de estudos</small></h3></div>
             <p>Painel da faculdade: notas por RA, faltas, agenda e a nota que falta para passar pela regra da PUC-PR. Funciona offline e sincroniza entre aparelhos com conta; acessível por teclado e leitor de tela.</p>
             <div class="projeto__meta mono">
@@ -149,7 +149,7 @@
             </div>
           </article>
 
-          <article class="projeto item" data-vigil="Spendwise">
+          <article class="projeto luz item" data-vigil="Spendwise">
             <div class="projeto__topo"><h3>Spendwise <small>· controle de gastos</small></h3></div>
             <p>Importa extratos do Nubank e OFX de qualquer banco sem duplicar, lembra a categoria de cada loja e alerta o orçamento. Versão de terminal e web em FastAPI com login seguro e demo isolada por visitante.</p>
             <div class="projeto__meta mono">
@@ -158,7 +158,7 @@
             </div>
           </article>
 
-          <article class="projeto item">
+          <article class="projeto luz item">
             <div class="projeto__topo"><h3>Encore <small>· karaokê com IA</small></h3></div>
             <p>Busca no YouTube, separa voz e instrumental com modelos de IA, detecta o tom e sincroniza a letra. Processa em pedaços para caber em 4 GB de RAM, com fila em segundo plano.</p>
             <div class="projeto__meta mono">
@@ -167,7 +167,7 @@
             </div>
           </article>
 
-          <article class="projeto item" data-vigil="Hanami">
+          <article class="projeto luz item" data-vigil="Hanami">
             <div class="projeto__topo"><h3>Hanami <small>· lista de animes</small></h3></div>
             <p>API REST que junta as temporadas de cada franquia, com comentários por episódio, e continua funcionando quando a API externa cai.</p>
             <p class="projeto__aviso mono" id="aviso-hanami">o servidor gratuito pode levar ~1 min para acordar</p>
@@ -177,7 +177,7 @@
             </div>
           </article>
 
-          <article class="projeto item">
+          <article class="projeto luz item">
             <div class="projeto__topo"><h3>Sidekick <small>· bot do Telegram</small></h3></div>
             <p>Cotações com alertas de preço, clima, lembretes e listas, rodando 24 horas numa VM Linux da Oracle como serviço do systemd.</p>
             <div class="projeto__meta mono">
@@ -186,7 +186,7 @@
             </div>
           </article>
 
-          <article class="projeto item">
+          <article class="projeto luz item">
             <div class="projeto__topo"><h3>Tidy <small>· organizador de arquivos</small></h3></div>
             <p>Organiza pastas por tipo ou data, acha duplicados por SHA-256 e desfaz mudanças, sem nunca sobrescrever arquivos.</p>
             <div class="projeto__meta mono">
@@ -195,7 +195,7 @@
             </div>
           </article>
 
-          <article class="projeto item" data-vigil="Portfólio">
+          <article class="projeto luz item" data-vigil="Portfólio">
             <div class="projeto__topo"><h3>Este portfólio</h3></div>
             <p>HTML, CSS e JavaScript puros, sem frameworks: abas por endereço, fundo animado em canvas e o selo ao vivo do Vigil em cada projeto.</p>
             <div class="projeto__meta mono">
@@ -210,13 +210,50 @@
       <section id="habilidades" aria-labelledby="t-habilidades">
         <p class="rotulo mono">habilidades</p>
         <h2 class="item" id="t-habilidades" tabindex="-1">Habilidades</h2>
-        <dl class="habs item">
-          <dt class="mono">back-end</dt><dd><span>Java</span><span>Spring Boot</span><span>Go</span><span>C# / .NET</span><span>Python</span><span>FastAPI</span></dd>
-          <dt class="mono">dados</dt><dd><span>PostgreSQL</span><span>Redis</span><span>RabbitMQ</span><span>SQLite</span><span>MySQL</span></dd>
-          <dt class="mono">front-end</dt><dd><span>TypeScript</span><span>React</span><span>JavaScript</span><span>HTML</span><span>CSS</span></dd>
-          <dt class="mono">deploy</dt><dd><span>Docker</span><span>Linux</span><span>GitHub Actions</span><span>Oracle Cloud</span><span>Vercel</span></dd>
-          <dt class="mono">também</dt><dd><span>ESP32</span><span>Arduino</span><span>Manutenção de PCs</span><span>Trabalho em equipe</span></dd>
-        </dl>
+        <p class="lead item">Cada uma com onde eu usei; os projetos estão todos na aba <a href="#projetos">projetos</a>.</p>
+        <div class="habs item">
+          <div class="hab luz">
+            <h3 class="hab__titulo mono"><span class="hab__glifo" aria-hidden="true">{ }</span>back-end</h3>
+            <ul>
+              <li><span class="hab__nome">Java</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil</span></li>
+              <li><span class="hab__nome">Spring Boot</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil</span></li>
+              <li><span class="hab__nome">Go</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Pursuit</span></li>
+              <li><span class="hab__nome">C# / .NET</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Beacon</span></li>
+              <li><span class="hab__nome">Python</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Spendwise · Hanami · Encore · Sidekick · Tidy</span></li>
+              <li><span class="hab__nome">FastAPI</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Spendwise · Hanami · Encore</span></li>
+            </ul>
+          </div>
+          <div class="hab luz">
+            <h3 class="hab__titulo mono"><span class="hab__glifo" aria-hidden="true">[ ]</span>dados</h3>
+            <ul>
+              <li><span class="hab__nome">PostgreSQL</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil · Pursuit · Beacon · Spendwise · Coursebook</span></li>
+              <li><span class="hab__nome">Redis</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Beacon (cache)</span></li>
+              <li><span class="hab__nome">RabbitMQ</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Beacon (fila)</span></li>
+              <li><span class="hab__nome">SQLite</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Hanami · Sidekick · Spendwise</span></li>
+              <li><span class="hab__nome">MySQL</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">faculdade</span></li>
+            </ul>
+          </div>
+          <div class="hab luz">
+            <h3 class="hab__titulo mono"><span class="hab__glifo" aria-hidden="true">&lt;/&gt;</span>front-end</h3>
+            <ul>
+              <li><span class="hab__nome">TypeScript</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Coursebook · Encore</span></li>
+              <li><span class="hab__nome">React</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Coursebook · Encore</span></li>
+              <li><span class="hab__nome">JavaScript</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil · Pursuit · Beacon · Spendwise · Hanami · este site</span></li>
+              <li><span class="hab__nome">HTML e CSS</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">todos os projetos com interface</span></li>
+            </ul>
+          </div>
+          <div class="hab luz">
+            <h3 class="hab__titulo mono"><span class="hab__glifo" aria-hidden="true">$_</span>deploy</h3>
+            <ul>
+              <li><span class="hab__nome">Docker</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil · Pursuit · Beacon</span></li>
+              <li><span class="hab__nome">Linux</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">VMs da Oracle, systemd</span></li>
+              <li><span class="hab__nome">GitHub Actions</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">testes e CI nos 9 projetos de código</span></li>
+              <li><span class="hab__nome">Oracle Cloud</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil · Pursuit · Beacon · Sidekick</span></li>
+              <li><span class="hab__nome">Vercel</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Coursebook · Spendwise</span></li>
+            </ul>
+          </div>
+        </div>
+        <p class="habs__tambem item mono">também: ESP32 e Arduino (protótipos de IoT) · manutenção de computadores · inglês intermediário</p>
       </section>
 
       <!-- ===== CONTATO ===== -->
