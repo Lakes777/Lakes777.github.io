@@ -78,7 +78,8 @@ h1 em { font-style: normal; color: var(--cor) }
 /* ---------- luz que segue o mouse ----------
    Cada card com .luz recebe a posição do mouse (--mx, --my, relativa a ele, posta pelo main.js) e
    acende a BORDA perto do cursor (um anel de 1 px recortado com mask), mesmo sem o mouse em cima:
-   a luz "vaza" para os cards vizinhos. Some devagar quando o mouse sai da área. */
+   a luz "vaza" para os cards vizinhos e até para os cards invisíveis dos projetos, cuja borda aparece
+   só perto do cursor. Some devagar quando o mouse sai da janela. */
 .luz { position: relative; isolation: isolate }
 .luz::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none; z-index: 1;
   background: radial-gradient(240px circle at var(--mx, -999px) var(--my, -999px), rgba(var(--cor-rgb), .7), rgba(var(--cor-rgb), .12) 45%, transparent 70%);
@@ -86,8 +87,6 @@ h1 em { font-style: normal; color: var(--cor) }
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
   opacity: 0; transition: opacity .7s var(--suave) }
 .com-luz .luz::after { opacity: 1 }
-/* Dentro do card, um brilho fraco também acompanha o mouse; em cima do card, ele fica mais forte */
-.com-luz .projeto::before { opacity: .45 }
 
 /* ---------- início ---------- */
 .numeros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--linha); border: 1px solid var(--linha); border-radius: 12px; overflow: hidden; margin: 36px 0 }
@@ -121,8 +120,8 @@ h1 em { font-style: normal; color: var(--cor) }
 /* ---------- projetos ---------- */
 .projetos { display: grid; gap: 6px }
 .projeto { position: relative; display: grid; gap: 4px; padding: 20px 22px; margin: 0 -22px; border-radius: 14px;
-  /* Uma borda bem apagada sempre: é nela que a luz do mouse acende */
-  border: 1px solid rgba(35, 38, 43, .55);
+  /* Invisível até o mouse chegar: só a luz (o anel do .luz::after) acende a borda perto do cursor */
+  border: 1px solid transparent;
   /* O destaque entra e sai devagar, pousando suave: fundo, borda, sombra e uma subida de 2 px juntos */
   transition: background-color .5s var(--suave), border-color .5s var(--suave), box-shadow .5s var(--suave), transform .5s var(--suave) }
 /* O brilho que segue o mouse fica numa camada própria, que aparece aos poucos (opacity), em vez de surgir de uma vez */

@@ -193,12 +193,15 @@ function atualizarLuz() {
   });
 }
 if (comMouse) {
-  principal.addEventListener("pointermove", (e) => {
+  // A página inteira, e não só o <main>: com o mouse no espaço entre as colunas, ao lado de um card,
+  // a borda dele já acende
+  const raiz = document.documentElement;
+  window.addEventListener("pointermove", (e) => {
     ultimo = { x: e.clientX, y: e.clientY };
-    principal.classList.add("com-luz");
+    raiz.classList.add("com-luz");
     atualizarLuz();
   }, { passive: true });
-  principal.addEventListener("pointerleave", () => principal.classList.remove("com-luz"));
+  raiz.addEventListener("mouseleave", () => raiz.classList.remove("com-luz"));
   window.addEventListener("scroll", atualizarLuz, { passive: true });
 }
 
