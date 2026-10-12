@@ -127,8 +127,10 @@ h1 em { font-style: normal; color: var(--cor) }
 /* O brilho que segue o mouse fica numa camada própria, que aparece aos poucos (opacity), em vez de surgir de uma vez */
 .projeto::before { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -1; opacity: 0; transition: opacity .6s var(--suave);
   background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(var(--cor-rgb), .1), transparent 65%) }
-.projeto:focus-within { background-color: rgba(20, 22, 25, .85); border-color: rgba(var(--cor-rgb), .22) }
-.projeto:focus-within::before { opacity: 1 }
+/* Destaque por foco só com o TECLADO (:focus-visible): depois de um clique com o mouse o link continua
+   focado, e com :focus-within o card ficaria "aceso" até clicar em outro lugar */
+.projeto:has(:focus-visible) { background-color: rgba(20, 22, 25, .85); border-color: rgba(var(--cor-rgb), .22) }
+.projeto:has(:focus-visible)::before { opacity: 1 }
 /* O hover só em aparelho com mouse: no celular, o destaque ficaria "grudado" depois do toque */
 @media (hover: hover) {
 .projeto:hover { background-color: rgba(20, 22, 25, .85); border-color: rgba(var(--cor-rgb), .22); transform: translateY(-2px);
