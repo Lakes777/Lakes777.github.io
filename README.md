@@ -26,7 +26,9 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 - **Fundo de rede**: pontos que andam devagar e se ligam quando ficam perto, como um mapa de serviços,
   desenhados num `<canvas>`; perto do mouse, acendem. A animação para quando a aba do navegador fica escondida
 - **Pulso embaixo do nome**: uma linha de batimento animada, o mesmo tema do [Vigil](https://github.com/Lakes777/vigil)
-- **Cards de projeto com destaque suave**: fundo, borda, sombra e uma leve subida entram juntos e devagar
+- **Cards de projeto clicáveis**: invisíveis até o mouse chegar, o card inteiro leva ao site do projeto
+  (ou ao código, quando não há site), e o ícone do GitHub leva ao repositório. O destaque é suave:
+  fundo, borda, sombra e uma leve subida entram juntos e devagar
 - **Luz que segue o mouse**: a borda dos cards (projetos, habilidades e os cartões do Sobre) acende perto
   do cursor, mesmo sem o mouse em cima, e um brilho fraco acompanha o mouse por dentro dos projetos
 - **Habilidades ligadas aos projetos**: cada uma mostra onde foi usada (Go no Pursuit, Redis no Beacon...)

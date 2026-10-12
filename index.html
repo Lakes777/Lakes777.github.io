@@ -108,99 +108,100 @@
       </section>
 
       <!-- ===== PROJETOS ===== -->
-      <!-- data-vigil: o nome do serviço no Vigil; o main.js põe o selo "no ar" ao vivo no topo do card -->
+      <!-- data-vigil: o nome do serviço no Vigil; o main.js põe o selo "no ar" ao vivo no topo do card.
+           O título é o link do card inteiro (o ::after dele cobre o card); o ícone do GitHub e o selo ficam por cima -->
       <section id="projetos" aria-labelledby="t-projetos">
         <p class="rotulo mono">projetos</p>
         <h2 class="item" id="t-projetos" tabindex="-1">Projetos</h2>
         <div class="projetos">
           <article class="projeto luz item" data-vigil="Vigil">
-            <div class="projeto__topo"><h3>Vigil <small>· monitor de status</small></h3></div>
+            <div class="projeto__topo"><h3><a class="projeto__link" href="https://147-15-40-173.sslip.io" target="_blank" rel="noopener">Vigil <small>· monitor de status</small></a></h3></div>
             <p>API em Java com Spring Boot que verifica os meus sites a cada 5 minutos, calcula disponibilidade e quedas em SQL e avisa pelo Telegram, com resumo semanal. Spring Security, proteção contra SSRF e página pública de status.</p>
             <div class="projeto__meta mono">
               <span>Java</span><span>Spring Boot</span><span>PostgreSQL</span><span>Docker</span><span>198 testes</span>
-              <span class="projeto__links"><a href="https://147-15-40-173.sslip.io" target="_blank" rel="noopener">abrir<span class="so-leitor"> o Vigil (página de status)</span> <span aria-hidden="true">↗</span></a><a href="https://github.com/Lakes777/vigil" target="_blank" rel="noopener">código<span class="so-leitor"> do Vigil no GitHub</span> <span aria-hidden="true">↗</span></a></span>
+              <a class="projeto__github" href="https://github.com/Lakes777/vigil" target="_blank" rel="noopener" aria-label="Código do Vigil no GitHub" title="Código no GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
             </div>
           </article>
 
           <article class="projeto luz item" data-vigil="Pursuit">
-            <div class="projeto__topo"><h3>Pursuit <small>· candidaturas a vagas</small></h3></div>
+            <div class="projeto__topo"><h3><a class="projeto__link" href="https://pursuit.147-15-40-173.sslip.io" target="_blank" rel="noopener" aria-label="Abrir o Pursuit (uso pessoal, pede login)">Pursuit <small>· candidaturas a vagas</small></a></h3></div>
             <p>Meu primeiro projeto em Go: quadro por etapa, funil e tempo de resposta em SQL, lembretes pelo Telegram feitos por uma goroutine e um link do Beacon por vaga, que mostra se a empresa abriu o portfólio.</p>
             <div class="projeto__meta mono">
               <span>Go</span><span>PostgreSQL</span><span>sqlc</span><span>Docker</span><span>184 testes</span>
-              <span class="projeto__links"><a href="https://pursuit.147-15-40-173.sslip.io" target="_blank" rel="noopener" aria-label="Abrir o Pursuit (uso pessoal, pede login)">abrir <span aria-hidden="true">↗</span></a><a href="https://github.com/Lakes777/pursuit" target="_blank" rel="noopener">código<span class="so-leitor"> do Pursuit no GitHub</span> <span aria-hidden="true">↗</span></a></span>
+              <a class="projeto__github" href="https://github.com/Lakes777/pursuit" target="_blank" rel="noopener" aria-label="Código do Pursuit no GitHub" title="Código no GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
             </div>
           </article>
 
           <article class="projeto luz item" data-vigil="Beacon">
-            <div class="projeto__topo"><h3>Beacon <small>· links com estatísticas</small></h3></div>
+            <div class="projeto__topo"><h3><a class="projeto__link" href="https://159-112-189-95.sslip.io" target="_blank" rel="noopener" aria-label="Abrir o Beacon (uso pessoal, pede login)">Beacon <small>· links com estatísticas</small></a></h3></div>
             <p>Meu primeiro projeto em C# com .NET: encurtador de links com cache no Redis e cliques processados depois por uma fila no RabbitMQ, sem contar em dobro. Painel com gráficos e QR code, seis contêineres numa VM ARM da Oracle.</p>
             <div class="projeto__meta mono">
               <span>C#</span><span>.NET</span><span>Redis</span><span>RabbitMQ</span><span>191 testes</span>
-              <span class="projeto__links"><a href="https://159-112-189-95.sslip.io" target="_blank" rel="noopener" aria-label="Abrir o Beacon (uso pessoal, pede login)">abrir <span aria-hidden="true">↗</span></a><a href="https://github.com/Lakes777/beacon" target="_blank" rel="noopener">código<span class="so-leitor"> do Beacon no GitHub</span> <span aria-hidden="true">↗</span></a></span>
+              <a class="projeto__github" href="https://github.com/Lakes777/beacon" target="_blank" rel="noopener" aria-label="Código do Beacon no GitHub" title="Código no GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
             </div>
           </article>
 
           <article class="projeto luz item" data-vigil="Coursebook">
-            <div class="projeto__topo"><h3>Coursebook <small>· painel de estudos</small></h3></div>
+            <div class="projeto__topo"><h3><a class="projeto__link" href="https://coursebookalp.vercel.app" target="_blank" rel="noopener">Coursebook <small>· painel de estudos</small></a></h3></div>
             <p>Painel da faculdade: notas por RA, faltas, agenda e a nota que falta para passar pela regra da PUC-PR. Funciona offline e sincroniza entre aparelhos com conta; acessível por teclado e leitor de tela.</p>
             <div class="projeto__meta mono">
               <span>React</span><span>TypeScript</span><span>PostgreSQL</span><span>806 testes</span>
-              <span class="projeto__links"><a href="https://coursebookalp.vercel.app" target="_blank" rel="noopener">abrir<span class="so-leitor"> o Coursebook</span> <span aria-hidden="true">↗</span></a><a href="https://github.com/Lakes777/coursebook" target="_blank" rel="noopener">código<span class="so-leitor"> do Coursebook no GitHub</span> <span aria-hidden="true">↗</span></a></span>
+              <a class="projeto__github" href="https://github.com/Lakes777/coursebook" target="_blank" rel="noopener" aria-label="Código do Coursebook no GitHub" title="Código no GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
             </div>
           </article>
 
           <article class="projeto luz item" data-vigil="Spendwise">
-            <div class="projeto__topo"><h3>Spendwise <small>· controle de gastos</small></h3></div>
+            <div class="projeto__topo"><h3><a class="projeto__link" href="https://spendwisealp.vercel.app" target="_blank" rel="noopener">Spendwise <small>· controle de gastos</small></a></h3></div>
             <p>Importa extratos do Nubank e OFX de qualquer banco sem duplicar, lembra a categoria de cada loja e alerta o orçamento. Versão de terminal e web em FastAPI com login seguro e demo isolada por visitante.</p>
             <div class="projeto__meta mono">
               <span>Python</span><span>FastAPI</span><span>PostgreSQL</span><span>412 testes</span>
-              <span class="projeto__links"><a href="https://spendwisealp.vercel.app" target="_blank" rel="noopener">abrir<span class="so-leitor"> o Spendwise</span> <span aria-hidden="true">↗</span></a><a href="https://github.com/Lakes777/spendwise" target="_blank" rel="noopener">código<span class="so-leitor"> do Spendwise no GitHub</span> <span aria-hidden="true">↗</span></a></span>
+              <a class="projeto__github" href="https://github.com/Lakes777/spendwise" target="_blank" rel="noopener" aria-label="Código do Spendwise no GitHub" title="Código no GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
             </div>
           </article>
 
           <article class="projeto luz item">
-            <div class="projeto__topo"><h3>Encore <small>· karaokê com IA</small></h3></div>
+            <div class="projeto__topo"><h3><a class="projeto__link" href="https://github.com/Lakes777/encore" target="_blank" rel="noopener" aria-label="Encore: código no GitHub">Encore <small>· karaokê com IA</small></a></h3></div>
             <p>Busca no YouTube, separa voz e instrumental com modelos de IA, detecta o tom e sincroniza a letra. Processa em pedaços para caber em 4 GB de RAM, com fila em segundo plano.</p>
             <div class="projeto__meta mono">
               <span>Python</span><span>PyTorch</span><span>React</span><span>513 testes</span>
-              <span class="projeto__links"><a href="https://github.com/Lakes777/encore" target="_blank" rel="noopener">código<span class="so-leitor"> do Encore no GitHub</span> <span aria-hidden="true">↗</span></a></span>
+              <a class="projeto__github" href="https://github.com/Lakes777/encore" target="_blank" rel="noopener" aria-label="Código do Encore no GitHub" title="Código no GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
             </div>
           </article>
 
           <article class="projeto luz item" data-vigil="Hanami">
-            <div class="projeto__topo"><h3>Hanami <small>· lista de animes</small></h3></div>
+            <div class="projeto__topo"><h3><a class="projeto__link" href="https://lista-animes-b8ql.onrender.com" target="_blank" rel="noopener" aria-describedby="aviso-hanami">Hanami <small>· lista de animes</small></a></h3></div>
             <p>API REST que junta as temporadas de cada franquia, com comentários por episódio, e continua funcionando quando a API externa cai.</p>
             <p class="projeto__aviso mono" id="aviso-hanami">o servidor gratuito pode levar ~1 min para acordar</p>
             <div class="projeto__meta mono">
               <span>Python</span><span>FastAPI</span><span>SQLite</span><span>209 testes</span>
-              <span class="projeto__links"><a href="https://lista-animes-b8ql.onrender.com" target="_blank" rel="noopener" aria-describedby="aviso-hanami">abrir<span class="so-leitor"> o Hanami</span> <span aria-hidden="true">↗</span></a><a href="https://github.com/Lakes777/hanami" target="_blank" rel="noopener">código<span class="so-leitor"> do Hanami no GitHub</span> <span aria-hidden="true">↗</span></a></span>
+              <a class="projeto__github" href="https://github.com/Lakes777/hanami" target="_blank" rel="noopener" aria-label="Código do Hanami no GitHub" title="Código no GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
             </div>
           </article>
 
           <article class="projeto luz item">
-            <div class="projeto__topo"><h3>Sidekick <small>· bot do Telegram</small></h3></div>
+            <div class="projeto__topo"><h3><a class="projeto__link" href="https://github.com/Lakes777/sidekick" target="_blank" rel="noopener" aria-label="Sidekick: código no GitHub">Sidekick <small>· bot do Telegram</small></a></h3></div>
             <p>Cotações com alertas de preço, clima, lembretes e listas, rodando 24 horas numa VM Linux da Oracle como serviço do systemd.</p>
             <div class="projeto__meta mono">
               <span>Python</span><span>SQLite</span><span>Linux</span><span>708 testes</span>
-              <span class="projeto__links"><a href="https://github.com/Lakes777/sidekick" target="_blank" rel="noopener">código<span class="so-leitor"> do Sidekick no GitHub</span> <span aria-hidden="true">↗</span></a></span>
+              <a class="projeto__github" href="https://github.com/Lakes777/sidekick" target="_blank" rel="noopener" aria-label="Código do Sidekick no GitHub" title="Código no GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
             </div>
           </article>
 
           <article class="projeto luz item">
-            <div class="projeto__topo"><h3>Tidy <small>· organizador de arquivos</small></h3></div>
+            <div class="projeto__topo"><h3><a class="projeto__link" href="https://github.com/Lakes777/tidy" target="_blank" rel="noopener" aria-label="Tidy: código no GitHub">Tidy <small>· organizador de arquivos</small></a></h3></div>
             <p>Organiza pastas por tipo ou data, acha duplicados por SHA-256 e desfaz mudanças, sem nunca sobrescrever arquivos.</p>
             <div class="projeto__meta mono">
               <span>Python</span><span>91 testes</span>
-              <span class="projeto__links"><a href="https://github.com/Lakes777/tidy" target="_blank" rel="noopener">código<span class="so-leitor"> do Tidy no GitHub</span> <span aria-hidden="true">↗</span></a></span>
+              <a class="projeto__github" href="https://github.com/Lakes777/tidy" target="_blank" rel="noopener" aria-label="Código do Tidy no GitHub" title="Código no GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
             </div>
           </article>
 
           <article class="projeto luz item" data-vigil="Portfólio">
-            <div class="projeto__topo"><h3>Este portfólio</h3></div>
+            <div class="projeto__topo"><h3><a class="projeto__link" href="https://github.com/Lakes777/Lakes777.github.io" target="_blank" rel="noopener" aria-label="Este portfólio: código no GitHub">Este portfólio</a></h3></div>
             <p>HTML, CSS e JavaScript puros, sem frameworks: abas por endereço, fundo animado em canvas e o selo ao vivo do Vigil em cada projeto.</p>
             <div class="projeto__meta mono">
               <span>HTML</span><span>CSS</span><span>JavaScript</span>
-              <span class="projeto__links"><a href="https://github.com/Lakes777/Lakes777.github.io" target="_blank" rel="noopener">código<span class="so-leitor"> do portfólio no GitHub</span> <span aria-hidden="true">↗</span></a></span>
+              <a class="projeto__github" href="https://github.com/Lakes777/Lakes777.github.io" target="_blank" rel="noopener" aria-label="Código do portfólio no GitHub" title="Código no GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
             </div>
           </article>
         </div>

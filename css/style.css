@@ -134,7 +134,8 @@ h1 em { font-style: normal; color: var(--cor) }
 .projeto:hover { background-color: rgba(20, 22, 25, .85); border-color: rgba(var(--cor-rgb), .22); transform: translateY(-2px);
   box-shadow: 0 18px 40px -24px rgba(var(--cor-rgb), .35), 0 2px 8px -4px rgba(0, 0, 0, .5) }
 .projeto:hover::before { opacity: 1 }
-.projeto:hover .projeto__meta > span:not(.projeto__links) { border-color: #30343a; color: #a6abb3 }
+.projeto:hover .projeto__link { color: var(--cor) }
+.projeto:hover .projeto__meta > span { border-color: #30343a; color: #a6abb3 }
 }
 .projeto__topo { display: flex; justify-content: space-between; align-items: center; gap: 16px }
 .projeto h3 { font: 600 17px/1.3 Inter, sans-serif; margin: 0 }
@@ -142,13 +143,20 @@ h1 em { font-style: normal; color: var(--cor) }
 .projeto > p { margin: 2px 0 0; color: var(--apagado); font-size: 15px; max-width: 72ch }
 .projeto > .projeto__aviso { font-size: 12px }
 .projeto__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; font-size: 11.5px }
-.projeto__meta > span:not(.projeto__links) { border: 1px solid var(--linha); border-radius: 99px; padding: 3px 10px; color: var(--apagado); transition: border-color .5s var(--suave), color .5s var(--suave) }
-.projeto__links { margin-left: auto; display: flex; gap: 14px }
-.projeto__links a { text-decoration: none; transition: color .3s var(--suave) }
-.projeto__links a:hover { color: var(--cor) }
+.projeto__meta > span { border: 1px solid var(--linha); border-radius: 99px; padding: 3px 10px; color: var(--apagado); transition: border-color .5s var(--suave), color .5s var(--suave) }
+/* O card inteiro é clicável: o ::after do link do título cobre o card. O ícone do GitHub e o selo do
+   Vigil ficam por cima (z-index 2) e continuam sendo links próprios */
+.projeto__link { color: inherit; text-decoration: none; transition: color .4s var(--suave) }
+.projeto__link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1 }
+.projeto__link:focus-visible { outline: none }
+.projeto:has(.projeto__link:focus-visible) { outline: 2px solid var(--cor); outline-offset: 2px }
+.projeto__github { position: relative; z-index: 2; margin-left: auto; display: grid; place-items: center; width: 30px; height: 30px;
+  border-radius: 8px; color: var(--apagado); transition: color .35s var(--suave), background-color .35s var(--suave) }
+.projeto__github svg { width: 17px; height: 17px; fill: currentColor }
+.projeto__github:hover { color: var(--texto); background: rgba(255, 255, 255, .06) }
 
 /* Selo do Vigil (posto pelo main.js): "no ar · 99,98%" com o ponto pulsando */
-.selo { display: inline-flex; align-items: center; gap: 8px; font: 500 11.5px/1 "JetBrains Mono", monospace; color: var(--cor); text-decoration: none; white-space: nowrap }
+.selo { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 8px; font: 500 11.5px/1 "JetBrains Mono", monospace; color: var(--cor); text-decoration: none; white-space: nowrap }
 .selo__ponto { width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: pulsar 2.2s ease-out infinite }
 @keyframes pulsar { 0% { box-shadow: 0 0 0 0 rgba(var(--cor-rgb), .55) } 80%, 100% { box-shadow: 0 0 0 7px rgba(var(--cor-rgb), 0) } }
 .selo--fora { color: var(--erro) } .selo--fora .selo__ponto { animation: none }
@@ -199,7 +207,6 @@ h1 em { font-style: normal; color: var(--cor) }
   .habs { grid-template-columns: 1fr }
   .hab li { flex-direction: column; gap: 2px } .hab__onde { text-align: left }
   .projeto { margin: 0 -12px; padding: 16px 12px }
-  .projeto__links { margin-left: 0; width: 100%; margin-top: 4px }
 }
 
 @media (prefers-reduced-motion: reduce) {
