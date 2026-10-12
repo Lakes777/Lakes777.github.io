@@ -211,9 +211,10 @@
             <p class="project__desc">
               Meu primeiro projeto em Go: acompanha as vagas em que me candidatei, com quadro por etapa (arrastar
               para mudar), histórico de cada mudança, funil e tempo de resposta calculados em SQL e lembretes pelo
-              Telegram das candidaturas paradas, feitos por uma goroutine em segundo plano. Só a biblioteca padrão
+              Telegram das candidaturas paradas, feitos por uma goroutine em segundo plano. Cada candidatura ganha
+              um link curto do Beacon, que mostra se a empresa abriu o meu portfólio. Só a biblioteca padrão
               no HTTP, SQL com sqlc, login com argon2id e sessão no banco. Imagem Docker de 25 MB numa VM da
-              Oracle, com HTTPS. Tem 157 testes, com Postgres de verdade (Testcontainers).
+              Oracle, com HTTPS. Tem 184 testes, com Postgres de verdade (Testcontainers).
             </p>
             <ul class="project__tags">
               <li>Go</li><li>PostgreSQL</li><li>sqlc</li><li>Docker</li><li>JavaScript</li>
@@ -234,8 +235,9 @@
               Meu primeiro projeto em C# com .NET: um encurtador de links que conta quantas pessoas clicaram, quando,
               de onde e por qual aparelho, para saber se o currículo de cada vaga foi aberto. O redirecionamento sai
               do cache no Redis, e o clique vira estatística depois, numa fila do RabbitMQ lida por um segundo
-              serviço. Painel com gráficos e QR code de cada link, login por cookie seguro. Seis contêineres Docker
-              numa VM ARM da Oracle, com HTTPS. Tem 175 testes com Testcontainers.
+              serviço. Painel com gráficos e QR code de cada link, login por cookie seguro e chave de integração
+              (só lê e cria) para o Pursuit. Seis contêineres Docker numa VM ARM da Oracle, com HTTPS. Tem 191
+              testes com Testcontainers.
             </p>
             <ul class="project__tags">
               <li>C#</li><li>.NET</li><li>Redis</li><li>RabbitMQ</li><li>Docker</li>
