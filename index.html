@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>André Lagos | Engenharia de Software</title>
-  <meta name="description" content="Portfólio de André Lagos, estudante de Engenharia de Software na PUC-PR. Back-end com Java, Go, C# e Python: APIs, bancos de dados, testes e projetos no ar.">
+  <meta name="description" content="Portfólio de André Lagos, estudante de Engenharia de Software na PUC-PR. Back-end com Java, Go, C#, TypeScript e Python: APIs, bancos de dados, testes e projetos no ar.">
   <meta name="theme-color" content="#0c0d0f">
 
   <!-- Ícone da aba do navegador -->
@@ -57,11 +57,11 @@
       <section id="inicio" aria-labelledby="t-inicio">
         <p class="rotulo mono">início</p>
         <h1 class="item" id="t-inicio" tabindex="-1">Do banco de dados <em>ao deploy.</em></h1>
-        <p class="lead item">Estudante de Engenharia de Software na PUC-PR, em Curitiba. APIs em Java, Go, C# e Python, SQL escrito à mão, testes em tudo e deploy com Docker.</p>
+        <p class="lead item">Estudante de Engenharia de Software na PUC-PR, em Curitiba. APIs em Java, Go, C#, TypeScript e Python, SQL escrito à mão, testes em tudo e deploy com Docker.</p>
         <div class="numeros item">
-          <div><b data-contar="10">10</b><small>projetos no GitHub</small></div>
-          <div><b data-contar="7">7</b><small>sites no ar</small></div>
-          <div><b data-contar="3000" data-sufixo="+">3.000+</b><small>testes automatizados</small></div>
+          <div><b data-contar="11">11</b><small>projetos no GitHub</small></div>
+          <div><b data-contar="8">8</b><small>sites no ar</small></div>
+          <div><b data-contar="3500" data-sufixo="+">3.500+</b><small>testes automatizados</small></div>
         </div>
         <div class="botoes item">
           <a class="botao botao--cheio" href="#projetos">ver projetos →</a>
@@ -75,7 +75,7 @@
         <p class="rotulo mono">sobre</p>
         <h2 class="item" id="t-sobre" tabindex="-1">Sobre mim</h2>
         <div class="texto item">
-          <p>Sou de <strong>Curitiba, PR</strong> e curso <strong>Engenharia de Software</strong> na PUC-PR. Meu foco é <strong>back-end</strong>: APIs REST com Java (Spring Boot), Python (FastAPI), Go e C# (.NET), bancos PostgreSQL com SQL escrito à mão e testes automatizados em tudo: são mais de 3.000, rodando no GitHub Actions.</p>
+          <p>Sou de <strong>Curitiba, PR</strong> e curso <strong>Engenharia de Software</strong> na PUC-PR. Meu foco é <strong>back-end</strong>: APIs REST com Java (Spring Boot), Python (FastAPI), Go, C# (.NET) e TypeScript (NestJS), bancos PostgreSQL com SQL escrito à mão e testes automatizados em tudo: são mais de 3.500, rodando no GitHub Actions.</p>
           <p>Gosto de ver os projetos funcionando de verdade: eles estão <strong>no ar</strong> na Vercel, no Render e em VMs Linux da Oracle com Docker e HTTPS. Quando o projeto pede uma interface, faço o front-end com React e TypeScript.</p>
           <p>Fora do código, curto hardware: manutenção de computadores e protótipos de IoT com ESP32 e Arduino.</p>
           <p>Estou em busca de oportunidades em <strong>desenvolvimento</strong>, <strong>suporte técnico</strong> ou <strong>análise de dados</strong>, onde eu possa aplicar o que sei e continuar aprendendo.</p>
@@ -138,6 +138,15 @@
             <div class="projeto__meta mono">
               <span>C#</span><span>.NET</span><span>Redis</span><span>RabbitMQ</span><span>219 testes</span>
               <a class="projeto__github" href="https://github.com/Lakes777/beacon" target="_blank" rel="noopener" aria-label="Código do Beacon no GitHub" title="Código no GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
+            </div>
+          </article>
+
+          <article class="projeto luz item" data-vigil="Cadence">
+            <div class="projeto__topo"><h3><a class="projeto__link" href="https://cadence.159-112-189-95.sslip.io" target="_blank" rel="noopener" aria-label="Cadence: abrir a demonstração (entre como cliente ou como dono, sem cadastro)">Cadence <small>· agenda de reservas</small></a></h3></div>
+            <p>Meu primeiro projeto em NestJS: agenda de reservas em que dois clientes nunca ficam com o mesmo horário, garantido no Postgres e testado com 50 pedidos ao mesmo tempo. Lembretes no BullMQ, horários que somem ao vivo por WebSocket e demonstração sem cadastro.</p>
+            <div class="projeto__meta mono">
+              <span>TypeScript</span><span>NestJS</span><span>PostgreSQL</span><span>Redis</span><span>488 testes</span>
+              <a class="projeto__github" href="https://github.com/Lakes777/cadence" target="_blank" rel="noopener" aria-label="Código do Cadence no GitHub" title="Código no GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
             </div>
           </article>
 
@@ -220,6 +229,7 @@
               <li><span class="hab__nome">Spring Boot</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil</span></li>
               <li><span class="hab__nome">Go</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Pursuit</span></li>
               <li><span class="hab__nome">C# / .NET</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Beacon</span></li>
+              <li><span class="hab__nome">Node.js / NestJS</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Cadence</span></li>
               <li><span class="hab__nome">Python</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Spendwise · Hanami · Encore · Sidekick · Tidy</span></li>
               <li><span class="hab__nome">FastAPI</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Spendwise · Hanami · Encore</span></li>
             </ul>
@@ -227,8 +237,8 @@
           <div class="hab luz">
             <h3 class="hab__titulo mono"><span class="hab__glifo" aria-hidden="true">[ ]</span>dados</h3>
             <ul>
-              <li><span class="hab__nome">PostgreSQL</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil · Pursuit · Beacon · Spendwise · Coursebook</span></li>
-              <li><span class="hab__nome">Redis</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Beacon (cache)</span></li>
+              <li><span class="hab__nome">PostgreSQL</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil · Pursuit · Beacon · Cadence · Spendwise · Coursebook</span></li>
+              <li><span class="hab__nome">Redis</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Beacon (cache) · Cadence (fila)</span></li>
               <li><span class="hab__nome">RabbitMQ</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Beacon (fila)</span></li>
               <li><span class="hab__nome">SQLite</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Hanami · Sidekick · Spendwise</span></li>
               <li><span class="hab__nome">MySQL</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">faculdade</span></li>
@@ -237,8 +247,8 @@
           <div class="hab luz">
             <h3 class="hab__titulo mono"><span class="hab__glifo" aria-hidden="true">&lt;/&gt;</span>front-end</h3>
             <ul>
-              <li><span class="hab__nome">TypeScript</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Coursebook · Encore</span></li>
-              <li><span class="hab__nome">React</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Coursebook · Encore</span></li>
+              <li><span class="hab__nome">TypeScript</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Cadence · Coursebook · Encore</span></li>
+              <li><span class="hab__nome">React</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Cadence · Coursebook · Encore</span></li>
               <li><span class="hab__nome">JavaScript</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil · Pursuit · Beacon · Spendwise · Hanami · este site</span></li>
               <li><span class="hab__nome">HTML e CSS</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">todos os projetos com interface</span></li>
             </ul>
@@ -246,10 +256,10 @@
           <div class="hab luz">
             <h3 class="hab__titulo mono"><span class="hab__glifo" aria-hidden="true">$_</span>deploy</h3>
             <ul>
-              <li><span class="hab__nome">Docker</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil · Pursuit · Beacon</span></li>
+              <li><span class="hab__nome">Docker</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil · Pursuit · Beacon · Cadence</span></li>
               <li><span class="hab__nome">Linux</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">VMs da Oracle, systemd</span></li>
-              <li><span class="hab__nome">GitHub Actions</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">testes e CI nos 9 projetos de código</span></li>
-              <li><span class="hab__nome">Oracle Cloud</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil · Pursuit · Beacon · Sidekick</span></li>
+              <li><span class="hab__nome">GitHub Actions</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">testes e CI nos 10 projetos de código</span></li>
+              <li><span class="hab__nome">Oracle Cloud</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil · Pursuit · Beacon · Cadence · Sidekick</span></li>
               <li><span class="hab__nome">Vercel</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Coursebook · Spendwise</span></li>
             </ul>
           </div>
