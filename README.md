@@ -4,7 +4,7 @@
 
 Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado com **GitHub Pages**.
 
-[![Ver site](https://img.shields.io/badge/Ver_site-lakes777.github.io-4FC3F7?style=for-the-badge&labelColor=16171a&logo=googlechrome&logoColor=4FC3F7)](https://lakes777.github.io)
+[![Ver site](https://img.shields.io/badge/Ver_site-andrelagos.dev-4FC3F7?style=for-the-badge&labelColor=16171a&logo=googlechrome&logoColor=4FC3F7)](https://andrelagos.dev)
 
 ![HTML](https://img.shields.io/badge/HTML5-16171a?style=flat-square&logo=html5&logoColor=4FC3F7)
 ![CSS](https://img.shields.io/badge/CSS-16171a?style=flat-square&logo=css&logoColor=4FC3F7)
