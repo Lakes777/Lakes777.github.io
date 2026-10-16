@@ -228,7 +228,7 @@ botaoCopiar.addEventListener("click", async () => {
 // de status que fiz em Java). O Vigil só libera a leitura para o endereço publicado: rodando
 // localmente, os cards ficam sem o selo.
 // =========================================================
-const VIGIL = "https://147-15-40-173.sslip.io";
+const VIGIL = "https://vigil.andrelagos.dev";
 const porcento = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 async function seloDoVigil() {
