@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design system · Portfólio</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- As peças abaixo usam o CSS real do site: mudou lá, muda aqui -->
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* Só a moldura desta página (prefixo ds-); os componentes vêm do css/style.css */
+  .ds { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 56px 32px 96px }
+  .ds h1 { font: 700 40px/1.1 "IBM Plex Mono", monospace; letter-spacing: -.02em; margin: 0 0 12px }
+  .ds-intro { color: var(--apagado); max-width: 70ch; margin: 0 }
+  .ds-bloco { margin-top: 72px }
+  .ds-bloco > h2 { font-size: 26px; margin: 0 0 8px }
+  .ds-bloco > p { color: var(--apagado); max-width: 72ch; margin: 0 0 24px; font-size: 15px }
+  .ds-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px }
+  .ds-cor { border: 1px solid var(--linha); border-radius: 10px; overflow: hidden; font-size: 13px }
+  .ds-cor span { display: block; height: 72px }
+  .ds-cor div { padding: 10px 12px }
+  .ds-cor b { display: block; font-weight: 600 }
+  .ds-cor code, .ds code { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--apagado) }
+  .ds-tipo { display: grid; grid-template-columns: 170px 1fr; gap: 18px 24px; align-items: baseline; border-top: 1px solid var(--linha); padding-top: 18px }
+  .ds-tipo > code { padding-top: 4px }
+  .ds-palco { border: 1px solid var(--linha); border-radius: 12px; padding: 28px; display: grid; gap: 22px }
+  .ds-linha { display: flex; flex-wrap: wrap; gap: 16px; align-items: center }
+  .ds-rotulo { font: 500 11.5px/1 "IBM Plex Mono", monospace; color: var(--apagado); text-transform: uppercase; letter-spacing: .14em }
+  .ds-lista { margin: 0; padding-left: 18px; list-style: disc; color: var(--apagado); font-size: 15px; display: grid; gap: 8px; max-width: 76ch }
+  .ds-lista strong { color: var(--texto); font-weight: 600 }
+  .ds .abas { position: static }
+  .ds .projeto { margin: 0 }
+  .ds .habs { margin-top: 0 }
+  .ds-arte { max-width: 560px }
+  @media (max-width: 700px) { .ds-tipo { grid-template-columns: 1fr; gap: 4px 0 } .ds { padding: 40px 16px 72px } }
+</style>
+</head>
+<body>
+<div class="ds">
+  <p class="rotulo mono">design system · andrelagos.dev</p>
+  <h1>Sistemas</h1>
+  <p class="ds-intro">A identidade do portfólio desde 24/10/2026: escuro azulado, um azul só para destaques, IBM Plex Mono nos títulos e rótulos, IBM Plex Sans no texto, e tudo que se mexe pousa devagar. Feita pela <code>/imagem-para-codigo</code> a partir de uma imagem gerada no ChatGPT (as referências e as etapas estão em <code>docs/referencias/</code>).</p>
+
+  <!-- ===== CORES ===== -->
+  <section class="ds-bloco">
+    <h2>Cores</h2>
+    <p>Todas são variáveis no topo do <code>css/style.css</code>. O azul aparece só em destaques: aba ativa, números, botão principal, selos e a ilustração. Nada de segunda cor de destaque.</p>
+    <div class="ds-grade">
+      <div class="ds-cor"><span style="background:#080b0f"></span><div><b>--fundo</b><code>#080b0f</code></div></div>
+      <div class="ds-cor"><span style="background:#0f1419"></span><div><b>--painel</b><code>#0f1419</code> · faixas e botões</div></div>
+      <div class="ds-cor"><span style="background:#1d242d"></span><div><b>--linha</b><code>#1d242d</code> · bordas e divisões</div></div>
+      <div class="ds-cor"><span style="background:#e7e7e4"></span><div><b>--texto</b><code>#e7e7e4</code></div></div>
+      <div class="ds-cor"><span style="background:#8b9099"></span><div><b>--apagado</b><code>#8b9099</code> · texto secundário</div></div>
+      <div class="ds-cor"><span style="background:#6cc4ff"></span><div><b>--cor</b><code>#6cc4ff</code> · o azul (rgb em <code>--cor-rgb</code>)</div></div>
+      <div class="ds-cor"><span style="background:#8fd3ff"></span><div><b>azul do hover</b><code>#8fd3ff</code> · botão cheio</div></div>
+      <div class="ds-cor"><span style="background:#04121c"></span><div><b>texto sobre azul</b><code>#04121c</code></div></div>
+      <div class="ds-cor"><span style="background:#ff8b7b"></span><div><b>--erro</b><code>#ff8b7b</code> · "fora do ar"</div></div>
+    </div>
+  </section>
+
+  <!-- ===== TIPOGRAFIA ===== -->
+  <section class="ds-bloco">
+    <h2>Tipografia</h2>
+    <p>Duas famílias da mesma casa (IBM Plex), feitas para andar juntas. Mono no que é título, número, menu, botão e rótulo; Sans no texto corrido, para os projetos serem fáceis de ler.</p>
+    <div class="ds-tipo">
+      <code>h1 · Mono 700<br>34–50 px</code>
+      <h1 style="margin:0;font:700 clamp(34px,3.6vw,50px)/1.12 'IBM Plex Mono',monospace;letter-spacing:-.02em">Do banco de dados<br> ao <em style="font-style:normal;color:var(--cor)">deploy.</em></h1>
+      <code>h2 · Mono 700<br>28–40 px</code>
+      <h2 style="margin:0">Projetos</h2>
+      <code>h3 · Sans 600 · 17 px</code>
+      <p style="margin:0;font:600 17px/1.3 'IBM Plex Sans',sans-serif">Vigil <small style="color:var(--apagado);font-weight:400;font-size:15px">· monitor de status</small></p>
+      <code>lead · Sans 400 · 17 px</code>
+      <p class="lead" style="margin:0">Estudante de Engenharia de Software na PUC-PR, em Curitiba.</p>
+      <code>texto · Sans 400 · 15–16 px</code>
+      <p style="margin:0;color:var(--apagado)">API em Java com Spring Boot que verifica os meus sites a cada 5 minutos.</p>
+      <code>número · Mono 700 · 30 px</code>
+      <p class="mono" style="margin:0;font-size:30px;font-weight:700;color:var(--cor)">4.000+</p>
+      <code>rótulo · Mono 12 px<br>caixa alta, espaçado</code>
+      <p class="rotulo mono" style="margin:0">habilidades</p>
+      <code>etiqueta · Mono 11,5 px</code>
+      <div class="projeto__meta mono" style="margin:0"><span>Java</span><span>Spring Boot</span><span>198 testes</span></div>
+    </div>
+  </section>
+
+  <!-- ===== FORMAS E MOVIMENTO ===== -->
+  <section class="ds-bloco">
+    <h2>Formas e movimento</h2>
+    <ul class="ds-lista">
+      <li><strong>Raios:</strong> 6 px em botões e rótulos da ilustração, 10–14 px em cartões e faixas, 99 px nas etiquetas.</li>
+      <li><strong>Bordas:</strong> 1 px em <code>--linha</code>; no hover, o azul com 22–60% de opacidade. Cartões não têm fundo: só a borda, com o fundo de grade aparecendo por trás.</li>
+      <li><strong>Curva:</strong> tudo usa <code>--suave</code> = <code>cubic-bezier(.22, 1, .36, 1)</code>, que começa rápido e pousa devagar. Durações de .3 s (cor) a .5–.6 s (subida, borda, brilho); nada "duro".</li>
+      <li><strong>Hover:</strong> subir 2 px, acender a borda e uma sombra azul suave embaixo. Nunca mudar o fundo do cartão.</li>
+      <li><strong>Traço:</strong> a assinatura do site. Um traço de 1 px antes do texto que cresce e fica azul: nas abas e nos botões.</li>
+      <li><strong>Menos movimento:</strong> com <code>prefers-reduced-motion</code>, todas as animações param (CSS e os pacotes da ilustração, que são SMIL e param pelo JavaScript).</li>
+    </ul>
+  </section>
+
+  <!-- ===== COMPONENTES ===== -->
+  <section class="ds-bloco">
+    <h2>Componentes</h2>
+    <p>Passe o mouse e use o Tab. A luz que segue o mouse nas bordas e a contagem dos números dependem do <code>js/main.js</code> e só funcionam no site.</p>
+    <div class="ds-palco">
+      <span class="ds-rotulo">abas</span>
+      <nav class="abas mono" aria-label="Exemplo de abas">
+        <a href="#" aria-current="page"><span class="abas__n" aria-hidden="true">01</span>início</a>
+        <a href="#"><span class="abas__n" aria-hidden="true">02</span>sobre</a>
+        <a href="#"><span class="abas__n" aria-hidden="true">03</span>formação</a>
+      </nav>
+
+      <span class="ds-rotulo">botões</span>
+      <div class="ds-linha">
+        <a class="botao botao--cheio" href="#">ver projetos <svg class="botao__seta" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+        <a class="botao" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>github</a>
+        <button class="botao" type="button">secundário</button>
+      </div>
+
+      <span class="ds-rotulo">números</span>
+      <div class="numeros" style="margin:0">
+        <div><b class="mono">13</b><small>projetos no GitHub</small></div>
+        <div><b class="mono">10</b><small>sites no ar</small></div>
+        <div><b class="mono">4.000+</b><small>testes automatizados</small></div>
+      </div>
+
+      <span class="ds-rotulo">selos do Vigil</span>
+      <div class="ds-linha">
+        <a class="selo mono" href="#"><span class="selo__ponto" aria-hidden="true"></span>no ar · 99,98%</a>
+        <a class="selo mono selo--fora" href="#"><span class="selo__ponto" aria-hidden="true"></span>fora do ar</a>
+      </div>
+
+      <span class="ds-rotulo">faixa do Vigil</span>
+      <a class="vigil-faixa mono" href="#">
+        <span class="selo__ponto" aria-hidden="true"></span>
+        <span>12/12 serviços no ar agora · verificados pelo Vigil a cada 5 min</span>
+        <svg class="pulso" viewBox="0 0 300 44" preserveAspectRatio="none" aria-hidden="true">
+          <path class="pulso__trilho" d="M0 22 H70 L78 22 L84 8 L92 38 L100 4 L108 30 L114 22 H180 L188 22 L194 14 L200 30 L206 22 H300"/>
+          <path class="pulso__luz" pathLength="400" d="M0 22 H70 L78 22 L84 8 L92 38 L100 4 L108 30 L114 22 H180 L188 22 L194 14 L200 30 L206 22 H300"/>
+        </svg>
+      </a>
+
+      <span class="ds-rotulo">cartão de projeto</span>
+      <article class="projeto luz">
+        <div class="projeto__topo"><h3><a class="projeto__link" href="#">Vigil <small>· monitor de status</small></a></h3></div>
+        <p>API em Java com Spring Boot que verifica os meus sites a cada 5 minutos, calcula disponibilidade e quedas em SQL e avisa pelo Telegram.</p>
+        <div class="projeto__meta mono"><span>Java</span><span>Spring Boot</span><span>PostgreSQL</span><span>198 testes</span></div>
+      </article>
+
+      <span class="ds-rotulo">cartões</span>
+      <ul class="cartoes" style="margin:0">
+        <li class="cartao"><small class="mono">formação</small><p>Eng. de Software · PUC-PR</p></li>
+        <li class="cartao"><small class="mono">deploy</small><p>Docker, Linux e GitHub Actions</p></li>
+      </ul>
+
+      <span class="ds-rotulo">bloco de habilidades</span>
+      <div class="habs" style="grid-template-columns:minmax(0,1fr)">
+        <div class="hab">
+          <h3 class="hab__titulo mono"><span class="hab__glifo">[ ]</span> dados</h3>
+          <ul>
+            <li><span class="hab__nome">PostgreSQL</span><span class="hab__onde mono">Vigil · Fiel · Foil</span></li>
+            <li><span class="hab__nome">Kafka (Redpanda)</span><span class="hab__onde mono">Foil (eventos)</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ILUSTRAÇÃO ===== -->
+  <section class="ds-bloco">
+    <h2>Ilustração</h2>
+    <p>Isométrica, só em traço azul sobre faces escuras (topo <code>azul 10%</code>, faces <code>#0c1620</code> e <code>#08111a</code>). Gerada por <code>docs/referencias/gerar-arte.py</code>, que escreve o SVG direto no <code>index.html</code>: para mudar, edite o script e rode de novo. Rótulos em Mono 11,5 px com ícone de traço (16 px, 1,3 px de linha), sem logos de marca.</p>
+    <ul class="ds-lista">
+      <li><strong>Movimento:</strong> traços se desenham na entrada, pacotes correm pelos traços, LEDs piscam, um anel sobe pelo banco; as camadas acompanham o mouse só sobre o desenho.</li>
+      <li><strong>Hover nos rótulos:</strong> borda acende, o ramo fica forte e as stacks aparecem. Não são clicáveis (todos levariam ao mesmo lugar).</li>
+    </ul>
+  </section>
+
+  <!-- ===== REGRAS ===== -->
+  <section class="ds-bloco">
+    <h2>Regras</h2>
+    <ul class="ds-lista">
+      <li><strong>Sem emojis</strong> na interface. Ícones são SVG de uma cor só (Lucide para os genéricos, as marcas desenhadas em uma cor).</li>
+      <li><strong>Um azul só.</strong> Vermelho (<code>--erro</code>) apenas para "fora do ar".</li>
+      <li><strong>Fugir dos vícios de IA:</strong> nada de título serifado em itálico, degradê roxo, neon, vidro fosco, nem "título grande + 3 cartões iguais".</li>
+      <li><strong>Celular:</strong> o nome rola, só as abas ficam presas no topo; botões ocupam a largura; a ilustração vem depois dos botões, sem as stacks do hover.</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>
