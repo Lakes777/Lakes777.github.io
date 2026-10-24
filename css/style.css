@@ -1,11 +1,12 @@
-/* Portfólio · visual "Mono · Rede": escuro, mínimo, fonte mono nos rótulos, fundo de pontos que se
-   ligam (canvas) e o pulso do Vigil embaixo do nome. As cores ficam todas aqui no topo. */
+/* Portfólio · visual "Sistemas": escuro azulado, IBM Plex Mono nos títulos e rótulos com IBM Plex Sans no
+   texto, barra de abas no topo, ilustração isométrica dos sistemas no início e a faixa ao vivo do Vigil.
+   Feito pela /imagem-para-codigo (referências em docs/referencias). As cores ficam todas aqui no topo. */
 :root {
-  --fundo: #0c0d0f;
-  --painel: #141619;
+  --fundo: #080b0f;
+  --painel: #0f1419;
   --texto: #e7e7e4;
   --apagado: #8b9099;
-  --linha: #23262b;
+  --linha: #1d242d;
   --cor: #6cc4ff;
   --cor-rgb: 108, 196, 255;
   --erro: #ff8b7b;
@@ -16,10 +17,10 @@
 * { box-sizing: border-box }
 html, body { margin: 0 }
 html { scrollbar-color: #2a2d33 var(--fundo) }
-body { background: var(--fundo); color: var(--texto); font: 16px/1.6 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased }
+body { background: var(--fundo); color: var(--texto); font: 16px/1.6 "IBM Plex Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased }
 a { color: inherit }
 ul, ol { margin: 0; padding: 0; list-style: none }
-.mono { font-family: "JetBrains Mono", ui-monospace, "Cascadia Mono", monospace }
+.mono { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace }
 :focus-visible { outline: 2px solid var(--cor); outline-offset: 3px; border-radius: 4px }
 [tabindex="-1"]:focus { outline: none }
 .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap }
@@ -28,45 +29,71 @@ ul, ol { margin: 0; padding: 0; list-style: none }
 .pular { position: absolute; left: 16px; top: -60px; z-index: 10; background: var(--cor); color: #04121c; padding: 10px 14px; border-radius: 8px; font-weight: 600; text-decoration: none }
 .pular:focus { top: 16px }
 
-/* ---------- fundo ---------- */
-.rede { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none }
+/* ---------- fundo ----------
+   Três camadas paradas atrás de tudo: a grade de engenharia bem apagada, que some nas bordas (mask);
+   um brilho azul no alto à direita, onde fica a ilustração do início; e o escurecimento das bordas.
+   Por cima delas, a rede de pontos do canvas, mais discreta que antes. */
+body::before { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    linear-gradient(rgba(var(--cor-rgb), .045) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, rgba(var(--cor-rgb), .045) 1px, transparent 1px) 0 0 / 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 60% 35%, #000 20%, transparent 80%);
+  mask-image: radial-gradient(ellipse 80% 70% at 60% 35%, #000 20%, transparent 80%) }
+body::after { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(640px 420px at 74% 30%, rgba(var(--cor-rgb), .09), transparent 70%),
+    radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, .55)) }
+.rede { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: .55 }
 
 /* ---------- estrutura ---------- */
-.layout { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 72px; padding: 0 32px }
-.lado { position: sticky; top: 0; height: 100vh; padding: 56px 0 32px; display: flex; flex-direction: column;
-  /* Em tela baixa (notebook com escala de 125%), a coluna rola em vez de cortar o contato */
-  overflow-y: auto; scrollbar-width: none }
-.nome { font: 700 30px/1.1 Inter, sans-serif; letter-spacing: -.02em; text-decoration: none; width: fit-content }
-.papel { color: var(--cor); margin: 10px 0 0; font-size: 13px }
+/* Barra do topo: presa no alto em todas as abas, com o fundo meio transparente e desfocado */
+.topo { position: sticky; top: 0; z-index: 5; background: rgba(8, 11, 15, .78); backdrop-filter: blur(12px); border-bottom: 1px solid var(--linha) }
+.topo__dentro { max-width: 1280px; margin: 0 auto; padding: 0 40px; min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 32px }
+.marca { display: flex; align-items: center; gap: 18px }
+.nome { font: 700 19px/1.1 "IBM Plex Sans", sans-serif; letter-spacing: -.01em; text-decoration: none; white-space: nowrap }
+.papel { color: var(--apagado); margin: 0; font-size: 12.5px; padding-left: 18px; border-left: 1px solid rgba(var(--cor-rgb), .55); white-space: nowrap }
 
-/* O pulso: um traço que corre por cima de um trilho apagado */
-.pulso { width: 100%; height: 44px; margin-top: 22px; overflow: visible }
+/* O pulso: um traço que corre por cima de um trilho apagado (agora na faixa do Vigil) */
+.pulso { overflow: visible }
 .pulso path { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round }
 .pulso__trilho { stroke: var(--linha) }
 .pulso__luz { stroke: var(--cor); stroke-dasharray: 60 340; animation: correr 2.4s linear infinite; filter: drop-shadow(0 0 4px rgba(var(--cor-rgb), .6)) }
 @keyframes correr { from { stroke-dashoffset: 400 } to { stroke-dashoffset: 0 } }
 
-/* Abas: o traço cresce na aba ativa */
-.abas { margin-top: 36px; display: grid; gap: 2px }
-.abas a { display: flex; align-items: center; gap: 14px; padding: 7px 0; font-size: 13px; color: var(--apagado); text-decoration: none; transition: color .3s var(--suave) }
-.abas a::before { content: ""; width: 20px; height: 1px; background: currentColor; transition: width .4s var(--suave), background-color .4s var(--suave) }
+/* Abas: o traço antes de cada uma cresce no hover e fica comprido e azul na aba ativa */
+.abas { display: flex; align-items: center; gap: 22px }
+.abas a { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 13px; color: var(--apagado); text-decoration: none; white-space: nowrap; transition: color .3s var(--suave) }
+.abas a::before { content: ""; width: 14px; height: 1px; background: currentColor; transition: width .4s var(--suave), background-color .4s var(--suave) }
 .abas__n { font-size: 11px }
 .abas a:hover { color: var(--texto) }
-.abas a:hover::before { width: 36px }
-.abas a[aria-current="page"] { color: var(--texto) }
-.abas a[aria-current="page"]::before { width: 48px; background: var(--cor) }
+.abas a:hover::before { width: 26px }
+.abas a[aria-current="page"] { color: var(--texto); font-weight: 700 }
+.abas a[aria-current="page"] .abas__n { color: var(--cor) }
+.abas a[aria-current="page"]::before { width: 36px; background: var(--cor) }
+/* Notebook com zoom: traços e espaços menores para as 6 abas caberem */
+@media (max-width: 1320px) {
+  .papel { display: none }
+  .abas { gap: 16px }
+  .abas a::before { width: 8px } .abas a:hover::before { width: 16px } .abas a[aria-current="page"]::before { width: 24px }
+}
+/* Tablet deitado: sem os números das abas, para o nome e as 6 abas caberem numa linha */
+@media (max-width: 1000px) {
+  .topo__dentro { padding: 0 24px; gap: 20px }
+  .abas { gap: 12px }
+  .abas__n { display: none }
+}
 
-.lado__contato { margin-top: auto; display: grid; gap: 6px; font-size: 12.5px }
-.lado__contato a { color: var(--apagado); text-decoration: none; width: fit-content; transition: color .3s var(--suave) }
-.lado__contato a:hover { color: var(--cor) }
-.lado__contato small { color: var(--apagado); font-size: 11.5px; margin-top: 10px }
-
-main { padding: 56px 0 72px; min-height: 100vh }
+.layout { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 0 40px }
+main { padding: 64px 0 72px; min-height: calc(100vh - 68px - 61px) }
+/* As outras abas ficam numa coluna de leitura; o início usa a largura toda */
+main > section:not(.inicio) { max-width: 880px }
 section + section { margin-top: 96px }
 .rotulo { font-size: 12px; color: var(--apagado); text-transform: uppercase; letter-spacing: .14em; margin: 0 0 28px; display: flex; align-items: center; gap: 12px }
 .rotulo::after { content: ""; flex: 1; height: 1px; background: var(--linha) }
-h1, h2 { font: 700 clamp(30px, 4.5vw, 46px)/1.08 Inter, sans-serif; letter-spacing: -.03em; margin: 0 0 18px; text-wrap: balance }
+h1, h2 { font: 700 clamp(30px, 4.5vw, 46px)/1.08 "IBM Plex Sans", sans-serif; letter-spacing: -.03em; margin: 0 0 18px; text-wrap: balance }
 h1 em { font-style: normal; color: var(--cor) }
+/* Os títulos das abas em mono, como o do início */
+h2 { font-family: "IBM Plex Mono", monospace; letter-spacing: -.02em; font-size: clamp(28px, 3.4vw, 40px) }
 .lead { color: var(--apagado); font-size: 17px; max-width: 58ch; margin: 0 }
 
 /* ---------- abas (com JavaScript): uma seção por vez; sem JavaScript, todas aparecem ---------- */
@@ -88,24 +115,107 @@ h1 em { font-style: normal; color: var(--cor) }
   opacity: 0; transition: opacity .7s var(--suave) }
 .com-luz .luz::after { opacity: 1 }
 
-/* ---------- início ---------- */
-.numeros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--linha); border: 1px solid var(--linha); border-radius: 12px; overflow: hidden; margin: 36px 0 }
-.numeros div { background: var(--fundo); padding: 22px }
-.numeros b { display: block; font: 700 32px/1 Inter, sans-serif; font-variant-numeric: tabular-nums }
-.numeros small { color: var(--apagado); font-size: 13px }
-.botoes { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px }
-.botao { display: inline-flex; align-items: center; gap: 8px; font: 500 13px/1 "JetBrains Mono", monospace; padding: 12px 16px; border-radius: 8px;
-  border: 1px solid var(--linha); color: var(--texto); text-decoration: none; background: var(--painel); cursor: pointer;
-  transition: border-color .35s var(--suave), transform .35s var(--suave), background-color .35s var(--suave) }
-.botao:hover { border-color: rgba(var(--cor-rgb), .6); transform: translateY(-2px) }
-.botao--cheio { background: var(--cor); color: #04121c; border-color: var(--cor) }
-.botao--cheio:hover { background: #8fd3ff; border-color: #8fd3ff }
+/* ---------- início: texto à esquerda, ilustração à direita, faixa do Vigil embaixo ---------- */
+.inicio { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 32px 56px; align-items: center }
+.inicio h1 { font: 700 clamp(34px, 3.6vw, 50px)/1.12 "IBM Plex Mono", monospace; letter-spacing: -.02em }
+
+/* ---------- ilustração do início (o SVG vem do docs/referencias/gerar-arte.py) ----------
+   Camadas: chão em grade, traços com os pacotes que correm, racks e o banco no meio, rótulos.
+   O mouse move as camadas em velocidades diferentes (--px e --py, postos pelo main.js), dando profundidade. */
+.inicio__arte { position: relative }
+.arte { display: block; width: 100%; height: auto; overflow: visible; font-family: "IBM Plex Mono", monospace }
+.arte__chao, .arte__tracos, .arte__pacotes, .arte__objetos, .arte__nos { transition: transform 1.2s var(--suave) }
+.arte__chao { transform: translate(calc(var(--px, 0) * 4px), calc(var(--py, 0) * 3px)) }
+.arte__tracos, .arte__pacotes, .arte__objetos { transform: translate(calc(var(--px, 0) * 9px), calc(var(--py, 0) * 6px)) }
+.arte__nos { transform: translate(calc(var(--px, 0) * 15px), calc(var(--py, 0) * 10px)) }
+
+.arte__chao polyline { fill: none; stroke: rgba(var(--cor-rgb), .1); stroke-width: 1 }
+.arte__traco { fill: none; stroke: rgba(var(--cor-rgb), .45); stroke-width: 1.4; stroke-linejoin: round; stroke-dasharray: 100; transition: stroke .5s var(--suave), stroke-width .5s var(--suave) }
+.arte__nodo { fill: var(--fundo); stroke: var(--cor); stroke-width: 1.2; transition: fill .5s var(--suave) }
+.arte__nodo--fim { fill: var(--cor) }
+.arte__pacote { fill: #d6efff; filter: drop-shadow(0 0 3px rgba(var(--cor-rgb), .9)) }
+
+/* Racks e o pátio: o topo mais claro, as faces da frente mais escuras */
+.arte__rack__topo, .arte__patio__topo { fill: rgba(var(--cor-rgb), .1); stroke: rgba(var(--cor-rgb), .75); stroke-width: 1 }
+.arte__rack__esq, .arte__patio__esq { fill: #0c1620; stroke: rgba(var(--cor-rgb), .5); stroke-width: 1 }
+.arte__rack__dir, .arte__patio__dir { fill: #08111a; stroke: rgba(var(--cor-rgb), .4); stroke-width: 1 }
+.arte__patio__topo { fill: rgba(var(--cor-rgb), .05); stroke: rgba(var(--cor-rgb), .35) }
+.arte__fenda { fill: none; stroke: rgba(var(--cor-rgb), .35); stroke-width: 1 }
+.arte__grade { fill: none; stroke: rgba(var(--cor-rgb), .22); stroke-width: 1.4 }
+.arte__led { fill: var(--cor); animation: led 2.4s steps(1) infinite; animation-delay: var(--d) }
+@keyframes led { 0%, 62% { opacity: 1 } 63%, 78% { opacity: .2 } 79%, 100% { opacity: 1 } }
+
+/* O banco: três discos e um anel de luz que sobe por eles, como as consultas */
+.arte__disco { fill: #0a1520; stroke: rgba(var(--cor-rgb), .7); stroke-width: 1.2 }
+.arte__disco-topo { fill: #0f1d2a; stroke: rgba(var(--cor-rgb), .7); stroke-width: 1.2 }
+.arte__disco-topo--ultimo { fill: rgba(var(--cor-rgb), .16); stroke: var(--cor) }
+.arte__consulta { fill: none; stroke: var(--cor); stroke-width: 1.6; filter: drop-shadow(0 0 4px rgba(var(--cor-rgb), .9)); opacity: 0;
+  animation: consulta 3.2s var(--suave) infinite 1.5s }
+@keyframes consulta { 0% { transform: translateY(0); opacity: 0 } 15% { opacity: .9 } 85% { opacity: .6 } 100% { transform: translateY(-84px); opacity: 0 } }
+
+/* Rótulos: no hover, a borda acende, as stacks aparecem embaixo e o traço do ramo fica mais forte */
+.arte__no { cursor: default }
+.arte__no rect { fill: rgba(8, 13, 19, .92); stroke: rgba(var(--cor-rgb), .55); stroke-width: 1; transition: stroke .45s var(--suave), fill .45s var(--suave) }
+.arte__no text { fill: var(--cor); font-size: 11.5px; font-weight: 500; letter-spacing: .04em }
+.arte__icone { fill: none; stroke: var(--cor); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round }
+.arte__no .arte__stacks { fill: var(--texto); font-size: 10.5px; letter-spacing: 0; opacity: 0; transform: translateY(-4px); transition: opacity .45s var(--suave), transform .45s var(--suave) }
+.arte__no:hover rect { stroke: var(--cor); fill: rgba(14, 30, 44, .95) }
+.arte__no:hover .arte__stacks { opacity: 1; transform: none }
+.arte [data-ramo].aceso.arte__traco { stroke: var(--cor); stroke-width: 2 }
+.arte [data-ramo].aceso.arte__nodo { fill: var(--cor) }
+
+/* Entrada: os traços se desenham do pátio para fora, depois os rótulos aparecem */
+.js-abas .entrando .arte__traco { animation: desenhar 1.6s var(--suave) both .5s }
+@keyframes desenhar { from { stroke-dashoffset: 100 } to { stroke-dashoffset: 0 } }
+.js-abas .entrando .arte__no { animation: aparecer .8s var(--suave) both 1.4s }
+@keyframes aparecer { from { opacity: 0 } }
+
+.numeros { display: flex; margin: 36px 0 0 }
+.numeros div { padding: 0 32px; border-left: 1px solid var(--linha) }
+.numeros div:first-child { padding-left: 0; border-left: 0 }
+.numeros b { display: block; font-size: 30px; font-weight: 700; line-height: 1; color: var(--cor); font-variant-numeric: tabular-nums }
+.numeros small { display: block; margin-top: 8px; color: var(--apagado); font-size: 13px }
+
+.botoes { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 36px }
+/* Botões "Traço": o mesmo movimento das abas, um traço antes do texto que cresce e fica azul.
+   Os secundários não têm borda: só acendem no hover */
+.botao { display: inline-flex; align-items: center; gap: 10px; font: 500 13px/1 "IBM Plex Mono", monospace; padding: 13px 18px 13px 16px; border-radius: 6px;
+  border: 1px solid transparent; color: var(--apagado); text-decoration: none; background: none; cursor: pointer;
+  transition: color .4s var(--suave), background-color .4s var(--suave) }
+.botao::before { content: ""; flex: none; width: 10px; height: 1px; background: currentColor; transition: width .45s var(--suave), background-color .45s var(--suave) }
+.botao svg { width: 16px; height: 16px; fill: currentColor; flex: none; transition: color .4s var(--suave) }
+.botao__seta { fill: none !important; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform .45s var(--suave) !important }
+.botao:hover, .botao:focus-visible { color: var(--texto); background: rgba(var(--cor-rgb), .06) }
+.botao:hover::before, .botao:focus-visible::before { width: 26px; background: var(--cor) }
+.botao:hover svg { color: var(--cor) }
+.botao--cheio { background: var(--cor); color: #04121c; font-weight: 700 }
+.botao--cheio:hover, .botao--cheio:focus-visible { background: #8fd3ff; color: #04121c }
+.botao--cheio:hover::before, .botao--cheio:focus-visible::before { background: #04121c }
+.botao--cheio:hover svg { color: inherit }
+.botao--cheio:hover .botao__seta { transform: translateX(4px) }
+
+/* Faixa do Vigil: atravessa as duas colunas */
+.vigil-faixa { grid-column: 1 / -1; display: flex; align-items: center; gap: 14px; padding: 16px 22px; border: 1px solid var(--linha); border-radius: 10px;
+  background: rgba(15, 20, 25, .55); color: var(--apagado); font-size: 13px; text-decoration: none; transition: border-color .4s var(--suave), color .4s var(--suave) }
+/* O ponto fica cinza e parado até o Vigil responder: azul pulsando é "no ar", e isso só a API pode dizer */
+.vigil-faixa .selo__ponto { flex: none; color: var(--apagado); animation: none }
+.vigil-faixa--ok .selo__ponto { color: var(--cor); animation: pulsar 2.2s ease-out infinite }
+.vigil-faixa .pulso { flex: 1; height: 28px; min-width: 120px }
+.vigil-faixa:hover { border-color: rgba(var(--cor-rgb), .35); color: var(--texto) }
+.vigil-faixa--fora .selo__ponto { color: var(--erro) }
+
+/* Rodapé fino com os contatos */
+.rodape { position: relative; z-index: 1; border-top: 1px solid var(--linha); font-size: 12.5px }
+.rodape__dentro { max-width: 1280px; margin: 0 auto; padding: 20px 40px; display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: center }
+.rodape a { color: var(--apagado); text-decoration: none; transition: color .3s var(--suave) }
+.rodape a:hover { color: var(--cor) }
+.rodape small { margin-left: auto; color: var(--apagado); font-size: 11.5px }
 
 /* ---------- sobre ---------- */
 .texto p { color: var(--apagado); max-width: 62ch; margin: 0 0 16px }
 .texto strong { color: var(--texto); font-weight: 600 }
 .cartoes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 32px }
-.cartao { background: var(--painel); border: 1px solid var(--linha); border-radius: 12px; padding: 18px 20px }
+.cartao { background: none; border: 1px solid var(--linha); border-radius: 12px; padding: 18px 20px }
 .cartao small { color: var(--apagado); font-size: 11.5px; text-transform: uppercase; letter-spacing: .1em }
 .cartao p { margin: 6px 0 0 }
 
@@ -122,25 +232,21 @@ h1 em { font-style: normal; color: var(--cor) }
 .projeto { position: relative; display: grid; gap: 4px; padding: 20px 22px; margin: 0 -22px; border-radius: 14px;
   /* Invisível até o mouse chegar: só a luz (o anel do .luz::after) acende a borda perto do cursor */
   border: 1px solid transparent;
-  /* O destaque entra e sai devagar, pousando suave: fundo, borda, sombra e uma subida de 2 px juntos */
-  transition: background-color .5s var(--suave), border-color .5s var(--suave), box-shadow .5s var(--suave), transform .5s var(--suave) }
-/* O brilho que segue o mouse fica numa camada própria, que aparece aos poucos (opacity), em vez de surgir de uma vez */
-.projeto::before { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -1; opacity: 0; transition: opacity .6s var(--suave);
-  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(var(--cor-rgb), .1), transparent 65%) }
+  /* O destaque entra e sai devagar, pousando suave: borda, sombra e uma subida de 2 px juntos. O fundo
+     continua transparente (o fundo de grade aparece por trás) */
+  transition: border-color .5s var(--suave), box-shadow .5s var(--suave), transform .5s var(--suave) }
 /* Destaque por foco só com o TECLADO (:focus-visible): depois de um clique com o mouse o link continua
    focado, e com :focus-within o card ficaria "aceso" até clicar em outro lugar */
-.projeto:has(:focus-visible) { background-color: rgba(20, 22, 25, .85); border-color: rgba(var(--cor-rgb), .22) }
-.projeto:has(:focus-visible)::before { opacity: 1 }
+.projeto:has(:focus-visible) { border-color: rgba(var(--cor-rgb), .22) }
 /* O hover só em aparelho com mouse: no celular, o destaque ficaria "grudado" depois do toque */
 @media (hover: hover) {
-.projeto:hover { background-color: rgba(20, 22, 25, .85); border-color: rgba(var(--cor-rgb), .22); transform: translateY(-2px);
+.projeto:hover { border-color: rgba(var(--cor-rgb), .22); transform: translateY(-2px);
   box-shadow: 0 18px 40px -24px rgba(var(--cor-rgb), .35), 0 2px 8px -4px rgba(0, 0, 0, .5) }
-.projeto:hover::before { opacity: 1 }
 .projeto:hover .projeto__link { color: var(--cor) }
 .projeto:hover .projeto__meta > span { border-color: #30343a; color: #a6abb3 }
 }
 .projeto__topo { display: flex; justify-content: space-between; align-items: center; gap: 16px }
-.projeto h3 { font: 600 17px/1.3 Inter, sans-serif; margin: 0 }
+.projeto h3 { font: 600 17px/1.3 "IBM Plex Sans", sans-serif; margin: 0 }
 .projeto h3 small { color: var(--apagado); font-weight: 400; font-size: 15px }
 .projeto > p { margin: 2px 0 0; color: var(--apagado); font-size: 15px; max-width: 72ch }
 .projeto > .projeto__aviso { font-size: 12px }
@@ -158,7 +264,7 @@ h1 em { font-style: normal; color: var(--cor) }
 .projeto__github:hover { color: var(--texto); background: rgba(255, 255, 255, .06) }
 
 /* Selo do Vigil (posto pelo main.js): "no ar · 99,98%" com o ponto pulsando */
-.selo { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 8px; font: 500 11.5px/1 "JetBrains Mono", monospace; color: var(--cor); text-decoration: none; white-space: nowrap }
+.selo { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 8px; font: 500 11.5px/1 "IBM Plex Mono", monospace; color: var(--cor); text-decoration: none; white-space: nowrap }
 .selo__ponto { width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: pulsar 2.2s ease-out infinite }
 @keyframes pulsar { 0% { box-shadow: 0 0 0 0 rgba(var(--cor-rgb), .55) } 80%, 100% { box-shadow: 0 0 0 7px rgba(var(--cor-rgb), 0) } }
 .selo--fora { color: var(--erro) } .selo--fora .selo__ponto { animation: none }
@@ -166,7 +272,7 @@ h1 em { font-style: normal; color: var(--cor) }
 
 /* ---------- habilidades: cada uma com o projeto em que foi usada ---------- */
 .habs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 32px }
-.hab { background: rgba(20, 22, 25, .72); border: 1px solid var(--linha); border-radius: 14px; padding: 20px 22px 12px }
+.hab { background: none; border: 1px solid var(--linha); border-radius: 14px; padding: 20px 22px 12px }
 .hab__titulo { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; font-size: 12px; font-weight: 500; color: var(--apagado); text-transform: uppercase; letter-spacing: .14em }
 .hab__glifo { color: var(--cor); letter-spacing: 0; font-weight: 700 }
 .hab li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 10px 0; border-top: 1px solid rgba(35, 38, 43, .8) }
@@ -183,29 +289,38 @@ h1 em { font-style: normal; color: var(--cor) }
 .habs__tambem { margin: 22px 0 0; font-size: 12.5px; color: var(--apagado) }
 
 /* ---------- contato ---------- */
-.email { display: inline-block; margin-top: 18px; font: 700 clamp(22px, 4vw, 40px)/1.15 Inter, sans-serif; letter-spacing: -.02em; text-decoration: none; overflow-wrap: anywhere;
+.email { display: inline-block; margin-top: 18px; font: 700 clamp(22px, 4vw, 40px)/1.15 "IBM Plex Sans", sans-serif; letter-spacing: -.02em; text-decoration: none; overflow-wrap: anywhere;
   background: linear-gradient(var(--cor), var(--cor)) 0 100% / 0 2px no-repeat; padding-bottom: 4px; transition: background-size .5s var(--suave) }
 .email:hover { background-size: 100% 2px }
 .copiado { color: var(--cor); font-size: 13px; min-height: 1.6em; margin: 12px 0 0 }
 
 /* ---------- celular e tablet ---------- */
 @media (max-width: 860px) {
-  /* A coluna da esquerda se desfaz (display: contents): assim a barra de abas, presa no topo, vale
-     durante a página inteira, e não só enquanto a coluna está na tela */
-  .layout { display: block; padding: 0 16px }
-  .lado { display: contents }
-  .nome { display: block; padding-top: 36px }
-  .pulso { margin-top: 16px }
+  /* A barra se desfaz (display: contents): o nome rola junto com a página e só as abas ficam presas no topo */
+  .topo { display: contents }
+  .topo__dentro { display: contents }
+  .marca { display: block; padding: 32px 16px 0 }
+  .nome { font-size: 24px }
+  .papel { display: block; border: 0; padding: 0; margin-top: 6px }
   /* As abas viram uma barra que rola de lado e fica presa no topo */
-  .abas { position: sticky; top: 0; z-index: 5; display: flex; overflow-x: auto; gap: 18px; margin: 20px -16px 0; padding: 12px 16px;
-    background: rgba(12, 13, 15, .88); backdrop-filter: blur(10px); border-bottom: 1px solid var(--linha); scrollbar-width: none }
-  .abas a { white-space: nowrap; padding: 4px 0 } .abas a::before, .abas__n { display: none }
+  .abas { position: sticky; top: 0; z-index: 5; overflow-x: auto; gap: 18px; margin-top: 18px; padding: 12px 16px;
+    background: rgba(8, 11, 15, .88); backdrop-filter: blur(10px); border-bottom: 1px solid var(--linha); scrollbar-width: none;
+    /* Um degradê na borda direita mostra que a barra tem mais abas para o lado */
+    -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent) }
+  .abas a { padding: 4px 0 } .abas a::before, .abas__n { display: none }
   .abas a[aria-current="page"] { color: var(--cor) }
-  /* Um degradê na borda direita mostra que a barra tem mais abas para o lado */
-  .abas { -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent) }
-  .lado__contato { display: none }
-  main { padding-top: 28px; min-height: 0 }
-  .numeros, .cartoes { grid-template-columns: 1fr }
+  .layout { padding: 0 16px }
+  main { padding-top: 32px; min-height: 0 }
+  .inicio { grid-template-columns: 1fr }
+  .inicio__arte { margin: 0 -8px }
+  .arte__stacks { display: none }
+  .numeros div { padding: 0 16px } .numeros b { font-size: 24px }
+  .botoes .botao { flex: 1; justify-content: center }
+  .botoes .botao--cheio { flex: 1 1 100% }
+  .vigil-faixa .pulso { display: none }
+  .rodape__dentro { padding: 20px 16px; flex-direction: column; align-items: flex-start }
+  .rodape small { margin-left: 0 }
+  .cartoes { grid-template-columns: 1fr }
   .habs { grid-template-columns: 1fr }
   .hab li { flex-direction: column; gap: 2px } .hab__onde { text-align: left }
   .projeto { margin: 0 -12px; padding: 16px 12px }
@@ -214,5 +329,6 @@ h1 em { font-style: normal; color: var(--cor) }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto }
   *, *::before, *::after { animation: none !important; transition: none !important }
-  .projeto:hover, .botao:hover, .hab li:hover .hab__nome { transform: none }
+  .projeto:hover, .hab li:hover .hab__nome { transform: none }
+  .arte__pacotes, .arte__consulta { display: none }
 }

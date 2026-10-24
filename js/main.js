@@ -171,6 +171,38 @@ ajustarRede();
 ligarRede();
 
 // =========================================================
+// ILUSTRAÇÃO DO INÍCIO: com o mouse sobre o desenho, as camadas o acompanham em velocidades diferentes
+// (profundidade), e passar
+// num rótulo acende o traço do ramo dele. Os pacotes andam por SMIL (animateMotion), que o CSS de
+// "menos movimento" não alcança: nesse caso, o SVG para aqui.
+// =========================================================
+const arte = document.querySelector(".arte");
+if (arte) {
+  if (reduzir) arte.pauseAnimations();
+  const area = arte.closest(".inicio__arte");
+  if (!reduzir && matchMedia("(hover: hover)").matches) {
+    area.addEventListener("pointermove", (e) => {
+      const caixa = arte.getBoundingClientRect();
+      const px = ((e.clientX - caixa.left) / caixa.width - 0.5) * 2;
+      const py = ((e.clientY - caixa.top) / caixa.height - 0.5) * 2;
+      arte.style.setProperty("--px", Math.max(-1, Math.min(1, px)).toFixed(3));
+      arte.style.setProperty("--py", Math.max(-1, Math.min(1, py)).toFixed(3));
+    }, { passive: true });
+    area.addEventListener("pointerleave", () => {
+      arte.style.setProperty("--px", 0);
+      arte.style.setProperty("--py", 0);
+    });
+  }
+  // O SQL é o centro: passar nele acende todos os ramos
+  arte.querySelectorAll(".arte__no").forEach((no) => {
+    const ramo = no.dataset.ramo === "sql" ? arte.querySelectorAll(".arte__traco, .arte__nodo")
+      : arte.querySelectorAll(`.arte__traco[data-ramo="${no.dataset.ramo}"], .arte__nodo[data-ramo="${no.dataset.ramo}"]`);
+    no.addEventListener("pointerenter", () => ramo.forEach((el) => el.classList.add("aceso")));
+    no.addEventListener("pointerleave", () => ramo.forEach((el) => el.classList.remove("aceso")));
+  });
+}
+
+// =========================================================
 // LUZ QUE SEGUE O MOUSE: todos os cards da aba aberta recebem a posição do mouse relativa a cada
 // um, e a borda perto do cursor acende, mesmo sem o mouse em cima do card (no máximo uma vez por quadro)
 // =========================================================
@@ -243,6 +275,7 @@ async function seloDoVigil() {
   } catch {
     return; // Vigil fora do ar ou lento: os cards ficam como sempre, só sem o selo
   }
+  resumoDoVigil(lista);
   const porNome = new Map(lista.map((s) => [s.nome, s]));
   cards.forEach((card) => {
     // O card do próprio Vigil: se a API respondeu, ele está no ar
@@ -265,6 +298,19 @@ async function seloDoVigil() {
     colocarSelo(card, noAr, trinta, (trinta == null ? "" : "nos últimos 30 dias, ")
       + "segundo o Vigil; abre a página de status");
   });
+}
+
+// A faixa do início: quantos sites estão no ar agora. Os pausados (sem NO_AR nem FORA) não entram na conta.
+// Sem resposta do Vigil, a faixa fica com o texto do HTML, que só convida para a página de status.
+function resumoDoVigil(lista) {
+  const vigiados = lista.filter((s) => ["NO_AR", "FORA"].includes(s.situacao));
+  if (!vigiados.length) return;
+  const noAr = vigiados.filter((s) => s.situacao === "NO_AR").length;
+  document.getElementById("vigil-resumo").textContent =
+    `${noAr}/${vigiados.length} serviços no ar agora · verificados pelo Vigil a cada 5 min`;
+  const faixa = document.querySelector(".vigil-faixa");
+  faixa.classList.toggle("vigil-faixa--ok", noAr === vigiados.length);
+  faixa.classList.toggle("vigil-faixa--fora", noAr < vigiados.length);
 }
 
 // O texto visível vem primeiro (quem usa controle por voz fala o que vê); o resto fica só para o leitor de tela
