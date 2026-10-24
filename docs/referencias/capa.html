@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Capa de compartilhamento</title>
+<!-- Fonte da assets/destaques/portfolio.png (og:image, 1200x627). Para refazer, de qualquer pasta:
+     chrome --headless --hide-scrollbars --force-prefers-reduced-motion --window-size=1200,627 \
+       --screenshot=assets/destaques/portfolio.png docs/referencias/capa.html
+     A ilustração é uma cópia da do index.html (gerar-arte.py). -->
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<style>
+  html, body { width: 1200px; height: 627px; overflow: hidden }
+  /* O brilho do fundo, que no site só existe no início */
+  html { --brilho: .11 }
+  .capa { position: relative; z-index: 1; height: 100%; display: grid; grid-template-columns: 520px 1fr; align-items: center; padding: 0 0 0 72px; gap: 8px }
+  .capa__nome { font: 700 54px/1.05 "IBM Plex Mono", monospace; letter-spacing: -.03em; margin: 0 }
+  .capa__papel { font: 500 17px/1 "IBM Plex Mono", monospace; color: var(--apagado); margin: 18px 0 0; padding-left: 14px; border-left: 2px solid var(--cor) }
+  .capa__frase { font: 700 30px/1.25 "IBM Plex Mono", monospace; letter-spacing: -.02em; margin: 44px 0 0 }
+  .capa__frase em { font-style: normal; color: var(--cor) }
+  .capa__site { display: flex; align-items: center; gap: 12px; font: 500 16px/1 "IBM Plex Mono", monospace; color: var(--cor); margin: 40px 0 0 }
+  .capa__site::before { content: ""; width: 36px; height: 1px; background: var(--cor) }
+  .capa .arte { width: 620px; margin-left: -40px }
+</style>
+</head>
+<body>
+  <main class="capa">
+    <div>
+      <p class="capa__nome">André Lagos</p>
+      <p class="capa__papel">back-end · APIs · bancos · filas</p>
+      <p class="capa__frase">Do banco de dados<br>ao <em>deploy.</em></p>
+      <p class="capa__site">andrelagos.dev</p>
+    </div>
+    <div aria-hidden="true"><svg class="arte" viewBox="0 0 640 430" role="presentation">
+    <defs>
+      <radialGradient id="arte-luz"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+      <mask id="arte-sumir"><rect width="640" height="430" fill="url(#arte-luz)"/></mask>
+    </defs>
+    <g class="arte__chao" mask="url(#arte-sumir)">
+      <polyline points="320.0,-70.0 -199.6,230.0"/>
+      <polyline points="320.0,-70.0 839.6,230.0"/>
+      <polyline points="346.0,-55.0 -173.6,245.0"/>
+      <polyline points="294.0,-55.0 813.6,245.0"/>
+      <polyline points="372.0,-40.0 -147.7,260.0"/>
+      <polyline points="268.0,-40.0 787.7,260.0"/>
+      <polyline points="397.9,-25.0 -121.7,275.0"/>
+      <polyline points="242.1,-25.0 761.7,275.0"/>
+      <polyline points="423.9,-10.0 -95.7,290.0"/>
+      <polyline points="216.1,-10.0 735.7,290.0"/>
+      <polyline points="449.9,5.0 -69.7,305.0"/>
+      <polyline points="190.1,5.0 709.7,305.0"/>
+      <polyline points="475.9,20.0 -43.7,320.0"/>
+      <polyline points="164.1,20.0 683.7,320.0"/>
+      <polyline points="501.9,35.0 -17.7,335.0"/>
+      <polyline points="138.1,35.0 657.7,335.0"/>
+      <polyline points="527.8,50.0 8.2,350.0"/>
+      <polyline points="112.2,50.0 631.8,350.0"/>
+      <polyline points="553.8,65.0 34.2,365.0"/>
+      <polyline points="86.2,65.0 605.8,365.0"/>
+      <polyline points="579.8,80.0 60.2,380.0"/>
+      <polyline points="60.2,80.0 579.8,380.0"/>
+      <polyline points="605.8,95.0 86.2,395.0"/>
+      <polyline points="34.2,95.0 553.8,395.0"/>
+      <polyline points="631.8,110.0 112.2,410.0"/>
+      <polyline points="8.2,110.0 527.8,410.0"/>
+      <polyline points="657.7,125.0 138.1,425.0"/>
+      <polyline points="-17.7,125.0 501.9,425.0"/>
+      <polyline points="683.7,140.0 164.1,440.0"/>
+      <polyline points="-43.7,140.0 475.9,440.0"/>
+      <polyline points="709.7,155.0 190.1,455.0"/>
+      <polyline points="-69.7,155.0 449.9,455.0"/>
+      <polyline points="735.7,170.0 216.1,470.0"/>
+      <polyline points="-95.7,170.0 423.9,470.0"/>
+      <polyline points="761.7,185.0 242.1,485.0"/>
+      <polyline points="-121.7,185.0 397.9,485.0"/>
+      <polyline points="787.7,200.0 268.0,500.0"/>
+      <polyline points="-147.7,200.0 372.0,500.0"/>
+      <polyline points="813.6,215.0 294.0,515.0"/>
+      <polyline points="-173.6,215.0 346.0,515.0"/>
+      <polyline points="839.6,230.0 320.0,530.0"/>
+      <polyline points="-199.6,230.0 320.0,530.0"/>
+    </g>
+    <g class="arte__tracos">
+      <path class="arte__traco" id="tr-api" data-ramo="api" pathLength="100" d="M272.4,172.5 L243.8,156.0 L253.3,150.5 L224.7,134.0"/>
+      <circle class="arte__nodo" data-ramo="api" cx="243.8" cy="156.0" r="2.4"/>
+      <circle class="arte__nodo" data-ramo="api" cx="253.3" cy="150.5" r="2.4"/>
+      <circle class="arte__nodo arte__nodo--fim" data-ramo="api" cx="224.7" cy="134.0" r="3"/>
+      <path class="arte__traco" id="tr-apps" data-ramo="apps" pathLength="100" d="M368.5,173.0 L441.2,131.0"/>
+      <circle class="arte__nodo arte__nodo--fim" data-ramo="apps" cx="441.2" cy="131.0" r="3"/>
+      <path class="arte__traco" id="tr-servidores" data-ramo="servidores" pathLength="100" d="M194.4,242.5 L178.0,252.0 L123.4,220.5 L108.7,229.0"/>
+      <circle class="arte__nodo" data-ramo="servidores" cx="178.0" cy="252.0" r="2.4"/>
+      <circle class="arte__nodo" data-ramo="servidores" cx="123.4" cy="220.5" r="2.4"/>
+      <circle class="arte__nodo arte__nodo--fim" data-ramo="servidores" cx="108.7" cy="229.0" r="3"/>
+      <path class="arte__traco" id="tr-docker" data-ramo="docker" pathLength="100" d="M445.6,242.5 L484.5,265.0 L533.0,237.0"/>
+      <circle class="arte__nodo" data-ramo="docker" cx="484.5" cy="265.0" r="2.4"/>
+      <circle class="arte__nodo arte__nodo--fim" data-ramo="docker" cx="533.0" cy="237.0" r="3"/>
+      <path class="arte__traco" id="tr-filas" data-ramo="filas" pathLength="100" d="M263.7,282.5 L191.8,324.0"/>
+      <circle class="arte__nodo arte__nodo--fim" data-ramo="filas" cx="191.8" cy="324.0" r="3"/>
+      <path class="arte__traco" id="tr-deploy" data-ramo="deploy" pathLength="100" d="M367.6,287.5 L424.8,320.5"/>
+      <circle class="arte__nodo arte__nodo--fim" data-ramo="deploy" cx="424.8" cy="320.5" r="3"/>
+      <path class="arte__traco" id="tr-deploy2" data-ramo="deploy" pathLength="100" d="M469.0,351.0 L516.6,378.5"/>
+      <circle class="arte__nodo arte__nodo--fim" data-ramo="deploy" cx="516.6" cy="378.5" r="3"/>
+    </g>
+    <g class="arte__pacotes">
+      <circle class="arte__pacote" r="2.6"><animateMotion dur="2.6s" begin="-0.00s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-api"/></animateMotion></circle>
+      <circle class="arte__pacote" r="2.6"><animateMotion dur="2.6s" begin="-1.30s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-api"/></animateMotion></circle>
+      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.1s" begin="-0.45s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#tr-apps"/></animateMotion></circle>
+      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.1s" begin="-2.00s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#tr-apps"/></animateMotion></circle>
+      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.6s" begin="-0.90s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-servidores"/></animateMotion></circle>
+      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.6s" begin="-2.70s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-servidores"/></animateMotion></circle>
+      <circle class="arte__pacote" r="2.6"><animateMotion dur="2.6s" begin="-1.35s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#tr-docker"/></animateMotion></circle>
+      <circle class="arte__pacote" r="2.6"><animateMotion dur="2.6s" begin="-2.65s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#tr-docker"/></animateMotion></circle>
+      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.1s" begin="-1.80s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-filas"/></animateMotion></circle>
+      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.1s" begin="-3.35s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-filas"/></animateMotion></circle>
+      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.6s" begin="-2.25s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-deploy"/></animateMotion></circle>
+      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.6s" begin="-4.05s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-deploy"/></animateMotion></circle>
+      <circle class="arte__pacote" r="2.6"><animateMotion dur="2.6s" begin="-2.70s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#tr-deploy2"/></animateMotion></circle>
+      <circle class="arte__pacote" r="2.6"><animateMotion dur="2.6s" begin="-4.00s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#tr-deploy2"/></animateMotion></circle>
+    </g>
+    <g class="arte__objetos">
+      <polygon class="arte__rack__esq" points="503.6,123.0 465.5,145.0 465.5,87.0 503.6,65.0"/>
+      <polygon class="arte__rack__dir" points="417.0,117.0 465.5,145.0 465.5,87.0 417.0,59.0"/>
+      <polygon class="arte__rack__topo" points="455.1,37.0 503.6,65.0 465.5,87.0 417.0,59.0"/>
+      <polyline class="arte__fenda" points="503.6,103.7 465.5,125.7 417.0,97.7"/>
+      <polyline class="arte__fenda" points="503.6,84.3 465.5,106.3 417.0,78.3"/>
+      <polyline class="arte__grade" points="437.4,123.1 437.4,115.1"/>
+      <polyline class="arte__grade" points="445.6,127.9 445.6,119.9"/>
+      <polyline class="arte__grade" points="453.9,132.6 453.9,124.6"/>
+      <circle class="arte__led" style="--d:0.00s" cx="423.9" cy="111.3" r="1.6"/>
+      <circle class="arte__led" style="--d:0.37s" cx="430.0" cy="114.8" r="1.6"/>
+      <polyline class="arte__grade" points="437.4,103.8 437.4,95.8"/>
+      <polyline class="arte__grade" points="445.6,108.5 445.6,100.5"/>
+      <polyline class="arte__grade" points="453.9,113.3 453.9,105.3"/>
+      <circle class="arte__led" style="--d:0.74s" cx="423.9" cy="92.0" r="1.6"/>
+      <circle class="arte__led" style="--d:1.11s" cx="430.0" cy="95.5" r="1.6"/>
+      <polyline class="arte__grade" points="437.4,84.4 437.4,76.4"/>
+      <polyline class="arte__grade" points="445.6,89.2 445.6,81.2"/>
+      <polyline class="arte__grade" points="453.9,93.9 453.9,85.9"/>
+      <circle class="arte__led" style="--d:1.48s" cx="423.9" cy="72.7" r="1.6"/>
+      <circle class="arte__led" style="--d:1.85s" cx="430.0" cy="76.2" r="1.6"/>
+      <polygon class="arte__rack__esq" points="243.8,123.0 205.7,145.0 205.7,87.0 243.8,65.0"/>
+      <polygon class="arte__rack__dir" points="157.2,117.0 205.7,145.0 205.7,87.0 157.2,59.0"/>
+      <polygon class="arte__rack__topo" points="195.3,37.0 243.8,65.0 205.7,87.0 157.2,59.0"/>
+      <polyline class="arte__fenda" points="243.8,103.7 205.7,125.7 157.2,97.7"/>
+      <polyline class="arte__fenda" points="243.8,84.3 205.7,106.3 157.2,78.3"/>
+      <polyline class="arte__grade" points="177.6,123.1 177.6,115.1"/>
+      <polyline class="arte__grade" points="185.8,127.9 185.8,119.9"/>
+      <polyline class="arte__grade" points="194.0,132.6 194.0,124.6"/>
+      <circle class="arte__led" style="--d:0.00s" cx="164.1" cy="111.3" r="1.6"/>
+      <circle class="arte__led" style="--d:0.37s" cx="170.2" cy="114.8" r="1.6"/>
+      <polyline class="arte__grade" points="177.6,103.8 177.6,95.8"/>
+      <polyline class="arte__grade" points="185.8,108.5 185.8,100.5"/>
+      <polyline class="arte__grade" points="194.0,113.3 194.0,105.3"/>
+      <circle class="arte__led" style="--d:0.74s" cx="164.1" cy="92.0" r="1.6"/>
+      <circle class="arte__led" style="--d:1.11s" cx="170.2" cy="95.5" r="1.6"/>
+      <polyline class="arte__grade" points="177.6,84.4 177.6,76.4"/>
+      <polyline class="arte__grade" points="185.8,89.2 185.8,81.2"/>
+      <polyline class="arte__grade" points="194.0,93.9 194.0,85.9"/>
+      <circle class="arte__led" style="--d:1.48s" cx="164.1" cy="72.7" r="1.6"/>
+      <circle class="arte__led" style="--d:1.85s" cx="170.2" cy="76.2" r="1.6"/>
+      <polygon class="arte__rack__esq" points="602.3,233.0 564.2,255.0 564.2,193.0 602.3,171.0"/>
+      <polygon class="arte__rack__dir" points="515.7,227.0 564.2,255.0 564.2,193.0 515.7,165.0"/>
+      <polygon class="arte__rack__topo" points="553.8,143.0 602.3,171.0 564.2,193.0 515.7,165.0"/>
+      <polyline class="arte__fenda" points="602.3,212.3 564.2,234.3 515.7,206.3"/>
+      <polyline class="arte__fenda" points="602.3,191.7 564.2,213.7 515.7,185.7"/>
+      <polyline class="arte__grade" points="536.1,232.4 536.1,224.4"/>
+      <polyline class="arte__grade" points="544.3,237.2 544.3,229.2"/>
+      <polyline class="arte__grade" points="552.6,241.9 552.6,233.9"/>
+      <circle class="arte__led" style="--d:0.00s" cx="522.6" cy="220.7" r="1.6"/>
+      <circle class="arte__led" style="--d:0.37s" cx="528.7" cy="224.2" r="1.6"/>
+      <polyline class="arte__grade" points="536.1,211.8 536.1,203.8"/>
+      <polyline class="arte__grade" points="544.3,216.5 544.3,208.5"/>
+      <polyline class="arte__grade" points="552.6,221.3 552.6,213.3"/>
+      <circle class="arte__led" style="--d:0.74s" cx="522.6" cy="200.0" r="1.6"/>
+      <circle class="arte__led" style="--d:1.11s" cx="528.7" cy="203.5" r="1.6"/>
+      <polyline class="arte__grade" points="536.1,191.1 536.1,183.1"/>
+      <polyline class="arte__grade" points="544.3,195.9 544.3,187.9"/>
+      <polyline class="arte__grade" points="552.6,200.6 552.6,192.6"/>
+      <circle class="arte__led" style="--d:1.48s" cx="522.6" cy="179.3" r="1.6"/>
+      <circle class="arte__led" style="--d:1.85s" cx="528.7" cy="182.8" r="1.6"/>
+      <polygon class="arte__patio__esq" points="467.2,230.0 320.0,315.0 320.0,303.0 467.2,218.0"/>
+      <polygon class="arte__patio__dir" points="172.8,230.0 320.0,315.0 320.0,303.0 172.8,218.0"/>
+      <polygon class="arte__patio__topo" points="320.0,133.0 467.2,218.0 320.0,303.0 172.8,218.0"/>
+      <path class="arte__disco" d="M275.9,194.0 L275.9,218.0 A44.1,25.5 0 0 0 364.1,218.0 L364.1,194.0 A44.1,25.5 0 0 1 275.9,194.0Z"/>
+      <ellipse class="arte__disco-topo" cx="320.0" cy="194.0" rx="44.1" ry="25.5"/>
+      <path class="arte__disco" d="M275.9,164.0 L275.9,188.0 A44.1,25.5 0 0 0 364.1,188.0 L364.1,164.0 A44.1,25.5 0 0 1 275.9,164.0Z"/>
+      <ellipse class="arte__disco-topo" cx="320.0" cy="164.0" rx="44.1" ry="25.5"/>
+      <path class="arte__disco" d="M275.9,134.0 L275.9,158.0 A44.1,25.5 0 0 0 364.1,158.0 L364.1,134.0 A44.1,25.5 0 0 1 275.9,134.0Z"/>
+      <ellipse class="arte__disco-topo arte__disco-topo--ultimo" cx="320.0" cy="134.0" rx="44.1" ry="25.5"/>
+      <ellipse class="arte__consulta" cx="320.0" cy="218.0" rx="44.1" ry="25.5"/>
+      <polygon class="arte__rack__esq" points="132.9,243.0 94.8,265.0 94.8,203.0 132.9,181.0"/>
+      <polygon class="arte__rack__dir" points="46.3,237.0 94.8,265.0 94.8,203.0 46.3,175.0"/>
+      <polygon class="arte__rack__topo" points="84.4,153.0 132.9,181.0 94.8,203.0 46.3,175.0"/>
+      <polyline class="arte__fenda" points="132.9,222.3 94.8,244.3 46.3,216.3"/>
+      <polyline class="arte__fenda" points="132.9,201.7 94.8,223.7 46.3,195.7"/>
+      <polyline class="arte__grade" points="66.7,242.4 66.7,234.4"/>
+      <polyline class="arte__grade" points="74.9,247.2 74.9,239.2"/>
+      <polyline class="arte__grade" points="83.2,251.9 83.2,243.9"/>
+      <circle class="arte__led" style="--d:0.00s" cx="53.3" cy="230.7" r="1.6"/>
+      <circle class="arte__led" style="--d:0.37s" cx="59.3" cy="234.2" r="1.6"/>
+      <polyline class="arte__grade" points="66.7,221.8 66.7,213.8"/>
+      <polyline class="arte__grade" points="74.9,226.5 74.9,218.5"/>
+      <polyline class="arte__grade" points="83.2,231.3 83.2,223.3"/>
+      <circle class="arte__led" style="--d:0.74s" cx="53.3" cy="210.0" r="1.6"/>
+      <circle class="arte__led" style="--d:1.11s" cx="59.3" cy="213.5" r="1.6"/>
+      <polyline class="arte__grade" points="66.7,201.1 66.7,193.1"/>
+      <polyline class="arte__grade" points="74.9,205.9 74.9,197.9"/>
+      <polyline class="arte__grade" points="83.2,210.6 83.2,202.6"/>
+      <circle class="arte__led" style="--d:1.48s" cx="53.3" cy="189.3" r="1.6"/>
+      <circle class="arte__led" style="--d:1.85s" cx="59.3" cy="192.8" r="1.6"/>
+      <polygon class="arte__rack__esq" points="485.4,343.5 445.6,366.5 445.6,312.5 485.4,289.5"/>
+      <polygon class="arte__rack__dir" points="393.6,336.5 445.6,366.5 445.6,312.5 393.6,282.5"/>
+      <polygon class="arte__rack__topo" points="433.4,259.5 485.4,289.5 445.6,312.5 393.6,282.5"/>
+      <polyline class="arte__fenda" points="485.4,316.5 445.6,339.5 393.6,309.5"/>
+      <polyline class="arte__grade" points="415.4,339.6 415.4,331.6"/>
+      <polyline class="arte__grade" points="424.3,344.7 424.3,336.7"/>
+      <polyline class="arte__grade" points="433.1,349.8 433.1,341.8"/>
+      <circle class="arte__led" style="--d:0.00s" cx="400.5" cy="327.0" r="1.6"/>
+      <circle class="arte__led" style="--d:0.37s" cx="406.6" cy="330.5" r="1.6"/>
+      <polyline class="arte__grade" points="415.4,312.6 415.4,304.6"/>
+      <polyline class="arte__grade" points="424.3,317.7 424.3,309.7"/>
+      <polyline class="arte__grade" points="433.1,322.8 433.1,314.8"/>
+      <circle class="arte__led" style="--d:0.74s" cx="400.5" cy="300.0" r="1.6"/>
+      <circle class="arte__led" style="--d:1.11s" cx="406.6" cy="303.5" r="1.6"/>
+    </g>
+    <g class="arte__nos">
+      <g class="arte__no" data-ramo="api" transform="translate(186 34)">
+        <rect x="-38" y="-15" width="77" height="30" rx="6"/>
+        <path class="arte__icone" transform="translate(-26 -8)" d="M5 4 1 8l4 4M11 4l4 4-4 4M9.5 2 6.5 14"/>
+        <text x="-2" y="4.5">API</text>
+        <text class="arte__stacks" x="0" y="33" text-anchor="middle">Spring · Go · .NET · Nest</text>
+      </g>
+      <g class="arte__no" data-ramo="apps" transform="translate(474 36)">
+        <rect x="-43" y="-15" width="86" height="30" rx="6"/>
+        <path class="arte__icone" transform="translate(-31 -8)" d="M8 1.5 14.5 5 8 8.5 1.5 5Z M1.5 8 8 11.5 14.5 8 M1.5 11 8 14.5 14.5 11"/>
+        <text x="-7" y="4.5">APPS</text>
+        <text class="arte__stacks" x="0" y="33" text-anchor="middle">React · TypeScript</text>
+      </g>
+      <g class="arte__no" data-ramo="filas" transform="translate(192 328)">
+        <rect x="-48" y="-15" width="95" height="30" rx="6"/>
+        <path class="arte__icone" transform="translate(-36 -8)" d="M2 3.5h12M2 8h12M2 12.5h7"/>
+        <text x="-12" y="4.5">FILAS</text>
+        <text class="arte__stacks" x="0" y="33" text-anchor="middle">Kafka · RabbitMQ · BullMQ</text>
+      </g>
+      <g class="arte__no" data-ramo="deploy" transform="translate(517 382)">
+        <rect x="-52" y="-15" width="104" height="30" rx="6"/>
+        <path class="arte__icone" transform="translate(-40 -8)" d="M4.6 13h7.2a3 3 0 0 0 .5-5.9 4.4 4.4 0 0 0-8.5 1.2A2.4 2.4 0 0 0 4.6 13Z"/>
+        <text x="-16" y="4.5">DEPLOY</text>
+        <text class="arte__stacks" x="0" y="33" text-anchor="middle">Docker · Oracle · Vercel</text>
+      </g>
+      <g class="arte__no" data-ramo="sql" transform="translate(320 184)">
+        <rect x="-38" y="-15" width="77" height="30" rx="6"/>
+        <path class="arte__icone" transform="translate(-26 -8)" d="M2.5 3.5c0-1.1 2.5-2 5.5-2s5.5.9 5.5 2-2.5 2-5.5 2-5.5-.9-5.5-2Zm0 0v9c0 1.1 2.5 2 5.5 2s5.5-.9 5.5-2v-9M2.5 8c0 1.1 2.5 2 5.5 2s5.5-.9 5.5-2"/>
+        <text x="-2" y="4.5">SQL</text>
+        <text class="arte__stacks" x="0" y="33" text-anchor="middle">PostgreSQL · SQL à mão</text>
+      </g>
+    </g>
+        </svg></div>
+  </main>
+</body>
+</html>
