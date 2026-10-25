@@ -1,13 +1,33 @@
-// Portfólio: abas por endereço, fundo de rede em canvas, brilho que segue o mouse nos projetos,
-// números que contam, copiar e-mail e o selo "no ar" ao vivo do Vigil.
+// Portfólio "Planetário": abas por endereço com o traço azul que viaja, céu de estrelas em canvas,
+// planetário dos projetos (área = testes), números que contam, copiar e-mail e o selo ao vivo do Vigil.
 const reduzir = matchMedia("(prefers-reduced-motion: reduce)").matches;
-// Aqui em cima porque a primeira aba abre (e conta os números) logo abaixo, antes do resto do arquivo
+const comMouse = matchMedia("(hover: hover)").matches;
 const numero = new Intl.NumberFormat("pt-BR");
 const contagens = new WeakMap(); // a contagem em andamento de cada número (para recomeçar sem duas juntas)
-// Da luz que segue o mouse (a abrirAba também a atualiza)
-const principal = document.querySelector("main");
-let pendente = null;
-let ultimo = null; // a posição mais recente do mouse: vários movimentos podem chegar no mesmo quadro
+// A cor de destaque vem do CSS (usada no canvas do céu)
+const estiloRaiz = getComputedStyle(document.documentElement);
+const destaque = estiloRaiz.getPropertyValue("--destaque-rgb").trim();
+const corEstrela = estiloRaiz.getPropertyValue("--estrela-rgb").trim();
+
+// =========================================================
+// DADOS DOS PROJETOS: lidos dos próprios cards (uma fonte só). Cada card ganha o disco de testes.
+// =========================================================
+const projetos = Array.from(document.querySelectorAll("#projetos .projeto")).map((card) => {
+  const link = card.querySelector(".projeto__link");
+  const nome = link.firstChild.textContent.trim();
+  const spanTestes = Array.from(card.querySelectorAll(".projeto__meta > span")).find((s) => /testes$/.test(s.textContent));
+  const testes = spanTestes ? Number(spanTestes.textContent.replace(/\D/g, "")) : 0;
+  const noAr = card.hasAttribute("data-vigil");
+  if (spanTestes) spanTestes.classList.add("testes");
+  if (testes) {
+    const disco = document.createElement("span");
+    disco.className = "projeto__disco" + (noAr ? "" : " projeto__disco--codigo");
+    disco.setAttribute("aria-hidden", "true");
+    disco.style.setProperty("--d", `${(Math.sqrt(testes) * 1.45).toFixed(1)}px`);
+    card.querySelector(".projeto__topo").prepend(disco);
+  }
+  return { nome, testes, noAr, card };
+}).filter((p) => p.testes > 0);
 
 // =========================================================
 // ABAS: cada seção aparece sozinha, escolhida pelo endereço (#projetos...).
@@ -15,56 +35,99 @@ let ultimo = null; // a posição mais recente do mouse: vários movimentos pode
 // =========================================================
 document.documentElement.classList.add("js-abas");
 const secoes = Array.from(document.querySelectorAll("main > section[id]"));
-const linksDasAbas = Array.from(document.querySelectorAll(".abas a"));
+const nav = document.querySelector(".abas");
+const linksDasAbas = Array.from(nav.querySelectorAll("a"));
+const traco = nav.querySelector(".abas__traco");
+let abaAtual = null;
+let focarAba = false; // a troca veio das setas com o foco no menu: o foco fica no menu
 
-// Cada bloco da seção entra um pouco depois do anterior (o atraso vem de --i)
 secoes.forEach((secao) => {
   secao.querySelectorAll(".item").forEach((item, i) => item.style.setProperty("--i", i));
+  secao.querySelectorAll(".hab").forEach((hab, i) => hab.style.setProperty("--h", i));
 });
 
 function abrirAba(focar) {
-  // Os ids são simples (sem acento nem espaço): o hash é usado como veio, sem decodeURIComponent,
-  // que quebraria a página com um endereço como "#%"
   const id = location.hash.slice(1);
   const alvo = id && document.getElementById(id);
   const atual = (alvo && alvo.closest("main > section")) || secoes[0];
+  const mudou = atual !== abaAtual;
+  abaAtual = atual;
 
   secoes.forEach((secao) => secao.classList.toggle("aberta", secao === atual));
+  let linkAtivo = null;
   linksDasAbas.forEach((link) => {
     if (link.getAttribute("href") === `#${atual.id}`) {
       link.setAttribute("aria-current", "page");
-      // No celular as abas rolam de lado: a ativa (aberta por um link direto em #contato) fica à vista
+      linkAtivo = link;
       link.scrollIntoView({ block: "nearest", inline: "nearest" });
     } else link.removeAttribute("aria-current");
   });
+  moverTraco(linkAtivo, mudou && focar !== null);
   document.title = atual === secoes[0] ? "André Lagos | Engenharia de Software"
     : `${atual.querySelector("h1, h2").textContent} | André Lagos`;
 
-  // Reinicia a entrada em sequência (tirar e pôr a classe, com um reflow no meio)
   atual.classList.remove("entrando");
   void atual.offsetWidth;
   atual.classList.add("entrando");
 
-  atualizarLuz();
-  // Os números contam toda vez que a aba abre (a contagem é curta)
   atual.querySelectorAll("[data-contar]").forEach(contar);
-  // Cada aba começa do topo: sem isso, abrir "#projetos" rolaria até a seção, como numa âncora comum.
-  // Ao trocar pelo menu, o foco vai para o título (quem usa leitor de tela ouve onde está).
+  planetario?.alternar(atual.id === "inicio");
+  // Mede agora e de novo quando os cards terminam de pousar (a entrada os desloca)
+  medirCards();
+  setTimeout(medirCards, 2000);
   window.scrollTo({ top: 0, behavior: "instant" });
-  if (focar) atual.querySelector("h1, h2").focus({ preventScroll: true });
+  if (focarAba) { linkAtivo.focus({ preventScroll: true }); focarAba = false; }
+  else if (focar) atual.querySelector("h1, h2").focus({ preventScroll: true });
 }
-window.addEventListener("hashchange", () => abrirAba(true));
 
-// "Pular para o conteúdo": vai para o título da aba aberta, sem mudar o endereço (o #conteudo
-// abriria a aba Início, porque não é uma seção)
+// O traço: estica da aba antiga até cobrir as duas e depois encolhe na nova; a ponta "pulsa" ao chegar
+let tracoX = 0;
+let tracoL = 0;
+function moverTraco(link, animar) {
+  if (!link) return;
+  const x = link.offsetLeft + 12;
+  const l = link.offsetWidth - 24;
+  const de = { x: tracoX, l: tracoL };
+  tracoX = x; tracoL = l;
+  traco.getAnimations().forEach((a) => a.cancel());
+  traco.style.left = `${x}px`;
+  traco.style.width = `${l}px`;
+  if (!animar || reduzir || !de.l) return;
+  const esq = Math.min(de.x, x);
+  const dir = Math.max(de.x + de.l, x + l);
+  traco.animate([
+    { left: `${de.x}px`, width: `${de.l}px`, easing: "cubic-bezier(.5,0,.2,1)" },
+    { left: `${esq}px`, width: `${dir - esq}px`, offset: .42, easing: "cubic-bezier(.22,1,.36,1)" },
+    { left: `${x}px`, width: `${l}px` },
+  ], { duration: 820 });
+  traco.classList.remove("chegou");
+  setTimeout(() => { traco.classList.add("chegou"); }, 560);
+}
+
+window.addEventListener("hashchange", () => abrirAba(true));
+window.addEventListener("resize", () => {
+  const ativo = nav.querySelector('[aria-current="page"]');
+  moverTraco(ativo, false);
+});
+document.fonts?.ready.then(() => moverTraco(nav.querySelector('[aria-current="page"]'), false));
+
+// Setas do teclado: esquerda e direita trocam de aba (no menu e fora de campos de texto)
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+  if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+  if (e.target.closest("input, textarea, select, [contenteditable]")) return;
+  const i = secoes.indexOf(abaAtual);
+  const n = secoes.length;
+  const proxima = secoes[(i + (e.key === "ArrowRight" ? 1 : -1) + n) % n];
+  e.preventDefault();
+  focarAba = nav.contains(document.activeElement);
+  location.hash = proxima.id;
+});
+
 document.querySelector(".pular").addEventListener("click", (e) => {
   e.preventDefault();
   document.querySelector("main > section.aberta").querySelector("h1, h2").focus();
 });
-abrirAba(false);
-// O navegador pula até a âncora do endereço depois que a página carrega (depois deste script):
-// abrindo direto em "#projetos", a página ficaria rolada. Volta ao topo nessa hora também.
-window.addEventListener("load", () => window.scrollTo({ top: 0, behavior: "instant" }), { once: true });
 
 // =========================================================
 // NÚMEROS que contam até o valor, toda vez que a aba abre
@@ -75,16 +138,14 @@ function contar(elemento) {
   if (reduzir) return; // o HTML já traz o valor final
   cancelAnimationFrame(contagens.get(elemento));
   elemento.textContent = "0" + sufixo;
-  // Começa depois que o bloco termina de entrar (o atraso dele vem de --i) e conta o tempo a partir
-  // do primeiro quadro desenhado: medido de antes, uma página lenta para aparecer pularia direto ao fim
   const bloco = elemento.closest(".item");
-  const espera = 250 + Number(bloco?.style.getPropertyValue("--i") || 0) * 90;
-  const duracao = 1400;
+  const espera = 300 + Number(bloco?.style.getPropertyValue("--i") || 0) * 85;
+  const duracao = 1800;
   let inicio = null;
   const passo = (agora) => {
     inicio ??= agora + espera;
     const t = Math.min(1, Math.max(0, (agora - inicio) / duracao));
-    const suave = 1 - Math.pow(1 - t, 4);
+    const suave = 1 - Math.pow(1 - t, 5);
     elemento.textContent = numero.format(Math.round(alvo * suave)) + sufixo;
     if (t < 1) contagens.set(elemento, requestAnimationFrame(passo));
   };
@@ -92,150 +153,277 @@ function contar(elemento) {
 }
 
 // =========================================================
-// FUNDO: pontos que andam devagar e se ligam quando ficam perto (como um mapa de serviços);
-// perto do mouse, acendem. Para quando a aba do navegador fica escondida.
+// CÉU: estrelas que cintilam devagar; perto do mouse elas acendem e o cursor deixa um rastro de
+// luz que se apaga em menos de um segundo. Para quando a aba do navegador fica escondida.
 // =========================================================
-const canvas = document.getElementById("rede");
+const canvas = document.getElementById("ceu");
 const ctx = canvas.getContext("2d");
-let pontos = [];
+let estrelas = [];
+let rastro = [];
 let mouse = { x: -999, y: -999 };
-let rodando = false;
-
-// A largura e a altura vêm do próprio canvas (sem a barra de rolagem do Windows, que o innerWidth inclui)
 let largura = 0;
 let altura = 0;
-function ajustarRede() {
+let ceuRodando = false;
+
+function ajustarCeu() {
   const novaLargura = canvas.clientWidth;
   altura = canvas.clientHeight;
-  const escala = window.devicePixelRatio || 1;
+  const escala = Math.min(window.devicePixelRatio || 1, 2);
   canvas.width = novaLargura * escala;
   canvas.height = altura * escala;
   ctx.setTransform(escala, 0, 0, escala, 0, 0);
-  // Só sorteia os pontos de novo quando a largura muda: no celular, a barra de endereço que some e
-  // volta na rolagem muda só a altura, e a rede inteira "pularia" de lugar a cada rolagem
   if (novaLargura !== largura) {
     largura = novaLargura;
-    // Menos pontos em tela pequena: cada par é conferido, e o custo cresce com o quadrado
-    const quantos = Math.min(90, Math.round((largura * altura) / 16000));
-    pontos = Array.from({ length: quantos }, () => ({
+    const quantas = Math.min(320, Math.round((largura * altura) / 4200));
+    estrelas = Array.from({ length: quantas }, () => ({
       x: Math.random() * largura, y: Math.random() * altura,
-      vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
+      r: Math.random() < .08 ? 1.3 + Math.random() * .7 : .4 + Math.random() * .7,
+      fase: Math.random() * Math.PI * 2, ritmo: .4 + Math.random() * 1.2,
+      deriva: (Math.random() - .5) * .04,
     }));
   }
-  if (reduzir) desenharRede(); // parado: desenha uma vez só
+  if (reduzir) desenharCeu(0);
 }
 
-function desenharRede() {
+function desenharCeu(agora) {
   ctx.clearRect(0, 0, largura, altura);
-  for (const p of pontos) {
-    if (!reduzir) { p.x += p.vx; p.y += p.vy; }
-    if (p.x < 0 || p.x > largura) p.vx *= -1;
-    if (p.y < 0 || p.y > altura) p.vy *= -1;
-  }
-  for (let i = 0; i < pontos.length; i++) {
-    const a = pontos[i];
-    const distMouse = Math.hypot(a.x - mouse.x, a.y - mouse.y);
-    const perto = distMouse < 160 ? 1 - distMouse / 160 : 0;
-    ctx.fillStyle = `rgba(108,196,255,${0.25 + perto * 0.6})`;
+  const t = agora / 1000;
+  for (const e of estrelas) {
+    if (atrasDeCard(e)) continue;
+    if (!reduzir) { e.x += e.deriva; if (e.x < 0) e.x += largura; if (e.x > largura) e.x -= largura; }
+    const d = Math.hypot(e.x - mouse.x, e.y - mouse.y);
+    const perto = d < 180 ? 1 - d / 180 : 0;
+    const brilho = (reduzir ? .55 : .35 + .3 * Math.sin(t * e.ritmo + e.fase)) + perto * .6;
+    ctx.fillStyle = perto > .2 ? `rgba(${destaque},${Math.min(1, brilho)})` : `rgba(${corEstrela},${Math.min(1, brilho)})`;
     ctx.beginPath();
-    ctx.arc(a.x, a.y, 1.6 + perto * 1.4, 0, Math.PI * 2);
+    ctx.arc(e.x, e.y, e.r + perto * 1.2, 0, Math.PI * 2);
     ctx.fill();
-    for (let j = i + 1; j < pontos.length; j++) {
-      const b = pontos[j];
-      const d = Math.hypot(a.x - b.x, a.y - b.y);
-      if (d < 130) {
-        ctx.strokeStyle = `rgba(108,196,255,${(1 - d / 130) * (0.12 + perto * 0.35)})`;
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.stroke();
+  }
+  // O rastro: cada ponto vive 700 ms. É desenhado como uma fita só (um preenchimento, sem emendas que
+  // se sobrepõem), com os pontos suavizados para tirar o tremido do mouse. A espessura depende só da
+  // idade de cada ponto, então a fita afina até sumir sem nenhum salto quando um ponto sai ou o mouse para.
+  rastro = rastro.filter((p) => agora - p.t < 700);
+  if (rastro.length > 1) {
+    let pts = rastro;
+    for (let volta = 0; volta < 3; volta++) {
+      pts = pts.map((p, i) => (i === 0 || i === pts.length - 1) ? p
+        : { x: (pts[i - 1].x + p.x * 2 + pts[i + 1].x) / 4, y: (pts[i - 1].y + p.y * 2 + pts[i + 1].y) / 4, t: p.t });
+    }
+    // Entre cada par de pontos entram mais 4 numa curva Catmull-Rom, para a fita não ter trechos retos
+    const curva = [];
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p0 = pts[Math.max(0, i - 1)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(pts.length - 1, i + 2)];
+      for (let k = 0; k < 5; k++) {
+        const u = k / 5, u2 = u * u, u3 = u2 * u;
+        const c = (a, b, c, d) => .5 * (2 * b + (c - a) * u + (2 * a - 5 * b + 4 * c - d) * u2 + (3 * b - a - 3 * c + d) * u3);
+        curva.push({ x: c(p0.x, p1.x, p2.x, p3.x), y: c(p0.y, p1.y, p2.y, p3.y), t: p1.t + (p2.t - p1.t) * u });
       }
     }
+    curva.push(pts[pts.length - 1]);
+    pts = curva;
+    const esquerda = [];
+    const direita = [];
+    pts.forEach((p, i) => {
+      const a = pts[Math.max(0, i - 1)];
+      const b = pts[Math.min(pts.length - 1, i + 1)];
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const d = Math.hypot(dx, dy) || 1;
+      const meia = Math.pow(Math.max(0, 1 - (agora - p.t) / 700), 1.5) * 1.5;
+      esquerda.push([p.x - (dy / d) * meia, p.y + (dx / d) * meia]);
+      direita.push([p.x + (dy / d) * meia, p.y - (dx / d) * meia]);
+    });
+    ctx.fillStyle = `rgba(${destaque},.55)`;
+    ctx.beginPath();
+    ctx.moveTo(...esquerda[0]);
+    esquerda.forEach((p) => ctx.lineTo(...p));
+    direita.reverse().forEach((p) => ctx.lineTo(...p));
+    ctx.closePath();
+    ctx.fill();
   }
 }
 
-function animarRede() {
-  if (document.hidden) { rodando = false; return; }
-  desenharRede();
-  requestAnimationFrame(animarRede);
+function animarCeu(agora) {
+  if (document.hidden) { ceuRodando = false; return; }
+  desenharCeu(agora);
+  requestAnimationFrame(animarCeu);
 }
-function ligarRede() {
-  if (reduzir || rodando) return;
-  rodando = true;
-  requestAnimationFrame(animarRede);
+function ligarCeu() {
+  if (reduzir || ceuRodando || document.hidden) return;
+  ceuRodando = true;
+  requestAnimationFrame(animarCeu);
 }
-window.addEventListener("resize", ajustarRede);
-window.addEventListener("pointermove", (e) => { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
-document.addEventListener("visibilitychange", ligarRede);
-ajustarRede();
-ligarRede();
+// Os cards de projeto não têm fundo: o céu pula as estrelas que cairiam atrás deles. As caixas são
+// guardadas e só recalculadas ao trocar de aba, rolar ou redimensionar (não a cada quadro).
+let caixasDosCards = [];
+function medirCards() {
+  caixasDosCards = Array.from(document.querySelectorAll("section.aberta .projeto"), (card) => card.getBoundingClientRect());
+  if (reduzir) desenharCeu(0);
+}
+function atrasDeCard(e) {
+  return caixasDosCards.some((c) => e.x > c.left && e.x < c.right && e.y > c.top && e.y < c.bottom);
+}
+window.addEventListener("scroll", medirCards, { passive: true });
+window.addEventListener("resize", medirCards);
+window.addEventListener("resize", ajustarCeu);
+window.addEventListener("pointermove", (e) => {
+  mouse = { x: e.clientX, y: e.clientY };
+  if (reduzir || e.pointerType !== "mouse") return;
+  // O navegador junta vários movimentos num evento só; os eventos agrupados dão os pontos do meio
+  const agrupados = e.getCoalescedEvents?.();
+  for (const m of agrupados?.length ? agrupados : [e]) {
+    // Pontos a menos de 2 px do anterior só fariam a fita tremer
+    const antes = rastro[rastro.length - 1];
+    if (antes && Math.hypot(m.clientX - antes.x, m.clientY - antes.y) < 2) continue;
+    rastro.push({ x: m.clientX, y: m.clientY, t: performance.now() });
+  }
+}, { passive: true });
+document.addEventListener("visibilitychange", ligarCeu);
+ajustarCeu();
+ligarCeu();
 
 // =========================================================
-// ILUSTRAÇÃO DO INÍCIO: com o mouse sobre o desenho, as camadas o acompanham em velocidades diferentes
-// (profundidade), e passar
-// num rótulo acende o traço do ramo dele. Os pacotes andam por SMIL (animateMotion), que o CSS de
-// "menos movimento" não alcança: nesse caso, o SVG para aqui.
+// PLANETÁRIO: o sol mostra o total de testes; cada corpo é um projeto, numa órbita própria, com a área proporcional
+// aos testes. Azul = tem site no ar; prata = só código. As órbitas de fora andam mais devagar
+// (como em Kepler). Passar o mouse num corpo mostra o nome e acende a órbita (os corpos não são clicáveis).
 // =========================================================
-const arte = document.querySelector(".arte");
-if (arte) {
-  if (reduzir) arte.pauseAnimations();
-  const area = arte.closest(".inicio__arte");
-  if (!reduzir && matchMedia("(hover: hover)").matches) {
+const planetario = (() => {
+  const svg = document.getElementById("planetario");
+  if (!svg || !projetos.length) return null;
+  const dica = document.getElementById("planetario-dica");
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (nome, attrs = {}, pai = svg) => {
+    const n = document.createElementNS(NS, nome);
+    for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+    pai.append(n);
+    return n;
+  };
+
+  const R0 = 78;
+  const PASSO = 21;
+  const ultimoRaio = R0 + PASSO * (projetos.length - 1);
+
+  // Escala gravada por fora da última órbita, como num instrumento antigo
+  const escala = el("g", { class: "escala" });
+  for (let k = 0; k < 120; k++) {
+    const a = (k / 120) * Math.PI * 2;
+    const maior = k % 10 === 0;
+    const r1 = ultimoRaio + 14;
+    const r2 = r1 + (maior ? 12 : 5);
+    el("line", { x1: (Math.cos(a) * r1).toFixed(1), y1: (Math.sin(a) * r1).toFixed(1), x2: (Math.cos(a) * r2).toFixed(1), y2: (Math.sin(a) * r2).toFixed(1), class: maior ? "maior" : "" }, escala);
+  }
+
+  const orbitas = projetos.map((_, i) => el("circle", { class: "orbita", r: R0 + PASSO * i, pathLength: 1 }));
+  // O sol mostra a soma dos testes de todos os projetos
+  el("circle", { class: "sol__anel", r: 34 });
+  const total = projetos.reduce((s, p) => s + p.testes, 0);
+  el("text", { class: "sol__total", x: 0, y: -3 }).textContent = numero.format(total);
+  el("text", { class: "sol__rotulo", x: 0, y: 12 }).textContent = "testes";
+  const legenda = svg.closest(".planetario").querySelector(".planetario__legenda");
+  legenda.textContent = legenda.textContent.replace(/^\d+ projetos/, `${projetos.length} projetos`);
+
+  const corpos = projetos.map((p, i) => {
+    const g = el("g", { class: `corpo ${p.noAr ? "corpo--no-ar" : "corpo--codigo"}` });
+    const raio = Math.sqrt(p.testes) * .62;
+    el("circle", { class: "corpo__alvo", r: Math.max(raio + 6, 12) }, g);
+    // Cada corpo é um anel com um ponto no centro
+    el("circle", { class: "corpo__anel", r: raio.toFixed(1) }, g);
+    el("circle", { class: "corpo__ponto", r: 1 }, g);
+    const orbita = R0 + PASSO * i;
+    const corpo = { g, orbita, angulo: i * 2.39996 - Math.PI / 2, velocidade: .00022 * Math.pow(R0 / orbita, 1.5), p };
+    g.addEventListener("pointerenter", () => {
+      orbitas[i].classList.add("acesa");
+      dica.innerHTML = "";
+      const b = document.createElement("b");
+      b.textContent = p.nome;
+      dica.append(b, ` · ${numero.format(p.testes)} testes`);
+      dica.classList.add("visivel");
+      corpo.focado = true;
+      // Com movimento reduzido não há quadros rodando: posiciona a dica agora
+      if (reduzir) posicionar(performance.now());
+    });
+    g.addEventListener("pointerleave", () => {
+      orbitas[i].classList.remove("acesa");
+      dica.classList.remove("visivel");
+      corpo.focado = false;
+    });
+    return corpo;
+  });
+
+  const caixaCeu = svg.parentElement;
+  let inicio = null;
+  let anterior = null;
+  let rodando = false;
+  let visivel = false;
+
+  function posicionar(agora) {
+    const decorrido = inicio == null ? Infinity : agora - inicio;
+    const passo = anterior == null ? 0 : Math.min(64, agora - anterior);
+    anterior = agora;
+    corpos.forEach((c, i) => {
+      if (!reduzir && !c.focado) c.angulo += c.velocidade * passo;
+      // Na entrada, cada corpo sai do sol e espirala até a própria órbita
+      const t = reduzir ? 1 : Math.min(1, Math.max(0, (decorrido - 200 - i * 70) / 1500));
+      const e = 1 - Math.pow(1 - t, 4);
+      const r = c.orbita * e;
+      const a = c.angulo - (1 - e) * 2.2;
+      c.g.setAttribute("transform", `translate(${(Math.cos(a) * r).toFixed(2)} ${(Math.sin(a) * r).toFixed(2)})`);
+      c.g.style.opacity = t === 0 ? 0 : 1;
+      if (c.focado) {
+        const caixa = c.g.getBoundingClientRect();
+        const base = caixaCeu.getBoundingClientRect();
+        dica.style.left = `${caixa.left - base.left + caixa.width / 2}px`;
+        dica.style.top = `${caixa.top - base.top}px`;
+      }
+    });
+    // As órbitas se desenham de dentro para fora
+    if (!reduzir && decorrido < 2600) {
+      orbitas.forEach((o, i) => {
+        const t = Math.min(1, Math.max(0, (decorrido - i * 60) / 1200));
+        o.style.strokeDasharray = "1";
+        o.style.strokeDashoffset = String(1 - (1 - Math.pow(1 - t, 3)));
+      });
+    } else orbitas.forEach((o) => { o.style.strokeDashoffset = "0"; });
+  }
+
+  function quadro(agora) {
+    if (!visivel || document.hidden) { rodando = false; return; }
+    posicionar(agora);
+    requestAnimationFrame(quadro);
+  }
+  function ligar() {
+    if (reduzir) { posicionar(performance.now()); return; }
+    if (rodando || !visivel || document.hidden) return;
+    rodando = true;
+    anterior = null;
+    requestAnimationFrame(quadro);
+  }
+  document.addEventListener("visibilitychange", ligar);
+
+  // Inclinação que acompanha o mouse sobre o desenho
+  if (!reduzir && comMouse) {
+    const area = svg.closest(".planetario");
     area.addEventListener("pointermove", (e) => {
-      const caixa = arte.getBoundingClientRect();
-      const px = ((e.clientX - caixa.left) / caixa.width - 0.5) * 2;
-      const py = ((e.clientY - caixa.top) / caixa.height - 0.5) * 2;
-      arte.style.setProperty("--px", Math.max(-1, Math.min(1, px)).toFixed(3));
-      arte.style.setProperty("--py", Math.max(-1, Math.min(1, py)).toFixed(3));
+      const caixa = caixaCeu.getBoundingClientRect();
+      const px = ((e.clientX - caixa.left) / caixa.width - .5) * 2;
+      const py = ((e.clientY - caixa.top) / caixa.height - .5) * 2;
+      svg.style.setProperty("--px", Math.max(-1, Math.min(1, px)).toFixed(3));
+      svg.style.setProperty("--py", Math.max(-1, Math.min(1, py)).toFixed(3));
     }, { passive: true });
-    area.addEventListener("pointerleave", () => {
-      arte.style.setProperty("--px", 0);
-      arte.style.setProperty("--py", 0);
-    });
+    area.addEventListener("pointerleave", () => { svg.style.setProperty("--px", 0); svg.style.setProperty("--py", 0); });
   }
-  // O SQL é o centro: passar nele acende todos os ramos
-  arte.querySelectorAll(".arte__no").forEach((no) => {
-    const ramo = no.dataset.ramo === "sql" ? arte.querySelectorAll(".arte__traco, .arte__nodo")
-      : arte.querySelectorAll(`.arte__traco[data-ramo="${no.dataset.ramo}"], .arte__nodo[data-ramo="${no.dataset.ramo}"]`);
-    no.addEventListener("pointerenter", () => ramo.forEach((el) => el.classList.add("aceso")));
-    no.addEventListener("pointerleave", () => ramo.forEach((el) => el.classList.remove("aceso")));
-  });
-}
 
-// =========================================================
-// LUZ QUE SEGUE O MOUSE: todos os cards da aba aberta recebem a posição do mouse relativa a cada
-// um, e a borda perto do cursor acende, mesmo sem o mouse em cima do card (no máximo uma vez por quadro)
-// =========================================================
-const comMouse = matchMedia("(hover: hover)").matches;
+  return {
+    alternar(aberto) {
+      visivel = aberto;
+      if (aberto) { inicio = performance.now(); ligar(); }
+    },
+  };
+})();
 
-// Recalcula a luz no próximo quadro: ao mexer o mouse, ao rolar (os cards andam, o mouse não) e ao
-// trocar de aba (os cards da aba nova guardavam a posição de quando ela esteve aberta)
-function atualizarLuz() {
-  if (!ultimo || pendente) return;
-  pendente = requestAnimationFrame(() => {
-    pendente = null;
-    const cards = Array.from(principal.querySelectorAll("section.aberta .luz"));
-    // Primeiro mede todos, depois escreve todos: medir logo depois de escrever obrigaria o navegador
-    // a recalcular o estilo a cada card
-    const caixas = cards.map((card) => card.getBoundingClientRect());
-    cards.forEach((card, i) => {
-      card.style.setProperty("--mx", `${ultimo.x - caixas[i].left}px`);
-      card.style.setProperty("--my", `${ultimo.y - caixas[i].top}px`);
-    });
-  });
-}
-if (comMouse) {
-  // A página inteira, e não só o <main>: com o mouse no espaço entre as colunas, ao lado de um card,
-  // a borda dele já acende
-  const raiz = document.documentElement;
-  window.addEventListener("pointermove", (e) => {
-    ultimo = { x: e.clientX, y: e.clientY };
-    raiz.classList.add("com-luz");
-    atualizarLuz();
-  }, { passive: true });
-  raiz.addEventListener("mouseleave", () => raiz.classList.remove("com-luz"));
-  window.addEventListener("scroll", atualizarLuz, { passive: true });
-}
+// Abre a aba do endereço (precisa do planetário já criado)
+abrirAba(null);
+window.addEventListener("load", () => window.scrollTo({ top: 0, behavior: "instant" }), { once: true });
 
 // =========================================================
 // COPIAR E-MAIL
@@ -246,19 +434,17 @@ let apagarAviso = null;
 botaoCopiar.addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(botaoCopiar.dataset.email);
-    avisoCopiado.textContent = "e-mail copiado ✓";
+    avisoCopiado.textContent = "e-mail copiado";
   } catch {
     avisoCopiado.textContent = "não foi possível copiar: selecione o e-mail acima";
   }
-  // Dois cliques seguidos: o prazo do primeiro não apaga a mensagem do segundo antes da hora
   clearTimeout(apagarAviso);
   apagarAviso = setTimeout(() => { avisoCopiado.textContent = ""; }, 2500);
 });
 
 // =========================================================
-// SELO DO VIGIL: os projetos no ar mostram a situação ao vivo, lida da API do Vigil (o monitor
-// de status que fiz em Java). O Vigil só libera a leitura para o endereço publicado: rodando
-// localmente, os cards ficam sem o selo.
+// SELO DO VIGIL: os projetos no ar mostram a situação ao vivo, lida da API do Vigil. O Vigil só libera
+// a leitura para o endereço publicado: rodando localmente, os cards ficam sem o selo.
 // =========================================================
 const VIGIL = "https://vigil.andrelagos.dev";
 const porcento = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -273,25 +459,21 @@ async function seloDoVigil() {
     lista = await resposta.json();
     if (!Array.isArray(lista)) return;
   } catch {
-    return; // Vigil fora do ar ou lento: os cards ficam como sempre, só sem o selo
+    return;
   }
   resumoDoVigil(lista);
   const porNome = new Map(lista.map((s) => [s.nome, s]));
   cards.forEach((card) => {
-    // O card do próprio Vigil: se a API respondeu, ele está no ar
     if (card.dataset.vigil === "Vigil") {
       colocarSelo(card, true, null, "o Vigil respondeu agora; abre a página de status");
       return;
     }
     const status = porNome.get(card.dataset.vigil);
-    // O Vigil visita o site a cada 5 min, e isso mantém acordado o servidor gratuito do Hanami:
-    // estando no ar, o aviso de "demora para acordar" não vale. Se o Vigil não responder, ele fica.
     const aviso = card.querySelector(".projeto__aviso");
     if (aviso && status?.situacao === "NO_AR") {
       aviso.hidden = true;
       card.querySelector(`[aria-describedby="${aviso.id}"]`)?.removeAttribute("aria-describedby");
     }
-    // Pausado ou sem verificações ainda: melhor não mostrar nada do que um selo vazio
     if (!status || !["NO_AR", "FORA"].includes(status.situacao)) return;
     const noAr = status.situacao === "NO_AR";
     const trinta = status.ultimos30d?.disponibilidade;
@@ -300,8 +482,6 @@ async function seloDoVigil() {
   });
 }
 
-// A faixa do início: quantos sites estão no ar agora. Os pausados (sem NO_AR nem FORA) não entram na conta.
-// Sem resposta do Vigil, a faixa fica com o texto do HTML, que só convida para a página de status.
 function resumoDoVigil(lista) {
   const vigiados = lista.filter((s) => ["NO_AR", "FORA"].includes(s.situacao));
   if (!vigiados.length) return;
@@ -313,10 +493,9 @@ function resumoDoVigil(lista) {
   faixa.classList.toggle("vigil-faixa--fora", noAr < vigiados.length);
 }
 
-// O texto visível vem primeiro (quem usa controle por voz fala o que vê); o resto fica só para o leitor de tela
 function colocarSelo(card, noAr, trinta, complemento) {
   const selo = document.createElement("a");
-  selo.className = "selo mono" + (noAr ? "" : " selo--fora");
+  selo.className = "selo" + (noAr ? "" : " selo--fora");
   selo.href = VIGIL;
   selo.target = "_blank";
   selo.rel = "noopener";

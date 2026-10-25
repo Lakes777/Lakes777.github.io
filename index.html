@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>André Lagos | Engenharia de Software</title>
   <meta name="description" content="Portfólio de André Lagos, estudante de Engenharia de Software na PUC-PR. Back-end com Java, Kotlin, Go, C#, TypeScript e Python: APIs, bancos de dados, testes e projetos no ar.">
-  <meta name="theme-color" content="#080b0f">
+  <meta name="theme-color" content="#090a10">
 
   <!-- Prévia do link no LinkedIn, WhatsApp e afins -->
   <meta property="og:type" content="website">
@@ -18,20 +18,20 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Ícone da aba do navegador -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23080b0f'/><text x='50' y='66' font-family='monospace' font-size='46' font-weight='700' fill='%236cc4ff' text-anchor='middle'>AL</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23090a10'/><text x='50' y='66' font-family='monospace' font-size='46' font-weight='700' fill='%236cc4ff' text-anchor='middle'>AL</text></svg>">
 
   <!-- Fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
-  <!-- Fundo: pontos que se ligam quando ficam perto, como um mapa de serviços (desenhado pelo main.js) -->
-  <canvas class="rede" id="rede" aria-hidden="true"></canvas>
+  <!-- Fundo: céu de estrelas que acendem perto do mouse e deixam um rastro de luz (desenhado pelo main.js) -->
+  <canvas class="ceu" id="ceu" aria-hidden="true"></canvas>
 
   <!-- ===== BARRA DO TOPO: nome, papel e as abas (presa no alto em todas as abas) ===== -->
   <header class="topo">
@@ -42,12 +42,13 @@
       </div>
 
       <nav class="abas mono" aria-label="Seções">
-        <a href="#inicio"><span class="abas__n" aria-hidden="true">01</span>início</a>
-        <a href="#sobre"><span class="abas__n" aria-hidden="true">02</span>sobre</a>
-        <a href="#formacao"><span class="abas__n" aria-hidden="true">03</span>formação</a>
-        <a href="#projetos"><span class="abas__n" aria-hidden="true">04</span>projetos</a>
-        <a href="#habilidades"><span class="abas__n" aria-hidden="true">05</span>habilidades</a>
-        <a href="#contato"><span class="abas__n" aria-hidden="true">06</span>contato</a>
+        <a href="#inicio">início</a>
+        <a href="#sobre">sobre</a>
+        <a href="#formacao">formação</a>
+        <a href="#projetos">projetos</a>
+        <a href="#habilidades">habilidades</a>
+        <a href="#contato">contato</a>
+        <span class="abas__traco" aria-hidden="true"><i></i></span>
       </nav>
     </div>
   </header>
@@ -71,236 +72,15 @@
           </div>
         </div>
 
-        <!-- A ilustração dos sistemas ligados: só enfeite para o leitor de tela (o conteúdo está no texto ao lado) -->
-        <div class="inicio__arte item" aria-hidden="true">
-        <!-- arte:inicio (gerada por docs/referencias/gerar-arte.py: mude lá e rode de novo) -->
-        <svg class="arte" viewBox="0 0 640 430" role="presentation">
-    <defs>
-      <radialGradient id="arte-luz"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
-      <mask id="arte-sumir"><rect width="640" height="430" fill="url(#arte-luz)"/></mask>
-    </defs>
-    <g class="arte__chao" mask="url(#arte-sumir)">
-      <polyline points="320.0,-70.0 -199.6,230.0"/>
-      <polyline points="320.0,-70.0 839.6,230.0"/>
-      <polyline points="346.0,-55.0 -173.6,245.0"/>
-      <polyline points="294.0,-55.0 813.6,245.0"/>
-      <polyline points="372.0,-40.0 -147.7,260.0"/>
-      <polyline points="268.0,-40.0 787.7,260.0"/>
-      <polyline points="397.9,-25.0 -121.7,275.0"/>
-      <polyline points="242.1,-25.0 761.7,275.0"/>
-      <polyline points="423.9,-10.0 -95.7,290.0"/>
-      <polyline points="216.1,-10.0 735.7,290.0"/>
-      <polyline points="449.9,5.0 -69.7,305.0"/>
-      <polyline points="190.1,5.0 709.7,305.0"/>
-      <polyline points="475.9,20.0 -43.7,320.0"/>
-      <polyline points="164.1,20.0 683.7,320.0"/>
-      <polyline points="501.9,35.0 -17.7,335.0"/>
-      <polyline points="138.1,35.0 657.7,335.0"/>
-      <polyline points="527.8,50.0 8.2,350.0"/>
-      <polyline points="112.2,50.0 631.8,350.0"/>
-      <polyline points="553.8,65.0 34.2,365.0"/>
-      <polyline points="86.2,65.0 605.8,365.0"/>
-      <polyline points="579.8,80.0 60.2,380.0"/>
-      <polyline points="60.2,80.0 579.8,380.0"/>
-      <polyline points="605.8,95.0 86.2,395.0"/>
-      <polyline points="34.2,95.0 553.8,395.0"/>
-      <polyline points="631.8,110.0 112.2,410.0"/>
-      <polyline points="8.2,110.0 527.8,410.0"/>
-      <polyline points="657.7,125.0 138.1,425.0"/>
-      <polyline points="-17.7,125.0 501.9,425.0"/>
-      <polyline points="683.7,140.0 164.1,440.0"/>
-      <polyline points="-43.7,140.0 475.9,440.0"/>
-      <polyline points="709.7,155.0 190.1,455.0"/>
-      <polyline points="-69.7,155.0 449.9,455.0"/>
-      <polyline points="735.7,170.0 216.1,470.0"/>
-      <polyline points="-95.7,170.0 423.9,470.0"/>
-      <polyline points="761.7,185.0 242.1,485.0"/>
-      <polyline points="-121.7,185.0 397.9,485.0"/>
-      <polyline points="787.7,200.0 268.0,500.0"/>
-      <polyline points="-147.7,200.0 372.0,500.0"/>
-      <polyline points="813.6,215.0 294.0,515.0"/>
-      <polyline points="-173.6,215.0 346.0,515.0"/>
-      <polyline points="839.6,230.0 320.0,530.0"/>
-      <polyline points="-199.6,230.0 320.0,530.0"/>
-    </g>
-    <g class="arte__tracos">
-      <path class="arte__traco" id="tr-api" data-ramo="api" pathLength="100" d="M272.4,172.5 L243.8,156.0 L253.3,150.5 L224.7,134.0"/>
-      <circle class="arte__nodo" data-ramo="api" cx="243.8" cy="156.0" r="2.4"/>
-      <circle class="arte__nodo" data-ramo="api" cx="253.3" cy="150.5" r="2.4"/>
-      <circle class="arte__nodo arte__nodo--fim" data-ramo="api" cx="224.7" cy="134.0" r="3"/>
-      <path class="arte__traco" id="tr-apps" data-ramo="apps" pathLength="100" d="M368.5,173.0 L441.2,131.0"/>
-      <circle class="arte__nodo arte__nodo--fim" data-ramo="apps" cx="441.2" cy="131.0" r="3"/>
-      <path class="arte__traco" id="tr-servidores" data-ramo="servidores" pathLength="100" d="M194.4,242.5 L178.0,252.0 L123.4,220.5 L108.7,229.0"/>
-      <circle class="arte__nodo" data-ramo="servidores" cx="178.0" cy="252.0" r="2.4"/>
-      <circle class="arte__nodo" data-ramo="servidores" cx="123.4" cy="220.5" r="2.4"/>
-      <circle class="arte__nodo arte__nodo--fim" data-ramo="servidores" cx="108.7" cy="229.0" r="3"/>
-      <path class="arte__traco" id="tr-docker" data-ramo="docker" pathLength="100" d="M445.6,242.5 L484.5,265.0 L533.0,237.0"/>
-      <circle class="arte__nodo" data-ramo="docker" cx="484.5" cy="265.0" r="2.4"/>
-      <circle class="arte__nodo arte__nodo--fim" data-ramo="docker" cx="533.0" cy="237.0" r="3"/>
-      <path class="arte__traco" id="tr-filas" data-ramo="filas" pathLength="100" d="M263.7,282.5 L191.8,324.0"/>
-      <circle class="arte__nodo arte__nodo--fim" data-ramo="filas" cx="191.8" cy="324.0" r="3"/>
-      <path class="arte__traco" id="tr-deploy" data-ramo="deploy" pathLength="100" d="M367.6,287.5 L424.8,320.5"/>
-      <circle class="arte__nodo arte__nodo--fim" data-ramo="deploy" cx="424.8" cy="320.5" r="3"/>
-      <path class="arte__traco" id="tr-deploy2" data-ramo="deploy" pathLength="100" d="M469.0,351.0 L516.6,378.5"/>
-      <circle class="arte__nodo arte__nodo--fim" data-ramo="deploy" cx="516.6" cy="378.5" r="3"/>
-    </g>
-    <g class="arte__pacotes">
-      <circle class="arte__pacote" r="2.6"><animateMotion dur="2.6s" begin="-0.00s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-api"/></animateMotion></circle>
-      <circle class="arte__pacote" r="2.6"><animateMotion dur="2.6s" begin="-1.30s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-api"/></animateMotion></circle>
-      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.1s" begin="-0.45s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#tr-apps"/></animateMotion></circle>
-      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.1s" begin="-2.00s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#tr-apps"/></animateMotion></circle>
-      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.6s" begin="-0.90s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-servidores"/></animateMotion></circle>
-      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.6s" begin="-2.70s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-servidores"/></animateMotion></circle>
-      <circle class="arte__pacote" r="2.6"><animateMotion dur="2.6s" begin="-1.35s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#tr-docker"/></animateMotion></circle>
-      <circle class="arte__pacote" r="2.6"><animateMotion dur="2.6s" begin="-2.65s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#tr-docker"/></animateMotion></circle>
-      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.1s" begin="-1.80s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-filas"/></animateMotion></circle>
-      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.1s" begin="-3.35s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-filas"/></animateMotion></circle>
-      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.6s" begin="-2.25s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-deploy"/></animateMotion></circle>
-      <circle class="arte__pacote" r="2.6"><animateMotion dur="3.6s" begin="-4.05s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear"><mpath href="#tr-deploy"/></animateMotion></circle>
-      <circle class="arte__pacote" r="2.6"><animateMotion dur="2.6s" begin="-2.70s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#tr-deploy2"/></animateMotion></circle>
-      <circle class="arte__pacote" r="2.6"><animateMotion dur="2.6s" begin="-4.00s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#tr-deploy2"/></animateMotion></circle>
-    </g>
-    <g class="arte__objetos">
-      <polygon class="arte__rack__esq" points="503.6,123.0 465.5,145.0 465.5,87.0 503.6,65.0"/>
-      <polygon class="arte__rack__dir" points="417.0,117.0 465.5,145.0 465.5,87.0 417.0,59.0"/>
-      <polygon class="arte__rack__topo" points="455.1,37.0 503.6,65.0 465.5,87.0 417.0,59.0"/>
-      <polyline class="arte__fenda" points="503.6,103.7 465.5,125.7 417.0,97.7"/>
-      <polyline class="arte__fenda" points="503.6,84.3 465.5,106.3 417.0,78.3"/>
-      <polyline class="arte__grade" points="437.4,123.1 437.4,115.1"/>
-      <polyline class="arte__grade" points="445.6,127.9 445.6,119.9"/>
-      <polyline class="arte__grade" points="453.9,132.6 453.9,124.6"/>
-      <circle class="arte__led" style="--d:0.00s" cx="423.9" cy="111.3" r="1.6"/>
-      <circle class="arte__led" style="--d:0.37s" cx="430.0" cy="114.8" r="1.6"/>
-      <polyline class="arte__grade" points="437.4,103.8 437.4,95.8"/>
-      <polyline class="arte__grade" points="445.6,108.5 445.6,100.5"/>
-      <polyline class="arte__grade" points="453.9,113.3 453.9,105.3"/>
-      <circle class="arte__led" style="--d:0.74s" cx="423.9" cy="92.0" r="1.6"/>
-      <circle class="arte__led" style="--d:1.11s" cx="430.0" cy="95.5" r="1.6"/>
-      <polyline class="arte__grade" points="437.4,84.4 437.4,76.4"/>
-      <polyline class="arte__grade" points="445.6,89.2 445.6,81.2"/>
-      <polyline class="arte__grade" points="453.9,93.9 453.9,85.9"/>
-      <circle class="arte__led" style="--d:1.48s" cx="423.9" cy="72.7" r="1.6"/>
-      <circle class="arte__led" style="--d:1.85s" cx="430.0" cy="76.2" r="1.6"/>
-      <polygon class="arte__rack__esq" points="243.8,123.0 205.7,145.0 205.7,87.0 243.8,65.0"/>
-      <polygon class="arte__rack__dir" points="157.2,117.0 205.7,145.0 205.7,87.0 157.2,59.0"/>
-      <polygon class="arte__rack__topo" points="195.3,37.0 243.8,65.0 205.7,87.0 157.2,59.0"/>
-      <polyline class="arte__fenda" points="243.8,103.7 205.7,125.7 157.2,97.7"/>
-      <polyline class="arte__fenda" points="243.8,84.3 205.7,106.3 157.2,78.3"/>
-      <polyline class="arte__grade" points="177.6,123.1 177.6,115.1"/>
-      <polyline class="arte__grade" points="185.8,127.9 185.8,119.9"/>
-      <polyline class="arte__grade" points="194.0,132.6 194.0,124.6"/>
-      <circle class="arte__led" style="--d:0.00s" cx="164.1" cy="111.3" r="1.6"/>
-      <circle class="arte__led" style="--d:0.37s" cx="170.2" cy="114.8" r="1.6"/>
-      <polyline class="arte__grade" points="177.6,103.8 177.6,95.8"/>
-      <polyline class="arte__grade" points="185.8,108.5 185.8,100.5"/>
-      <polyline class="arte__grade" points="194.0,113.3 194.0,105.3"/>
-      <circle class="arte__led" style="--d:0.74s" cx="164.1" cy="92.0" r="1.6"/>
-      <circle class="arte__led" style="--d:1.11s" cx="170.2" cy="95.5" r="1.6"/>
-      <polyline class="arte__grade" points="177.6,84.4 177.6,76.4"/>
-      <polyline class="arte__grade" points="185.8,89.2 185.8,81.2"/>
-      <polyline class="arte__grade" points="194.0,93.9 194.0,85.9"/>
-      <circle class="arte__led" style="--d:1.48s" cx="164.1" cy="72.7" r="1.6"/>
-      <circle class="arte__led" style="--d:1.85s" cx="170.2" cy="76.2" r="1.6"/>
-      <polygon class="arte__rack__esq" points="602.3,233.0 564.2,255.0 564.2,193.0 602.3,171.0"/>
-      <polygon class="arte__rack__dir" points="515.7,227.0 564.2,255.0 564.2,193.0 515.7,165.0"/>
-      <polygon class="arte__rack__topo" points="553.8,143.0 602.3,171.0 564.2,193.0 515.7,165.0"/>
-      <polyline class="arte__fenda" points="602.3,212.3 564.2,234.3 515.7,206.3"/>
-      <polyline class="arte__fenda" points="602.3,191.7 564.2,213.7 515.7,185.7"/>
-      <polyline class="arte__grade" points="536.1,232.4 536.1,224.4"/>
-      <polyline class="arte__grade" points="544.3,237.2 544.3,229.2"/>
-      <polyline class="arte__grade" points="552.6,241.9 552.6,233.9"/>
-      <circle class="arte__led" style="--d:0.00s" cx="522.6" cy="220.7" r="1.6"/>
-      <circle class="arte__led" style="--d:0.37s" cx="528.7" cy="224.2" r="1.6"/>
-      <polyline class="arte__grade" points="536.1,211.8 536.1,203.8"/>
-      <polyline class="arte__grade" points="544.3,216.5 544.3,208.5"/>
-      <polyline class="arte__grade" points="552.6,221.3 552.6,213.3"/>
-      <circle class="arte__led" style="--d:0.74s" cx="522.6" cy="200.0" r="1.6"/>
-      <circle class="arte__led" style="--d:1.11s" cx="528.7" cy="203.5" r="1.6"/>
-      <polyline class="arte__grade" points="536.1,191.1 536.1,183.1"/>
-      <polyline class="arte__grade" points="544.3,195.9 544.3,187.9"/>
-      <polyline class="arte__grade" points="552.6,200.6 552.6,192.6"/>
-      <circle class="arte__led" style="--d:1.48s" cx="522.6" cy="179.3" r="1.6"/>
-      <circle class="arte__led" style="--d:1.85s" cx="528.7" cy="182.8" r="1.6"/>
-      <polygon class="arte__patio__esq" points="467.2,230.0 320.0,315.0 320.0,303.0 467.2,218.0"/>
-      <polygon class="arte__patio__dir" points="172.8,230.0 320.0,315.0 320.0,303.0 172.8,218.0"/>
-      <polygon class="arte__patio__topo" points="320.0,133.0 467.2,218.0 320.0,303.0 172.8,218.0"/>
-      <path class="arte__disco" d="M275.9,194.0 L275.9,218.0 A44.1,25.5 0 0 0 364.1,218.0 L364.1,194.0 A44.1,25.5 0 0 1 275.9,194.0Z"/>
-      <ellipse class="arte__disco-topo" cx="320.0" cy="194.0" rx="44.1" ry="25.5"/>
-      <path class="arte__disco" d="M275.9,164.0 L275.9,188.0 A44.1,25.5 0 0 0 364.1,188.0 L364.1,164.0 A44.1,25.5 0 0 1 275.9,164.0Z"/>
-      <ellipse class="arte__disco-topo" cx="320.0" cy="164.0" rx="44.1" ry="25.5"/>
-      <path class="arte__disco" d="M275.9,134.0 L275.9,158.0 A44.1,25.5 0 0 0 364.1,158.0 L364.1,134.0 A44.1,25.5 0 0 1 275.9,134.0Z"/>
-      <ellipse class="arte__disco-topo arte__disco-topo--ultimo" cx="320.0" cy="134.0" rx="44.1" ry="25.5"/>
-      <ellipse class="arte__consulta" cx="320.0" cy="218.0" rx="44.1" ry="25.5"/>
-      <polygon class="arte__rack__esq" points="132.9,243.0 94.8,265.0 94.8,203.0 132.9,181.0"/>
-      <polygon class="arte__rack__dir" points="46.3,237.0 94.8,265.0 94.8,203.0 46.3,175.0"/>
-      <polygon class="arte__rack__topo" points="84.4,153.0 132.9,181.0 94.8,203.0 46.3,175.0"/>
-      <polyline class="arte__fenda" points="132.9,222.3 94.8,244.3 46.3,216.3"/>
-      <polyline class="arte__fenda" points="132.9,201.7 94.8,223.7 46.3,195.7"/>
-      <polyline class="arte__grade" points="66.7,242.4 66.7,234.4"/>
-      <polyline class="arte__grade" points="74.9,247.2 74.9,239.2"/>
-      <polyline class="arte__grade" points="83.2,251.9 83.2,243.9"/>
-      <circle class="arte__led" style="--d:0.00s" cx="53.3" cy="230.7" r="1.6"/>
-      <circle class="arte__led" style="--d:0.37s" cx="59.3" cy="234.2" r="1.6"/>
-      <polyline class="arte__grade" points="66.7,221.8 66.7,213.8"/>
-      <polyline class="arte__grade" points="74.9,226.5 74.9,218.5"/>
-      <polyline class="arte__grade" points="83.2,231.3 83.2,223.3"/>
-      <circle class="arte__led" style="--d:0.74s" cx="53.3" cy="210.0" r="1.6"/>
-      <circle class="arte__led" style="--d:1.11s" cx="59.3" cy="213.5" r="1.6"/>
-      <polyline class="arte__grade" points="66.7,201.1 66.7,193.1"/>
-      <polyline class="arte__grade" points="74.9,205.9 74.9,197.9"/>
-      <polyline class="arte__grade" points="83.2,210.6 83.2,202.6"/>
-      <circle class="arte__led" style="--d:1.48s" cx="53.3" cy="189.3" r="1.6"/>
-      <circle class="arte__led" style="--d:1.85s" cx="59.3" cy="192.8" r="1.6"/>
-      <polygon class="arte__rack__esq" points="485.4,343.5 445.6,366.5 445.6,312.5 485.4,289.5"/>
-      <polygon class="arte__rack__dir" points="393.6,336.5 445.6,366.5 445.6,312.5 393.6,282.5"/>
-      <polygon class="arte__rack__topo" points="433.4,259.5 485.4,289.5 445.6,312.5 393.6,282.5"/>
-      <polyline class="arte__fenda" points="485.4,316.5 445.6,339.5 393.6,309.5"/>
-      <polyline class="arte__grade" points="415.4,339.6 415.4,331.6"/>
-      <polyline class="arte__grade" points="424.3,344.7 424.3,336.7"/>
-      <polyline class="arte__grade" points="433.1,349.8 433.1,341.8"/>
-      <circle class="arte__led" style="--d:0.00s" cx="400.5" cy="327.0" r="1.6"/>
-      <circle class="arte__led" style="--d:0.37s" cx="406.6" cy="330.5" r="1.6"/>
-      <polyline class="arte__grade" points="415.4,312.6 415.4,304.6"/>
-      <polyline class="arte__grade" points="424.3,317.7 424.3,309.7"/>
-      <polyline class="arte__grade" points="433.1,322.8 433.1,314.8"/>
-      <circle class="arte__led" style="--d:0.74s" cx="400.5" cy="300.0" r="1.6"/>
-      <circle class="arte__led" style="--d:1.11s" cx="406.6" cy="303.5" r="1.6"/>
-    </g>
-    <g class="arte__nos">
-      <g class="arte__no" data-ramo="api" transform="translate(186 34)">
-        <rect x="-38" y="-15" width="77" height="30" rx="6"/>
-        <path class="arte__icone" transform="translate(-26 -8)" d="M5 4 1 8l4 4M11 4l4 4-4 4M9.5 2 6.5 14"/>
-        <text x="-2" y="4.5">API</text>
-        <text class="arte__stacks" x="0" y="33" text-anchor="middle">Spring · Go · .NET · Nest</text>
-      </g>
-      <g class="arte__no" data-ramo="apps" transform="translate(474 36)">
-        <rect x="-43" y="-15" width="86" height="30" rx="6"/>
-        <path class="arte__icone" transform="translate(-31 -8)" d="M8 1.5 14.5 5 8 8.5 1.5 5Z M1.5 8 8 11.5 14.5 8 M1.5 11 8 14.5 14.5 11"/>
-        <text x="-7" y="4.5">APPS</text>
-        <text class="arte__stacks" x="0" y="33" text-anchor="middle">React · TypeScript</text>
-      </g>
-      <g class="arte__no" data-ramo="filas" transform="translate(192 328)">
-        <rect x="-48" y="-15" width="95" height="30" rx="6"/>
-        <path class="arte__icone" transform="translate(-36 -8)" d="M2 3.5h12M2 8h12M2 12.5h7"/>
-        <text x="-12" y="4.5">FILAS</text>
-        <text class="arte__stacks" x="0" y="33" text-anchor="middle">Kafka · RabbitMQ · BullMQ</text>
-      </g>
-      <g class="arte__no" data-ramo="deploy" transform="translate(517 382)">
-        <rect x="-52" y="-15" width="104" height="30" rx="6"/>
-        <path class="arte__icone" transform="translate(-40 -8)" d="M4.6 13h7.2a3 3 0 0 0 .5-5.9 4.4 4.4 0 0 0-8.5 1.2A2.4 2.4 0 0 0 4.6 13Z"/>
-        <text x="-16" y="4.5">DEPLOY</text>
-        <text class="arte__stacks" x="0" y="33" text-anchor="middle">Docker · Oracle · Vercel</text>
-      </g>
-      <g class="arte__no" data-ramo="sql" transform="translate(320 184)">
-        <rect x="-38" y="-15" width="77" height="30" rx="6"/>
-        <path class="arte__icone" transform="translate(-26 -8)" d="M2.5 3.5c0-1.1 2.5-2 5.5-2s5.5.9 5.5 2-2.5 2-5.5 2-5.5-.9-5.5-2Zm0 0v9c0 1.1 2.5 2 5.5 2s5.5-.9 5.5-2v-9M2.5 8c0 1.1 2.5 2 5.5 2s5.5-.9 5.5-2"/>
-        <text x="-2" y="4.5">SQL</text>
-        <text class="arte__stacks" x="0" y="33" text-anchor="middle">PostgreSQL · SQL à mão</text>
-      </g>
-    </g>
-        </svg>
-        <!-- /arte:inicio -->
-        </div>
+        <!-- O planetário: cada corpo é um projeto, com a área proporcional aos testes dele. Os dados saem
+             dos cards da aba Projetos (main.js); para o leitor de tela, a legenda resume e o desenho fica de fora -->
+        <figure class="planetario item">
+          <div class="planetario__ceu" aria-hidden="true">
+            <svg class="planetario__svg" id="planetario" viewBox="-340 -340 680 680"></svg>
+            <div class="planetario__dica mono" id="planetario-dica"></div>
+          </div>
+          <figcaption class="planetario__legenda mono">12 projetos em órbita · a área de cada um é o número de testes · azuis têm site no ar</figcaption>
+        </figure>
 
         <!-- Faixa do Vigil: o resumo ao vivo vem da API (main.js); sem ela, fica o convite para a página de status -->
         <a class="vigil-faixa item mono" href="https://vigil.andrelagos.dev" target="_blank" rel="noopener">
@@ -315,7 +95,6 @@
 
       <!-- ===== SOBRE ===== -->
       <section id="sobre" aria-labelledby="t-sobre">
-        <p class="rotulo mono">sobre</p>
         <h2 class="item" id="t-sobre" tabindex="-1">Sobre mim</h2>
         <div class="texto item">
           <p>Sou de <strong>Curitiba, PR</strong> e curso <strong>Engenharia de Software</strong> na PUC-PR. Meu foco é <strong>back-end</strong>: APIs REST com Java e Kotlin (Spring Boot), Python (FastAPI), Go, C# (.NET) e TypeScript (NestJS), bancos PostgreSQL com SQL escrito à mão e testes automatizados em tudo: são mais de 4.000, rodando no GitHub Actions.</p>
@@ -324,16 +103,15 @@
           <p>Estou em busca de oportunidades em <strong>desenvolvimento</strong>, <strong>suporte técnico</strong> ou <strong>análise de dados</strong>, onde eu possa aplicar o que sei e continuar aprendendo.</p>
         </div>
         <ul class="cartoes item">
-          <li class="cartao luz"><small class="mono">formação</small><p>Eng. de Software · PUC-PR</p></li>
-          <li class="cartao luz"><small class="mono">back-end</small><p>Java, Kotlin, Go, C# e Python</p></li>
-          <li class="cartao luz"><small class="mono">deploy</small><p>Docker, Linux e GitHub Actions</p></li>
-          <li class="cartao luz"><small class="mono">idiomas</small><p>Inglês intermediário</p></li>
+          <li class="cartao"><small class="mono">formação</small><p>Eng. de Software · PUC-PR</p></li>
+          <li class="cartao"><small class="mono">back-end</small><p>Java, Kotlin, Go, C# e Python</p></li>
+          <li class="cartao"><small class="mono">deploy</small><p>Docker, Linux e GitHub Actions</p></li>
+          <li class="cartao"><small class="mono">idiomas</small><p>Inglês intermediário</p></li>
         </ul>
       </section>
 
       <!-- ===== FORMAÇÃO ===== -->
       <section id="formacao" aria-labelledby="t-formacao">
-        <p class="rotulo mono">formação</p>
         <h2 class="item" id="t-formacao" tabindex="-1">Formação</h2>
         <ol class="linha-tempo item">
           <li>
@@ -354,10 +132,9 @@
       <!-- data-vigil: o nome do serviço no Vigil; o main.js põe o selo "no ar" ao vivo no topo do card.
            O título é o link do card inteiro (o ::after dele cobre o card); o ícone do GitHub e o selo ficam por cima -->
       <section id="projetos" aria-labelledby="t-projetos">
-        <p class="rotulo mono">projetos</p>
         <h2 class="item" id="t-projetos" tabindex="-1">Projetos</h2>
         <div class="projetos">
-          <article class="projeto luz item" data-vigil="Vigil">
+          <article class="projeto item" data-vigil="Vigil">
             <div class="projeto__topo"><h3><a class="projeto__link" href="https://vigil.andrelagos.dev" target="_blank" rel="noopener">Vigil <small>· monitor de status</small></a></h3></div>
             <p>API em Java com Spring Boot que verifica os meus sites a cada 5 minutos, calcula disponibilidade e quedas em SQL e avisa pelo Telegram, com resumo semanal. Spring Security, proteção contra SSRF e página pública de status.</p>
             <div class="projeto__meta mono">
@@ -366,7 +143,7 @@
             </div>
           </article>
 
-          <article class="projeto luz item" data-vigil="Pursuit (demo)">
+          <article class="projeto item" data-vigil="Pursuit (demo)">
             <div class="projeto__topo"><h3><a class="projeto__link" href="https://demo-pursuit.andrelagos.dev" target="_blank" rel="noopener" aria-label="Pursuit: abrir a demonstração (entre como visitante, com dados de exemplo)">Pursuit <small>· candidaturas a vagas</small></a></h3></div>
             <p>Meu primeiro projeto em Go: quadro por etapa, funil e tempo de resposta em SQL, lembretes pelo Telegram feitos por uma goroutine e um link do Beacon por vaga, que mostra se a empresa abriu o portfólio. Tem demonstração: entre como visitante.</p>
             <div class="projeto__meta mono">
@@ -375,7 +152,7 @@
             </div>
           </article>
 
-          <article class="projeto luz item" data-vigil="Beacon (demo)">
+          <article class="projeto item" data-vigil="Beacon (demo)">
             <div class="projeto__topo"><h3><a class="projeto__link" href="https://demo-beacon.andrelagos.dev" target="_blank" rel="noopener" aria-label="Beacon: abrir a demonstração (entre como visitante, somente leitura)">Beacon <small>· links com estatísticas</small></a></h3></div>
             <p>Meu primeiro projeto em C# com .NET: encurtador de links com cache no Redis e cliques processados depois por uma fila no RabbitMQ, sem contar em dobro. Painel com gráficos e QR code, seis contêineres numa VM ARM da Oracle e demonstração somente leitura.</p>
             <div class="projeto__meta mono">
@@ -384,7 +161,7 @@
             </div>
           </article>
 
-          <article class="projeto luz item" data-vigil="Cadence">
+          <article class="projeto item" data-vigil="Cadence">
             <div class="projeto__topo"><h3><a class="projeto__link" href="https://cadence.andrelagos.dev" target="_blank" rel="noopener" aria-label="Cadence: abrir a demonstração (entre como cliente ou como dono, sem cadastro)">Cadence <small>· agenda de reservas</small></a></h3></div>
             <p>Meu primeiro projeto em NestJS: agenda de reservas em que dois clientes nunca ficam com o mesmo horário, garantido no Postgres e testado com 50 pedidos ao mesmo tempo. Lembretes no BullMQ, horários que somem ao vivo por WebSocket e demonstração sem cadastro.</p>
             <div class="projeto__meta mono">
@@ -393,7 +170,7 @@
             </div>
           </article>
 
-          <article class="projeto luz item" data-vigil="Fiel">
+          <article class="projeto item" data-vigil="Fiel">
             <div class="projeto__topo"><h3><a class="projeto__link" href="https://fiel.andrelagos.dev" target="_blank" rel="noopener" aria-label="Fiel: abrir a demonstração (entre como visitante, sem cadastro)">Fiel <small>· pagamentos</small></a></h3></div>
             <p>Meu primeiro projeto em Kotlin: carteiras, transferências por chave, cobranças com QR, estornos e webhooks assinados com HMAC, tudo num razão de partidas dobradas que o próprio Postgres obriga a fechar em zero. Conciliação toda noite com aviso no Telegram e demonstração ao vivo: entre como visitante.</p>
             <div class="projeto__meta mono">
@@ -402,7 +179,7 @@
             </div>
           </article>
 
-          <article class="projeto luz item" data-vigil="Foil">
+          <article class="projeto item" data-vigil="Foil">
             <div class="projeto__topo"><h3><a class="projeto__link" href="https://foil.andrelagos.dev" target="_blank" rel="noopener" aria-label="Foil: abrir a loja (sem cadastro)">Foil <small>· eventos e saga</small></a></h3></div>
             <p>Loja de gemas de mentira para mostrar arquitetura de eventos em Java: três serviços que conversam por Kafka, uma saga que desfaz os passos quando algo falha e um lançamento em que 200 robôs disputam 10 gemas sem nunca vender a mais. O pagamento passa pelo Fiel, e há um painel público com métricas e o trace de cada compra.</p>
             <div class="projeto__meta mono">
@@ -411,7 +188,7 @@
             </div>
           </article>
 
-          <article class="projeto luz item" data-vigil="Coursebook">
+          <article class="projeto item" data-vigil="Coursebook">
             <div class="projeto__topo"><h3><a class="projeto__link" href="https://coursebookalp.vercel.app" target="_blank" rel="noopener">Coursebook <small>· painel de estudos</small></a></h3></div>
             <p>Painel da faculdade: notas por RA, faltas, agenda e a nota que falta para passar pela regra da PUC-PR. Funciona offline e sincroniza entre aparelhos com conta; acessível por teclado e leitor de tela.</p>
             <div class="projeto__meta mono">
@@ -420,7 +197,7 @@
             </div>
           </article>
 
-          <article class="projeto luz item" data-vigil="Spendwise">
+          <article class="projeto item" data-vigil="Spendwise">
             <div class="projeto__topo"><h3><a class="projeto__link" href="https://spendwisealp.vercel.app" target="_blank" rel="noopener">Spendwise <small>· controle de gastos</small></a></h3></div>
             <p>Importa extratos do Nubank e OFX de qualquer banco sem duplicar, lembra a categoria de cada loja e alerta o orçamento. Versão de terminal e web em FastAPI com login seguro e demo isolada por visitante.</p>
             <div class="projeto__meta mono">
@@ -429,7 +206,7 @@
             </div>
           </article>
 
-          <article class="projeto luz item">
+          <article class="projeto item">
             <div class="projeto__topo"><h3><a class="projeto__link" href="https://github.com/Lakes777/encore" target="_blank" rel="noopener" aria-label="Encore: código no GitHub">Encore <small>· karaokê com IA</small></a></h3></div>
             <p>Busca no YouTube, separa voz e instrumental com modelos de IA, detecta o tom e sincroniza a letra. Processa em pedaços para caber em 4 GB de RAM, com fila em segundo plano.</p>
             <div class="projeto__meta mono">
@@ -438,7 +215,7 @@
             </div>
           </article>
 
-          <article class="projeto luz item" data-vigil="Hanami">
+          <article class="projeto item" data-vigil="Hanami">
             <div class="projeto__topo"><h3><a class="projeto__link" href="https://lista-animes-b8ql.onrender.com" target="_blank" rel="noopener" aria-describedby="aviso-hanami">Hanami <small>· lista de animes</small></a></h3></div>
             <p>API REST que junta as temporadas de cada franquia, com comentários por episódio, e continua funcionando quando a API externa cai.</p>
             <p class="projeto__aviso mono" id="aviso-hanami">o servidor gratuito pode levar ~1 min para acordar</p>
@@ -448,7 +225,7 @@
             </div>
           </article>
 
-          <article class="projeto luz item">
+          <article class="projeto item">
             <div class="projeto__topo"><h3><a class="projeto__link" href="https://github.com/Lakes777/sidekick" target="_blank" rel="noopener" aria-label="Sidekick: código no GitHub">Sidekick <small>· bot do Telegram</small></a></h3></div>
             <p>Cotações com alertas de preço, clima, lembretes e listas, rodando 24 horas numa VM Linux da Oracle como serviço do systemd.</p>
             <div class="projeto__meta mono">
@@ -457,7 +234,7 @@
             </div>
           </article>
 
-          <article class="projeto luz item">
+          <article class="projeto item">
             <div class="projeto__topo"><h3><a class="projeto__link" href="https://github.com/Lakes777/tidy" target="_blank" rel="noopener" aria-label="Tidy: código no GitHub">Tidy <small>· organizador de arquivos</small></a></h3></div>
             <p>Organiza pastas por tipo ou data, acha duplicados por SHA-256 e desfaz mudanças, sem nunca sobrescrever arquivos.</p>
             <div class="projeto__meta mono">
@@ -466,9 +243,9 @@
             </div>
           </article>
 
-          <article class="projeto luz item" data-vigil="Portfólio">
+          <article class="projeto item" data-vigil="Portfólio">
             <div class="projeto__topo"><h3><a class="projeto__link" href="https://github.com/Lakes777/Lakes777.github.io" target="_blank" rel="noopener" aria-label="Este portfólio: código no GitHub">Este portfólio</a></h3></div>
-            <p>HTML, CSS e JavaScript puros, sem frameworks: abas por endereço, fundo animado em canvas e o selo ao vivo do Vigil em cada projeto.</p>
+            <p>HTML, CSS e JavaScript puros, sem frameworks: abas por endereço, céu e planetário animados em canvas e SVG e o selo ao vivo do Vigil em cada projeto.</p>
             <div class="projeto__meta mono">
               <span>HTML</span><span>CSS</span><span>JavaScript</span>
               <a class="projeto__github" href="https://github.com/Lakes777/Lakes777.github.io" target="_blank" rel="noopener" aria-label="Código do portfólio no GitHub" title="Código no GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg></a>
@@ -479,12 +256,11 @@
 
       <!-- ===== HABILIDADES ===== -->
       <section id="habilidades" aria-labelledby="t-habilidades">
-        <p class="rotulo mono">habilidades</p>
         <h2 class="item" id="t-habilidades" tabindex="-1">Habilidades</h2>
         <p class="lead item">Cada uma com onde eu usei; os projetos estão todos na aba <a href="#projetos">projetos</a>.</p>
         <div class="habs item">
-          <div class="hab luz">
-            <h3 class="hab__titulo mono"><span class="hab__glifo" aria-hidden="true">{ }</span>back-end</h3>
+          <div class="hab">
+            <h3 class="hab__titulo mono">back-end</h3>
             <ul>
               <li><span class="hab__nome">Java</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil · Foil</span></li>
               <li><span class="hab__nome">Kotlin</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Fiel</span></li>
@@ -496,8 +272,8 @@
               <li><span class="hab__nome">FastAPI</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Spendwise · Hanami · Encore</span></li>
             </ul>
           </div>
-          <div class="hab luz">
-            <h3 class="hab__titulo mono"><span class="hab__glifo" aria-hidden="true">[ ]</span>dados</h3>
+          <div class="hab">
+            <h3 class="hab__titulo mono">dados</h3>
             <ul>
               <li><span class="hab__nome">PostgreSQL</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil · Pursuit · Beacon · Cadence · Fiel · Foil · Spendwise · Coursebook</span></li>
               <li><span class="hab__nome">Redis</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Beacon (cache) · Cadence (fila)</span></li>
@@ -507,8 +283,8 @@
               <li><span class="hab__nome">MySQL</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">faculdade</span></li>
             </ul>
           </div>
-          <div class="hab luz">
-            <h3 class="hab__titulo mono"><span class="hab__glifo" aria-hidden="true">&lt;/&gt;</span>front-end</h3>
+          <div class="hab">
+            <h3 class="hab__titulo mono">front-end</h3>
             <ul>
               <li><span class="hab__nome">TypeScript</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Cadence · Fiel · Foil · Coursebook · Encore</span></li>
               <li><span class="hab__nome">React</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Cadence · Fiel · Foil · Coursebook · Encore</span></li>
@@ -516,8 +292,8 @@
               <li><span class="hab__nome">HTML e CSS</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">todos os projetos com interface</span></li>
             </ul>
           </div>
-          <div class="hab luz">
-            <h3 class="hab__titulo mono"><span class="hab__glifo" aria-hidden="true">$_</span>deploy</h3>
+          <div class="hab">
+            <h3 class="hab__titulo mono">deploy</h3>
             <ul>
               <li><span class="hab__nome">Docker</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">Vigil · Pursuit · Beacon · Cadence · Fiel · Foil</span></li>
               <li><span class="hab__nome">Linux</span><span class="so-leitor">, usado em </span><span class="hab__onde mono">VMs da Oracle, systemd</span></li>
@@ -532,7 +308,6 @@
 
       <!-- ===== CONTATO ===== -->
       <section id="contato" aria-labelledby="t-contato">
-        <p class="rotulo mono">contato</p>
         <h2 class="item" id="t-contato" tabindex="-1">Vamos conversar?</h2>
         <p class="lead item">Respondo rápido por e-mail. Também estou no GitHub e no LinkedIn.</p>
         <p class="item"><a class="email" href="mailto:andreplagoscontato@gmail.com">andreplagoscontato@gmail.com</a></p>

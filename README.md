@@ -10,34 +10,35 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 ![CSS](https://img.shields.io/badge/CSS-16171a?style=flat-square&logo=css&logoColor=4FC3F7)
 ![JavaScript](https://img.shields.io/badge/JavaScript-16171a?style=flat-square&logo=javascript&logoColor=4FC3F7)
 
-<img src="assets/preview.png" alt="Prévia do portfólio" width="85%"/>
+<img src="assets/preview.png" alt="Início do portfólio: título, números e o planetário dos projetos com o total de testes no centro" width="85%"/>
 
-<img src="assets/projetos.png" alt="Aba Projetos do portfólio: cards do Vigil, Pursuit e Beacon, com as tecnologias, os testes e os links" width="85%"/>
+<img src="assets/projetos.png" alt="Aba Projetos do portfólio: cards só com borda do Vigil, Pursuit, Beacon e outros, com o anel de testes, o selo do Vigil, as tecnologias e os links" width="85%"/>
 
 </div>
 
 ## Funcionalidades
 
 - **Seções em abas**: cada seção (Início, Sobre, Formação, Projetos...) aparece sozinha, escolhida pelo
-  endereço (`#projetos`), então o botão Voltar do navegador e links diretos funcionam. Sem JavaScript,
-  todas aparecem uma embaixo da outra
-- **Barra de abas no topo**, presa em todas as seções: o traço antes de cada aba cresce no hover e fica
-  azul na aba ativa. No celular, o nome rola junto e só as abas ficam presas, numa barra que rola de lado
-- **Ilustração isométrica no início**: os sistemas ligados (API, banco, filas, deploy) num SVG gerado por
-  [`docs/referencias/gerar-arte.py`](docs/referencias/gerar-arte.py). Os traços se desenham ao abrir, pacotes
-  de dados correm por eles, LEDs piscam e um anel de luz sobe pelo banco; com o mouse sobre o desenho, as
-  camadas se movem em velocidades diferentes (profundidade). No hover, cada rótulo mostra as stacks que usei
-- **Fundo em camadas**: uma grade de engenharia bem apagada e, por cima, pontos que andam devagar e se ligam
-  quando ficam perto, desenhados num `<canvas>`; perto do mouse, acendem. A animação para quando a aba do
-  navegador fica escondida
+  endereço (`#projetos`), então o botão Voltar do navegador e links diretos funcionam. As setas do teclado
+  trocam de aba. Sem JavaScript, todas aparecem uma embaixo da outra
+- **Barra de abas no topo**: na aba ativa, um traço azul com um pequeno astro na ponta estica da aba antiga
+  até a nova e encolhe nela. No celular, o nome rola junto e só as abas ficam presas, numa barra que rola de lado
+- **Planetário no início**: cada projeto é um anel numa órbita própria, com a área proporcional aos testes
+  dele; no centro, o total de testes de todos. Azul tem site no ar, prata é só código. Os dados saem dos
+  próprios cards da aba Projetos (uma fonte só). As órbitas se desenham de dentro para fora e cada projeto
+  sai do sol em espiral; as de fora andam mais devagar, como em Kepler. Com o mouse, o desenho inclina, e
+  sobre um corpo aparece o nome e a órbita acende
+- **Céu em `<canvas>`**: estrelas que cintilam e derivam devagar e acendem perto do mouse. O cursor deixa
+  um rastro azul: uma fita só, suavizada com Catmull-Rom, que afina pela idade de cada ponto e some em
+  700 ms. A animação para quando a aba do navegador fica escondida
 - **Faixa do Vigil no início**: quantos serviços estão no ar agora, lidos da API do
   [Vigil](https://github.com/Lakes777/vigil), com uma linha de batimento animada. Enquanto o Vigil não
-  responde, o ponto fica cinza (azul pulsando só quando a API confirma)
-- **Cards de projeto clicáveis**: invisíveis até o mouse chegar, o card inteiro leva ao site do projeto
-  (ou ao código, quando não há site), e o ícone do GitHub leva ao repositório. O destaque é suave:
-  borda, sombra e uma leve subida entram juntos e devagar, sem mudar o fundo transparente
-- **Luz que segue o mouse**: a borda dos cards (projetos, habilidades e os cartões do Sobre) acende perto
-  do cursor, mesmo sem o mouse em cima
+  responde, o ponto fica cinza (verde pulsando só quando a API confirma)
+- **Cards de projeto só com borda**: sem fundo, também no hover, quando a borda acende, o card sobe e o
+  anel de testes cresce. O card inteiro leva ao site do projeto (ou ao código, quando não há site), e o
+  ícone do GitHub leva ao repositório
+- **Botões com traço**: o traço antes do texto cresce e fica azul no hover, sem mudar a largura do botão;
+  github e linkedin são invisíveis até o mouse chegar, quando aparece o contorno
 - **Habilidades ligadas aos projetos**: cada uma mostra onde foi usada (Go no Pursuit, Redis no Beacon...)
 - **Números que contam** e blocos que entram em sequência ao abrir cada aba
 - **Selo "no ar" ao vivo** nos projetos publicados: a página lê a API do Vigil (o monitor de status que
@@ -46,9 +47,9 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
   não aparece. Com o Hanami no ar, o aviso de "servidor gratuito demora para acordar" some, porque as
   visitas do Vigil a cada 5 minutos o mantêm acordado
 - **Copiar e-mail** com um clique
-- **Acessível**: respeita a preferência de "reduzir movimento" do sistema (aí nada se mexe: o fundo é
-  desenhado uma vez, parado, e a ilustração fica estática), tem link para pular para o conteúdo, usa HTML semântico e, ao trocar de
-  aba, leva o foco para o título da seção
+- **Acessível**: respeita a preferência de "reduzir movimento" do sistema (aí nada se mexe: o céu é
+  desenhado uma vez e o planetário fica parado), tem link para pular para o conteúdo, usa HTML semântico,
+  leva o foco para o título da seção ao trocar de aba e todo o texto passa de 4,5:1 de contraste
 - **Sem frameworks nem dependências**: HTML, CSS e JavaScript, sem build
 - **Design system** em [`docs/design-system.html`](https://andrelagos.dev/docs/design-system.html): cores,
   tipografia, movimento e os componentes vivos, usando o mesmo CSS do site
@@ -60,17 +61,19 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 ├── css/
 │   └── style.css   # estilos (cores ficam em variáveis no topo)
 ├── js/
-│   └── main.js     # abas, fundo de rede, ilustração, contadores, selo e faixa do Vigil
+│   └── main.js     # abas, céu, planetário, contadores, selo e faixa do Vigil
 ├── assets/
 │   ├── preview.png  # aba Início (imagem deste README)
 │   └── projetos.png # aba Projetos (imagem deste README)
 └── docs/
     ├── design-system.html   # a identidade visual, com os componentes reais
-    └── referencias/         # a imagem de referência, o esqueleto, as comparações e o gerar-arte.py
+    └── referencias/         # capa de compartilhamento e as etapas do visual anterior ("Sistemas")
 ```
 
-O visual foi feito em etapas a partir de uma imagem de referência gerada por IA: esqueleto em SVG, fundo,
-estrutura, ilustração e animações, tipografia e, por fim, o design system. Cada etapa está em `docs/referencias/`.
+O visual atual ("Planetário") nasceu de um teste da skill [Impeccable](https://github.com/pbakaus/impeccable)
+com requisitos fixos (escuro, uma seção por aba, animação) e foi ajustado em rodadas: azul no lugar do latão,
+corpos em anel, cards só com borda e o rastro do mouse. O visual anterior ("Sistemas", com a ilustração
+isométrica) foi feito em etapas a partir de uma imagem gerada por IA; essas etapas continuam em `docs/referencias/`.
 
 ## Como rodar localmente
 
@@ -87,18 +90,19 @@ As cores do site ficam em variáveis CSS no começo de `css/style.css`:
 
 ```css
 :root {
-  --fundo: #080b0f;    /* fundo */
-  --cor: #6cc4ff;      /* cor de destaque */
+  --fundo: #090a10;      /* fundo */
+  --destaque: #6cc4ff;   /* cor de destaque */
+  --destaque-rgb: 108, 196, 255;
   ...
 }
 ```
 
-Troque os valores e o site inteiro muda junto (a cor dos pontos do fundo fica no `main.js`). Para mudar a
-ilustração do início, edite o `docs/referencias/gerar-arte.py` e rode `python3 docs/referencias/gerar-arte.py`.
+Troque os valores e o site inteiro muda junto, inclusive o céu e o rastro do mouse, que leem `--destaque-rgb`.
 
 ## Créditos
 
-Fontes [IBM Plex Mono e IBM Plex Sans](https://www.ibm.com/plex/) (licença OFL), pelo Google Fonts.
+Fontes [Newsreader](https://fonts.google.com/specimen/Newsreader), [Instrument Sans](https://fonts.google.com/specimen/Instrument+Sans)
+e [DM Mono](https://fonts.google.com/specimen/DM+Mono) (licença OFL), pelo Google Fonts.
 
 ## Contato
 
