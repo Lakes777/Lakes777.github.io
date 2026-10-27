@@ -14,6 +14,8 @@
   /* A névoa forte, que no site só aparece no início */
   html { --nevoa: 1 }
   .capa { position: relative; z-index: 1; height: 100%; display: grid; grid-template-columns: 540px 1fr; align-items: center; padding: 0 0 0 80px }
+  .capa__marca { display: flex; align-items: center; gap: 18px }
+  .capa__logo { width: 64px; height: 64px; display: block }
   .capa__nome { font: 500 30px/1 var(--serifa); margin: 0 }
   .capa__papel { font: 400 15px/1 var(--mono); color: var(--apagado); margin: 14px 0 0 }
   .capa__frase { font: 400 76px/.98 var(--serifa); letter-spacing: -.035em; margin: 46px 0 0 }
@@ -34,8 +36,13 @@
 <body>
   <main class="capa">
     <div>
-      <p class="capa__nome">André Lagos</p>
-      <p class="capa__papel">back-end · APIs · bancos · filas</p>
+      <div class="capa__marca">
+        <img class="capa__logo" src="../../assets/marca/logo.svg" alt="">
+        <div>
+          <p class="capa__nome">André Lagos</p>
+          <p class="capa__papel">back-end · APIs · bancos · filas</p>
+        </div>
+      </div>
       <p class="capa__frase">Do banco<br>de dados<br>ao <em>deploy.</em></p>
       <p class="capa__site">andrelagos.dev</p>
     </div>

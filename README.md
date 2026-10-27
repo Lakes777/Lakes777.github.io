@@ -63,11 +63,12 @@ Meu site pessoal, feito do zero com **HTML, CSS e JavaScript puros** e publicado
 ├── js/
 │   └── main.js     # abas, céu, planetário, contadores, selo e faixa do Vigil
 ├── assets/
+│   ├── marca/       # logo AL dentro de uma órbita: logo.svg, logo-sem-fundo.svg (topo), favicon.svg (aba) e os PNGs
 │   ├── preview.png  # aba Início (imagem deste README)
 │   └── projetos.png # aba Projetos (imagem deste README)
 └── docs/
     ├── design-system.html   # a identidade visual, com os componentes reais
-    └── referencias/         # capa de compartilhamento e as etapas do visual anterior ("Sistemas")
+    └── referencias/         # capa de compartilhamento, gerador da marca e as etapas do visual anterior ("Sistemas")
 ```
 
 O visual atual ("Planetário") nasceu de um teste da skill [Impeccable](https://github.com/pbakaus/impeccable)
